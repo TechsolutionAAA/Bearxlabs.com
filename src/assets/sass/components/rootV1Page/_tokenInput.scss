@@ -1,0 +1,74 @@
+.tokenInput {
+  margin: 150px 0;
+  text-align: center;
+  p {
+    font-size: $textSize;
+    font-family: $earlyGameBoy;
+    text-transform: uppercase;
+    color: $headingColor;
+    span {
+      color: $primaryColor;
+    }
+    .token__number {
+      display: block;
+    }
+  }
+
+  .input_field {
+    position: relative;
+    width: 60%;
+    margin: auto;
+    .search {
+      width: 100%;
+      height: 75px;
+      outline: none;
+      border: none;
+      background: transparent;
+      border: 1px solid #a6a6a6;
+      border-radius: 50px;
+      -webkit-border-radius: 50px;
+      -moz-border-radius: 50px;
+      -ms-border-radius: 50px;
+      -o-border-radius: 50px;
+      padding: 10px 20px;
+      margin-top: 20px;
+      color: $textColor;
+      font-size: $textSize;
+      font-family: $earlyGameBoy;
+    }
+
+    ::placeholder {
+      color: #a6a6a6;
+      font-size: $textSize;
+      font-family: $earlyGameBoy;
+    }
+    .input__btn {
+      button {
+        outline: none;
+        border: none;
+        background: $primaryColor;
+        padding: 19px 40px;
+        color: $bgColor;
+        font-size: $textSize;
+        font-family: $earlyGameBoy;
+        border-radius: 50px;
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+        -ms-border-radius: 50px;
+        -o-border-radius: 50px;
+        position: absolute;
+        top: 25px;
+        right: 7px;
+        transition: 0.5s;
+        -webkit-transition: 0.5s;
+        -moz-transition: 0.5s;
+        -ms-transition: 0.5s;
+        -o-transition: 0.5s;
+        &:hover {
+          background: $headingColor;
+          color: $textColor;
+        }
+      }
+    }
+  }
+}

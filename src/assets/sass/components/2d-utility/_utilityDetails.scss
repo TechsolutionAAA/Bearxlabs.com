@@ -1,0 +1,55 @@
+.utility {
+  padding: 80px 0;
+  text-align: center;
+  .utility__card__img {
+    max-width: 280px;
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    img {
+      border-radius: 25px;
+    }
+  }
+  .utility__card__drop {
+    height: 100%;
+    padding: 20px;
+    border: 1px solid #ffd800;
+    box-sizing: border-box;
+    backdrop-filter: blur(50px);
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+    text-align: left;
+    margin-top: 24px;
+  }
+  h5 {
+    font-family: $editundo;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 26px;
+    color: #ffae41;
+    margin-top: 5px;
+    text-align: center;
+  }
+  ul {
+    margin-left: 0;
+    li {
+      font-size: 13px;
+      color: #fff;
+      font-family: $earlyGameBoy;
+      margin-left: -1rem;
+      margin-top: 15px;
+      list-style: none;
+      &::before {
+        content: "\2022";
+        color: #ffae41;
+        font-weight: bold;
+        font-size: 25px;
+        display: inline-block;
+        width: 1rem;
+        margin-left: -1rem;
+      }
+    }
+  }
+}

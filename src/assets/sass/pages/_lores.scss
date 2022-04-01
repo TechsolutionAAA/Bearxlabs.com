@@ -1,0 +1,11 @@
+#lore {
+  margin-top: 30px;
+  .content {
+    p {
+      font-family: $earlyGameBoy;
+      font-size: 18px;
+      color: $textColor;
+      opacity: 1;
+    }
+  }
+}

@@ -1,0 +1,59 @@
+.control_panel {
+  position: relative;
+
+}
+.input_1{
+  display: block;
+  width: 100%;
+  padding: 10px 20px 10px 20px;
+  border: none;
+  border-top: 1px solid #f7ce3c;
+  border-radius: 20px;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  background: transparent;
+  color: #f7ce3c;
+}
+.input_1:focus {
+  outline: none;
+}
+
+.input_1::placeholder{
+  color: #f7ce3c;
+}
+
+.input_2{
+  position: absolute  ;
+  right: 2px;
+  top: 5px;
+
+  display: block;
+  width: 40%;
+  padding: 5px 20px 5px 10px;
+  background-color: #fdd803;
+  border: 2px solid #fdd803;
+  border-bottom-right-radius: 20px;
+  color: #000;
+  font-weight: 500;
+  transition: 0.5 ease;
+  font-family: earlyGameBoy;
+}
+
+.input_2:active{
+  transform: scale(0.9);
+}
+
+.unstakeTable {
+  margin-top: 30px;
+  border-collapse: collapse;
+  color: #fdd803;
+  width: 80%;
+  border: 1px solid #fdd803;
+  text-align: center;
+  font-family: earlyGameBoy;
+  font-size: 15px;
+}
+
+.unstakeTable tr td {
+  border: 1px solid #fdd803;
+}

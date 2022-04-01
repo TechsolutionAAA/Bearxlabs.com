@@ -1,0 +1,148 @@
+.bearsCardWrapper {
+  padding: 20px;
+  .bearCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    border: 1px solid #ffd800;
+    border-radius: 40px;
+    padding: 20px;
+    img {
+      width: 100%;
+    }
+    .cardHeading {
+      font-family: $editundo;
+      font-size: 32px;
+      font-weight: 400;
+      color: $headingColor;
+    }
+    .cardPriceSection {
+      font-family: $editundo;
+      font-size: $textSize;
+      .cardPriceText {
+        color: $textColor;
+        margin-bottom: 0;
+      }
+      .cardPrice {
+        color: #ebc903;
+      }
+    }
+    .cardDetails {
+      color: $textColor;
+      font-family: $earlyGameBoy;
+      font-size: 14px;
+    }
+
+    button {
+      margin-top: 10px;
+      width: 100%;
+      background-color: $primaryColor;
+      padding: 13px 7px;
+      border: 0px;
+      border-radius: 35px;
+      bottom: 0;
+      font-size: 14px;
+      font-family: $earlyGameBoy;
+      &:hover {
+        background-color: $headingColor;
+        color: white;
+      }
+      a {
+        display: block;
+        text-decoration: none;
+        color: black;
+        &:hover {
+          color: white;
+        }
+      }
+    }
+    .socialIconWraper {
+      .socialIcon {
+        a {
+          width: 50px;
+          height: 50px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: $primaryColor;
+          border-radius: 50%;
+          font-size: 25px;
+          padding: 10px;
+          img {
+            width: 100% !important;
+          }
+          &:hover {
+            background-color: $headingColor;
+          }
+        }
+      }
+    }
+    .specialText {
+      text-align: center;
+      font-size: 22px;
+      font-family: $editundo;
+      color: $headingColor;
+      line-height: 28px;
+      margin: 20px 0px;
+    }
+    .buttonWithIcon {
+      width: 100%;
+      background-color: $primaryColor;
+      padding: 7px 13px;
+      border: 0px;
+      border-radius: 35px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      .socialIcon {
+        padding: 5px 6px;
+        border: 4px solid black;
+        color: black;
+        border-radius: 50px;
+        margin-right: 10px;
+      }
+      .buttonText {
+        font-size: 14px;
+        font-family: $earlyGameBoy;
+        color: black;
+        &:hover {
+          background-color: $headingColor;
+          color: $textColor;
+        }
+      }
+      &:hover {
+        background-color: $headingColor;
+        .buttonText {
+          color: $textColor;
+        }
+        .socialIcon {
+          color: $textColor;
+          border-color: $textColor;
+        }
+      }
+    }
+    .button {
+      text-decoration: none;
+      width: 100%;
+      text-align: center;
+      .buttonText {
+        color: black;
+        background-color: $primaryColor;
+        padding: 13px 17px;
+        border: 0px;
+        border-radius: 35px;
+        bottom: 0;
+        font-size: 14px;
+        font-family: $earlyGameBoy;
+        &:hover {
+          background-color: $headingColor;
+          color: white;
+        }
+      }
+    }
+  }
+}

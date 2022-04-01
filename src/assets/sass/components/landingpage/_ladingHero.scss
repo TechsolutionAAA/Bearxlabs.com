@@ -1,0 +1,56 @@
+.heroWrapper {
+  overflow: hidden;
+  .hero__heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h1 {
+      color: $headingColor;
+      font-family: $editundo;
+      text-align: center;
+      .parent {
+        font-size: 200px;
+      }
+      .child {
+        font-size: 150px;
+        margin-left: 25px;
+      }
+    }
+    h2 {
+      margin-top: -80px;
+      color: transparent;
+      -webkit-text-stroke-width: 2px;
+      -webkit-text-stroke-color: #ffd800;
+      font-family: $editundo;
+      text-align: center;
+      font-size: 200px;
+    }
+    p {
+      font-size: $textSize;
+      color: $textColor;
+      font-family: $earlyGameBoy;
+      text-align: center;
+    }
+    button {
+      text-align: center;
+      background-color: #fdd803;
+      color: black;
+      text-align: center;
+      padding: 7px 13px;
+      border-radius: 50px;
+      font-family: $earlyGameBoy;
+      font-size: $textSize;
+      border: 0px solid;
+      &:hover {
+        background-color: $headingColor;
+        color: white;
+      }
+    }
+  }
+  .heroBear {
+    img {
+      max-width: 800px;
+      margin-bottom: -16px;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+.rootTextWrapper {
+  span {
+    font-size: $textSize;
+    color: $textColor;
+    font-family: $earlyGameBoy;
+    margin-left: 15px;
+  }
+  .iconButton {
+    margin-top: 15px;
+    width: fit-content;
+    color: black;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 7px 13px;
+    background-color: $primaryColor;
+    border-radius: 40px;
+    span {
+      color: black;
+    }
+    &:hover {
+      background-color: $headingColor;
+    }
+  }
+}

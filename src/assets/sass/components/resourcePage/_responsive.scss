@@ -1,0 +1,68 @@
+// all leargs divice responsive
+@media (max-width: 992px) {
+  // community part
+  .community__item {
+    width: 49% !important;
+    margin-bottom: 25px;
+  }
+}
+
+//  All medaim device respoonsive
+@media (max-width: 768px) {
+  //   explore
+  .explore {
+    h2 {
+      font-size: 38px;
+    }
+    .explore__card {
+      margin-bottom: 25px;
+    }
+  }
+  // community part
+  .community__item {
+    width: 100% !important;
+  }
+}
+
+//  All small device respoonsive
+@media (max-width: 575px) {
+  // hero
+  .resource__hero {
+    padding: 100px 0 !important;
+    .hero__heading {
+      margin: 0 !important;
+
+      h1 {
+        .parent {
+          font-size: 70px !important;
+        }
+      }
+    }
+  }
+  //   explore
+  .explore {
+    h2 {
+      font-size: 30px;
+    }
+    .explore__card {
+      h3 {
+        font-size: 30px;
+      }
+      .card__link__btn {
+        font-size: 13px;
+        padding: 13px 10px;
+      }
+    }
+  }
+  // community part
+  .community {
+    h2 {
+      font-size: 38px !important;
+    }
+    .community__item {
+      h3 {
+        font-size: 30px !important;
+      }
+    }
+  }
+}

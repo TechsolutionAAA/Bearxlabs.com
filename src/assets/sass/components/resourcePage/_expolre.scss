@@ -1,0 +1,101 @@
+.explore {
+  text-align: center;
+  margin: 150px 0;
+  h2 {
+    font-size: $headingSize;
+    font-family: $earlyGameBoy;
+    color: $headingColor;
+    margin-bottom: 20px;
+  }
+  .explore__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid $primaryColor;
+    padding: 40px 25px;
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+
+    h3 {
+      font-size: 40px;
+      font-family: $earlyGameBoy;
+      color: $headingColor;
+    }
+    p {
+      font-size: $textSize;
+      font-family: $earlyGameBoy;
+      color: $textColor;
+      margin: 10px 0;
+    }
+    .card__link__btn {
+      background: $primaryColor;
+      padding: 19px 0;
+      color: $bgColor;
+      font-size: $textSize;
+      font-family: $earlyGameBoy;
+      border-radius: 50px;
+      -webkit-border-radius: 50px;
+      -moz-border-radius: 50px;
+      -ms-border-radius: 50px;
+      -o-border-radius: 50px;
+      text-decoration: none;
+      display: block;
+      margin: 15px;
+      transition: 0.5s;
+      -webkit-transition: 0.5s;
+      -moz-transition: 0.5s;
+      -ms-transition: 0.5s;
+      -o-transition: 0.5s;
+      &:hover {
+        background: $headingColor;
+        color: $textColor;
+      }
+    }
+    span {
+      font-size: $textSize;
+      font-family: $earlyGameBoy;
+      color: $primaryColor;
+    }
+    .social__link {
+      ul {
+        li {
+          display: inline-block;
+          .all__links {
+            width: 40px;
+            height: 40px;
+            padding: 5px;
+            line-height: 40px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 7px;
+            background: $primaryColor;
+            color: #000;
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            -o-border-radius: 50%;
+            font-size: $textSize;
+            transition: 0.5s;
+            -webkit-transition: 0.5s;
+            -moz-transition: 0.5s;
+            -ms-transition: 0.5s;
+            -o-transition: 0.5s;
+            img {
+              width: 100%;
+            }
+            &:hover {
+              background: $headingColor;
+              color: $textColor;
+            }
+          }
+        }
+      }
+    }
+  }
+}

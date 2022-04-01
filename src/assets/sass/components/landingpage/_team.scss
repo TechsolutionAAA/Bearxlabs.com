@@ -1,0 +1,50 @@
+.team {
+  .team__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    margin: 70px 15px;
+    max-width: 220px;
+    border: 1px solid #ffd800;
+    border-radius: 40px;
+    img {
+      width: 100%;
+    }
+    .team__heading {
+      font-family: $earlyGameBoy;
+      font-size: 20px;
+      color: #ffae41;
+      text-align: center;
+      margin-top: 15px;
+    }
+    .team__heading--sub {
+      font-family: $earlyGameBoy;
+      font-size: $textSize;
+      color: $textColor;
+      text-align: center;
+    }
+    .team__social {
+      width: 48px;
+      height: 48px;
+      text-align: center;
+      padding: 14px;
+      background-color: #fdd803;
+      border-radius: 50px;
+      margin-top: 15px;
+      color: black;
+      &:hover {
+        background-color: $headingColor;
+        color: white;
+      }
+    }
+  }
+  .team__bottom--text {
+    font-size: 18px;
+    font-family: $earlyGameBoy;
+    color: #ffae41;
+    text-align: center;
+    line-height: 38px;
+  }
+}

@@ -1,0 +1,98 @@
+@font-face {
+  font-family: earlyGameBoy;
+  src: url(../fonts/EarlyGameBoy.ttf);
+}
+@font-face {
+  font-family: editundo;
+  src: url(../fonts/editundo.ttf);
+}
+h1 {
+  font-family: earlyGameBoy;
+}
+.heroWrapper {
+  width: 100%;
+  height: auto;
+  background-image: url(../images/ladingpage/bg/bg-hero-bear.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.commonbanner {
+  padding: 180px 0;
+  width: 100%;
+  height: auto;
+  background-image: url(../images/common/banner-bg.png);
+  background-repeat: repeat;
+  background-size: contain;
+  background-position-y: center;
+}
+
+.rootV1__Hero {
+  padding: 180px 0;
+  width: 100%;
+  height: auto;
+  background-image: url(../images/common/banner-bg.png);
+  background-repeat: repeat;
+  background-size: contain;
+  background-position-y: center;
+}
+
+.resource__hero {
+  padding: 180px 0;
+  width: 100%;
+  height: auto;
+  background-image: url(../images/common/banner-bg.png);
+  background-repeat: repeat;
+  background-size: contain;
+  background-position-y: center;
+}
+.commonbanner:hover {
+  background-image: url(../images/common/section-hover.png);
+  animation: bghover 1s ease-in-out;
+}
+.resource__hero:hover {
+  background-image: url(../images/common/section-hover.png);
+  animation: bghover 1s ease-in-out;
+}
+.rootV1__Hero:hover {
+  background-image: url(../images/common/section-hover.png);
+  animation: bghover 1s ease-in-out;
+}
+
+/* // animation  */
+@keyframes bghover {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* roadmap animation */
+
+@keyframes roadmapDetailsHover {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.01);
+  }
+  40% {
+    transform: scale(1.02);
+  }
+  60% {
+    transform: scale(1.03);
+  }
+  80% {
+    transform: scale(1.02);
+  }
+  90% {
+    transform: scale(1.01);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

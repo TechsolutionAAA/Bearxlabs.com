@@ -1,0 +1,14 @@
+#beta {
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .beta__button {
+    padding: 13px 17px;
+    font-family: $earlyGameBoy;
+    background-color: $primaryColor;
+    border: 0px;
+    border-radius: 50px;
+  }
+}

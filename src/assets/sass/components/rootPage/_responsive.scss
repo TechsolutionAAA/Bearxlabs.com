@@ -1,0 +1,44 @@
+//  All small device respoonsive
+@media (max-width: 575px) {
+  // hero
+  .hero__heading {
+    margin-top: 0 !important;
+    text-align: center;
+    h1 {
+      .parent {
+        font-size: 100px !important;
+      }
+    }
+  }
+}
+
+//  All medaim device respoonsive
+@media (max-width: 768px) {
+  // hero
+  .hero__heading {
+    margin-top: 0 !important;
+    text-align: center;
+    h1 {
+      .parent {
+        font-size: 150px !important;
+      }
+    }
+  }
+  //   listing part
+  .listing {
+    &:after {
+      display: none;
+    }
+    .listing__card {
+      width: 100% !important;
+      margin: 0 0 20px 0 !important;
+
+      .roundOn {
+        display: none;
+      }
+      .roundOnLeft {
+        display: none;
+      }
+    }
+  }
+}

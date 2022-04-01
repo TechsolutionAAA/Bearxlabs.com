@@ -1,0 +1,14 @@
+.rootV1__Hero {
+  .hero__heading {
+    margin: 150px 0 50px;
+    text-align: center;
+    h1 {
+      .parent {
+        color: $headingColor;
+        font-family: $editundo;
+
+        font-size: 190px;
+      }
+    }
+  }
+}

@@ -1,0 +1,137 @@
+.bearSteackTwo {
+  background: #3b245066;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  .bearSteackTwo__tt__txt {
+    padding: 10px 40px;
+    min-height: 350px;
+    h6 {
+      font-family: $editundo;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 52px;
+      color: #ffae41;
+    }
+    p {
+      font-family: $earlyGameBoy;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 22px;
+      color: #fdd803;
+    }
+  }
+  .bearSteackTwo__tt__img {
+    border-top: 1px solid #a6a6a666;
+    padding: 10px 20px;
+    img {
+      width: 32% !important;
+      margin-top: 10px;
+    }
+  }
+  .bearSteackTwo__tt {
+    width: 50%;
+    border-right: 1px solid #a6a6a666;
+  }
+  .bearSteackTwo__tt_border {
+    border-right: none !important;
+  }
+  .bear__steak__wallet {
+    padding: 20px;
+    border-bottom: 1px solid #a6a6a666;
+    .bear__steak__wallet__itm {
+      p {
+        font-family: $editundo;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 52px;
+        color: #ffae41;
+      }
+      button {
+        font-family: $earlyGameBoy;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        color: #000000;
+        padding: 10px 20px;
+        background: #fdd803;
+        box-shadow: inset 0px 1px 8px rgba(0, 0, 0, 0.5);
+        border-radius: 40px;
+        border: none;
+        &:hover {
+          background-color: $headingColor;
+          color: white;
+        }
+      }
+    }
+    input {
+      margin-top: 30px;
+      width: 100%;
+      padding: 10px 20px;
+      font-family: $earlyGameBoy;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      background: transparent;
+      opacity: 0.5;
+      border: 1px solid #a6a6a666;
+      box-sizing: border-box;
+      border-radius: 50px;
+      color: #fff;
+      &::placeholder {
+        color: #a6a6a666;
+      }
+      &:focus {
+        outline: 0;
+      }
+    }
+  }
+  .bearSteak__vested {
+    padding: 40px 0;
+    .bearSteak__staked {
+      background: #271536;
+      border: 1px solid #ffd800;
+      box-sizing: border-box;
+      border-radius: 25px;
+      padding: 10px 20px;
+      margin: 0 18px;
+      h5 {
+        font-family: $editundo;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 28px;
+        color: #ffae41;
+      }
+      h6 {
+        font-family: $editundo;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 28px;
+        color: #ffffff;
+      }
+      button {
+        font-family: $earlyGameBoy;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        color: #000000;
+        background: #fdd803;
+        box-shadow: inset 0px 1px 8px rgba(0, 0, 0, 0.5);
+        border-radius: 40px;
+        border: none;
+        padding: 5px;
+        width: 225px;
+        text-align: center;
+        &:hover {
+          background-color: $headingColor;
+          color: white;
+        }
+      }
+    }
+  }
+  .bearSteak__info {
+    padding: 40px;
+  }
+}

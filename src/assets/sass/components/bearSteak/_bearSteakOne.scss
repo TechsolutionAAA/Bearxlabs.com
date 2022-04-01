@@ -1,0 +1,14 @@
+.bearSteack {
+  padding: 80px 0;
+}
+.bearsteak__icon__text__wrapper {
+  .bearsteak__icon__text__item {
+    padding: 10px 0px;
+    span {
+      font-size: $textSize;
+      color: $textColor;
+      font-family: $earlyGameBoy;
+      margin-left: 15px;
+    }
+  }
+}

@@ -1,0 +1,272 @@
+// small device
+@media (max-width: 575px) {
+  .navbar {
+    padding: 0px 10px !important;
+  }
+  .team {
+    .team__card {
+      margin: 20px 15px !important;
+    }
+  }
+
+  //universal design
+  //heading
+  .sectionHeading {
+    font-size: 32px !important;
+  }
+
+  // Card design
+  .bearsCardWrapper {
+    flex-direction: column;
+    .bearCard {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  // button with icon text size
+  .buttonWithIcon {
+    .buttonText {
+      font-size: 10px !important;
+    }
+  }
+
+  // partnar section
+  .partner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .roadmap__contact {
+    .socials {
+      h3 {
+        font-size: 20px !important;
+        line-height: 36px;
+      }
+      .socials__button--wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: stretch;
+        .socials__button {
+          .icon {
+            font-size: 20px !important;
+          }
+          .text {
+            font-size: 12px !important;
+            font-family: $earlyGameBoy;
+          }
+        }
+      }
+    }
+  }
+}
+// small device for banner heading
+@media (min-width: 661px) and (max-width: 1000px) {
+  .commonbanner {
+    padding: 100px 0 !important;
+  }
+  .aboutHero__heading {
+    h1 {
+      font-size: 90px !important;
+    }
+  }
+}
+// small device for banner heading
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0px 50px;
+  }
+  .navbar-nav {
+    .navbarSocialMedia {
+      padding: 10px !important;
+    }
+  }
+  .commonbanner {
+    padding: 100px 0 !important;
+  }
+  .aboutHero__heading {
+    .commonbanner__heading {
+      font-size: 90px !important;
+    }
+  }
+  .commonbanner {
+    padding: 100px 0 !important;
+  }
+  .aboutHero__heading {
+    h1 {
+      font-size: 60px !important;
+    }
+  }
+  .heroWrapper {
+    .hero__heading {
+      h1 {
+        .parent {
+          font-size: 90px !important;
+        }
+        .child {
+          font-size: 50px !important;
+        }
+      }
+      h2 {
+        margin-top: -30px !important;
+        font-size: 90px !important;
+      }
+    }
+    .heroBear {
+      img {
+        max-width: 320px !important;
+      }
+    }
+  }
+
+  // BearSteak
+  .bearSteackTwo {
+    .bearSteackTwo__tt {
+      .bearSteackTwo__tt__txt {
+        h6 {
+          font-family: editundo;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 20px;
+          color: #ffae41;
+        }
+      }
+    }
+  }
+  .rootdetails {
+    .sectionHeading {
+      margin-top: 50px;
+      text-align: center;
+    }
+    .rootTextWrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  .rootTextWrapper {
+    .iconButton {
+      span {
+        font-size: 14px !important;
+      }
+    }
+  }
+  .socialNavbar {
+    margin-top: 25px;
+  }
+  .utility {
+    padding: 20px 0;
+    text-align: center;
+    .item {
+      margin-top: 30px;
+    }
+    .utility__card__img {
+      max-width: 280px;
+      box-sizing: border-box;
+      margin-bottom: 24px;
+    }
+  }
+  .about__videoSection {
+    width: 100%;
+    img {
+      max-width: 100% !important;
+    }
+  }
+  .dropdown-item {
+    .connect__wallet--button {
+      margin-top: 25px;
+    }
+  }
+  .srootx-sm {
+    margin-top: 50px;
+    margin-bottom: 40px !important;
+  }
+  .explore {
+    h2 {
+      font-size: 24px !important;
+      margin-top: -70px !important;
+    }
+  }
+  .explore {
+    .explore__card {
+      margin-top: 50px;
+      .card__link__btn {
+        font-size: 12px !important;
+      }
+    }
+  }
+  .community {
+    .community__main {
+      .community__item {
+        margin-top: 50px;
+        width: 100%;
+      }
+    }
+  }
+  .social__link {
+    #discordIcon {
+      margin-left: 0px;
+    }
+    ul {
+      margin-left: -20px;
+    }
+  }
+}
+
+// shop page
+@media (min-width: 992px) and (max-width: 1366px) {
+  .load {
+    &::after {
+      bottom: 300px !important;
+    }
+    &::before {
+      bottom: 90px !important;
+      left: 220px !important;
+    }
+  }
+}
+@media (min-width: 700px) and (max-width: 768px) {
+  .load {
+    &::after {
+      bottom: 340px !important;
+    }
+    &::before {
+      bottom: 80px !important;
+      left: 328px !important;
+    }
+  }
+  .load__down {
+    .profile {
+      width: 25px;
+    }
+  }
+}
+@media (min-width: 320px) and (max-width: 425px) {
+  .load {
+    &::after {
+      bottom: 310px !important;
+    }
+    &::before {
+      width: 0px !important;
+    }
+  }
+  .load__down {
+    .profile {
+      img {
+        width: 25px !important;
+        margin-right: 0px !important;
+      }
+      span {
+        font-size: 10px !important;
+      }
+    }
+    .point {
+      span {
+        font-size: 10px !important;
+      }
+    }
+  }
+}

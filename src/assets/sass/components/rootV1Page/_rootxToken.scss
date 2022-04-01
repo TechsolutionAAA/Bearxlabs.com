@@ -1,0 +1,23 @@
+.rootx__heading {
+  text-align: center;
+  h2 {
+    font-size: $headingSize;
+    font-family: $earlyGameBoy;
+    text-transform: uppercase;
+    color: $headingColor;
+  }
+  span {
+    display: block;
+    font-size: 20px;
+    font-family: $earlyGameBoy;
+    text-transform: uppercase;
+    color: $primaryColor;
+    margin: 8px 0 25px;
+  }
+
+  p {
+    font-size: $textSize;
+    font-family: $earlyGameBoy;
+    color: $textColor;
+  }
+}

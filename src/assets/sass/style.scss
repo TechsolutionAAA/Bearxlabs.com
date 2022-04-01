@@ -1,0 +1,47 @@
+@import "./variable/variables";
+@import "./components/responsive";
+@import "./components/common";
+@import "./components/navbar";
+@import "./components/footer";
+@import "./pages/ladingpage";
+@import "./pages/aboutPage";
+@import "./pages/bearsteak";
+
+// root page file input
+@import "./pages/rootpage";
+// root v1 claim page file input
+@import "./pages/rootv1claim";
+// resources page file input
+@import "./pages/resources";
+// 2d utility page file input
+@import "./pages/2dutility";
+// Shop page
+@import "./pages/shopPage";
+// lores page
+@import "./pages/lores";
+// roadmap page
+@import "./pages/roadmap";
+// roadmap page
+@import "./pages/collections";
+// token page
+@import "./pages/token";
+// token page
+@import "./pages/beta";
+@import "./components/Cards/BearXCard";
+
+body {
+  background-color: $bgColor !important;
+}
+.sectionDetailsText {
+  color: $textColor;
+  font-family: $earlyGameBoy;
+  font-size: $textSize;
+}
+.hasAfter {
+  text-align: center;
+}
+.hasAfter::after {
+  content: '';
+  display: table;
+  clear: both;
+}

@@ -1,0 +1,48 @@
+.game {
+  margin: 50px 0 150px;
+  text-align: center;
+  .game__heading {
+    h2 {
+      font-size: $headingSize;
+      font-family: $earlyGameBoy;
+      text-transform: uppercase;
+      color: $headingColor;
+    }
+    h4 {
+      font-size: 24px;
+      font-family: $earlyGameBoy;
+      text-transform: uppercase;
+      color: $textColor;
+      margin: 8px 0 25px;
+      .change__color {
+        color: $primaryColor;
+      }
+    }
+  }
+  .game__card {
+    border: 1px solid $primaryColor;
+    padding: 40px 14px;
+    height: 225px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+
+    h3 {
+      font-size: 24px;
+      font-family: $earlyGameBoy;
+      text-transform: uppercase;
+      color: $headingColor;
+    }
+
+    .game__card--change {
+      color: $primaryColor;
+    }
+  }
+}

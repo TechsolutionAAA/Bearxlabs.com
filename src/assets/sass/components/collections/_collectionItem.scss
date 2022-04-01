@@ -1,0 +1,40 @@
+.collectionItem {
+  padding: 20px;
+  border: 1px solid $primaryColor;
+  border-radius: 35px;
+  &:hover {
+    box-shadow: 1px 2px 15px rgba(255, 255, 0, 0.438);
+    cursor: grab;
+  }
+  img {
+    border-radius: 35px;
+    margin-bottom: 15px;
+  }
+  .bottom {
+    border-top: 1px solid $primaryColor;
+    padding: 10px 0px;
+    .profile {
+      img {
+        margin-right: 10px;
+      }
+      p {
+        font-family: $editundo;
+        color: $textColor;
+        font-size: 22px;
+        span {
+          color: $primaryColor;
+        }
+      }
+    }
+    .price {
+      img {
+        margin-right: 10px;
+      }
+      p {
+        font-family: $editundo;
+        color: $primaryColor;
+        font-size: 22px;
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+.load {
+  border: 1px solid $primaryColor;
+  padding: 20px;
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+  margin-bottom: 30px;
+  .load__up {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .load__img {
+      width: 45%;
+      text-align: center;
+      img {
+        width: 100%;
+        cursor: pointer;
+        transition: 1s;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+
+  .load__down {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 42px;
+
+    button {
+      font-size: 12px;
+      padding: 7px 13px;
+      background-color: $primaryColor;
+      color: black;
+      border-radius: 50px;
+      font-family: $earlyGameBoy;
+      cursor: pointer;
+      border: 0px;
+    }
+    .point {
+      display: flex;
+      margin-left: 5px;
+      span {
+        font-size: 12px;
+        font-family: $earlyGameBoy;
+        color: $textColor;
+        margin-left: 8px;
+      }
+    }
+  }
+}

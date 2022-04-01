@@ -1,0 +1,69 @@
+.roadmap__cardwrapper {
+  padding: 50px 0px;
+  .roadmap__card {
+    cursor: grab;
+    padding: 30px;
+    border-radius: 50px;
+    border: 1px solid $primaryColor;
+    margin: 40px 0;
+    &:hover {
+      box-shadow: 7px 13px 40px $primaryColor;
+      animation: roadmapDetailsHover 10s ease-in infinite;
+    }
+    h3 {
+      font-family: $editundo;
+      color: $headingColor;
+      opacity: 0.8;
+      font-size: $headingSize;
+    }
+    ul {
+      li {
+        font-size: 20px;
+        padding: 10px 0;
+        color: $textColor;
+        font-family: $earlyGameBoy;
+      }
+    }
+  }
+}
+
+.roadmap__contact {
+  margin: 50px 0;
+  .socials {
+    margin-top: 30px;
+    h3 {
+      color: $textColor;
+      font-family: $earlyGameBoy;
+      font-size: $headingSize;
+    }
+    .socials__button--wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: stretch;
+      .socials__button {
+        margin: 0 15px;
+        margin-top: 30px;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: $textColor;
+        padding: 5px 20px;
+        border: 1px solid $primaryColor;
+        border-radius: 50px;
+        &:hover {
+          background-color: $headingColor;
+          transform: scale(1.1);
+        }
+        .icon {
+          font-size: 30px;
+          margin-right: 10px;
+          margin-top: -8px;
+        }
+        .text {
+          font-size: 16px;
+          font-family: $earlyGameBoy;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+.partner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  img {
+    margin-top: 10px !important;
+    width: 200px;
+    &:hover {
+      cursor: grab;
+      transform: scale(1.1);
+    }
+  }
+}

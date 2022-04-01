@@ -1,0 +1,80 @@
+.navbar-nav {
+  .connect__wallet--button {
+    background-color: $primaryColor;
+    color: black;
+    padding: 7px 10px;
+    border-radius: 50px;
+    border: 0px solid;
+    font-size: 10px;
+    &:hover {
+      background-color: $headingColor;
+    }
+  }
+  a {
+    display: block;
+    font-size: 12px;
+    text-decoration: none;
+    color: $textColor;
+    &:hover {
+      color: $headingColor;
+    }
+  }
+  margin-top: 38px;
+  font-family: $earlyGameBoy;
+  #basic-nav-dropdown {
+    color: $textColor;
+    &:hover {
+      color: $headingColor;
+    }
+  }
+  .navbarSocialMedia {
+    padding: 3px !important;
+    background-color: $primaryColor;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: black !important;
+    margin: 0 6px;
+    img {
+      width: 100%;
+    }
+    &:hover {
+      background-color: $headingColor;
+    }
+  }
+
+  .dropdown-menu {
+    background-color: #1c0b2b;
+    .dropdown-item {
+      border: 1px solid $primaryColor;
+      &:first-child {
+        border-radius: 5px 5px 0px 0px;
+      }
+      &:last-child {
+        border-radius: 0px 0px 5px 5px;
+      }
+      &:hover {
+        background-color: $primaryColor;
+        a {
+          display: block;
+          color: black;
+        }
+      }
+      a {
+        display: block;
+        text-decoration: none;
+        color: $textColor;
+      }
+    }
+  }
+}
+
+.navbar-toggler {
+  background-color: $primaryColor !important;
+  .navbar-toggler-icon {
+    max-width: 20px;
+  }
+}
