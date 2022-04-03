@@ -23,8 +23,12 @@ function TokenStakingCompnent() {
 
   const [SROOtxStakingPending, setSROOtxStakingPending] = useState(false);
   const [ROOtxStakingPending, setROOtxStakingPending] = useState(false);
+
   const [ROOTxUnstakepending, setROOTxUnstakepending] = useState(false);
   const [SROOTxUnstakepending, setSROOTxUnstakepending] = useState(false);
+
+  const [ROOTxClaimpending, setROOTxClaimpending] = useState(false);
+  const [SROOTxClaimpending, setSROOTxClaimpending] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -181,7 +185,6 @@ function TokenStakingCompnent() {
   };
 
   const ROOTxUnstake = async (_id) => {
-    console.log(_id);
     if (myAccount.length === 0) return;
     setROOTxUnstakepending(true);
     setShowModal(true);
@@ -204,7 +207,6 @@ function TokenStakingCompnent() {
     }
   };
   const SROOTxUnstake = async (_id) => {
-    console.log(_id);
     if (myAccount.length === 0) return;
     setSROOTxUnstakepending(true);
     setShowModal(true);
@@ -224,6 +226,51 @@ function TokenStakingCompnent() {
     } catch (err) {
       setSROOTxUnstakepending(false);
       setShowModal(false);
+    }
+  };
+  const ROOTxClaim = async (_id) => {
+    if (myAccount.length === 0) return;
+    setShowModal(true);
+    setROOTxClaimpending(true);
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const ROOTxStakingContract = new Contract(
+        contract.ROOTxStaking[4],
+        RootxStakingABI,
+        provider?.getSigner()
+      );
+
+      const tx = await ROOTxStakingContract.claimReward(_id, {
+        from: myAccount[0],
+      });
+      await tx.wait();
+      window.location.reload();
+    } catch (err) {
+      setShowModal(false);
+      setROOTxClaimpending(false);
+    }
+  };
+
+  const SROOTxClaim = async (_id) => {
+    if (myAccount.length === 0) return;
+    setShowModal(true);
+    setSROOTxClaimpending(true);
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const SROOTxStakingContract = new Contract(
+        contract.SROOTxStaking[4],
+        SRootxStakingABI,
+        provider?.getSigner()
+      );
+
+      const tx = await SROOTxStakingContract.claimReward(_id, {
+        from: myAccount[0],
+      });
+      await tx.wait();
+      window.location.reload();
+    } catch (err) {
+      setShowModal(false);
+      setSROOTxClaimpending(false);
     }
   };
   return (
@@ -356,11 +403,32 @@ function TokenStakingCompnent() {
                             {(item.amount / 1000000000000000000).toString()}
                           </td>
                           <td>
-                            <button type="button">CLAIAM</button>
+                            {ROOTxClaimpending ? (
+                              <button type="button" className="controlBtn">
+                                {" "}
+                                <Spinner
+                                  as="span"
+                                  variant="light"
+                                  size="sm"
+                                  role="status"
+                                  aria-hidden="true"
+                                  animation="border"
+                                  style={{ width: "20px", height: "20px" }}
+                                />
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                className="controlBtn"
+                                onClick={() => ROOTxClaim(item.id.toString())}
+                              >
+                                CLAIAM
+                              </button>
+                            )}
                           </td>
                           <td>
                             {ROOTxUnstakepending ? (
-                              <button type="button">
+                              <button type="button" className="controlBtn">
                                 <Spinner
                                   as="span"
                                   variant="light"
@@ -374,6 +442,7 @@ function TokenStakingCompnent() {
                             ) : (
                               <button
                                 type="button"
+                                className="controlBtn"
                                 onClick={() => ROOTxUnstake(item.id.toString())}
                               >
                                 UNSTAKE
@@ -414,11 +483,32 @@ function TokenStakingCompnent() {
                             {(item.amount / 1000000000000000000).toString()}
                           </td>
                           <td>
-                            <button type="button">CLAIAM</button>
+                          {SROOTxClaimpending ? (
+                              <button type="button" className="controlBtn">
+                                {" "}
+                                <Spinner
+                                  as="span"
+                                  variant="light"
+                                  size="sm"
+                                  role="status"
+                                  aria-hidden="true"
+                                  animation="border"
+                                  style={{ width: "20px", height: "20px" }}
+                                />
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                className="controlBtn"
+                                onClick={() => SROOTxClaim(item.id.toString())}
+                              >
+                                CLAIAM
+                              </button>
+                            )}
                           </td>
                           <td>
                             {SROOTxUnstakepending ? (
-                              <button type="button">
+                              <button type="button" className="controlBtn">
                                 <Spinner
                                   as="span"
                                   variant="light"
@@ -432,6 +522,7 @@ function TokenStakingCompnent() {
                             ) : (
                               <button
                                 type="button"
+                                className="controlBtn"
                                 onClick={() =>
                                   SROOTxUnstake(item.id.toString())
                                 }
