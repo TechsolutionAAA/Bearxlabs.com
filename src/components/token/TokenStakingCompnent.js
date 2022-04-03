@@ -2,6 +2,7 @@ import { Contract, ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { Col, Container, Row } from "react-bootstrap";
+import Modal from "react-awesome-modal";
 import RootxMobile from "./RootxMobile";
 import Srootx from "./Srootx";
 import contract from "../../config/contract";
@@ -10,6 +11,7 @@ import SROOTxABI from "../../config/SROOTx_Rinkeby.json";
 import ROOTxABI from "../../config/ROOTx_Rinkeby.json";
 import RootxStakingABI from "../../config/ROOTxStaking.json";
 import { EtherscanProvider } from "@ethersproject/providers";
+import loading from "../../assets/images/loading.gif";
 
 function TokenStakingCompnent() {
   const [MyWeb3, setMyWeb3] = useState([]);
@@ -22,6 +24,9 @@ function TokenStakingCompnent() {
   const [SROOtxStakingPending, setSROOtxStakingPending] = useState(false);
   const [ROOtxStakingPending, setROOtxStakingPending] = useState(false);
   const [ROOTxUnstakepending, setROOTxUnstakepending] = useState(false);
+  const [SROOTxUnstakepending, setSROOTxUnstakepending] = useState(false);
+
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (window.web3 !== undefined && window.ethereum) {
@@ -31,8 +36,8 @@ function TokenStakingCompnent() {
 
   useEffect(() => {
     if (MyWeb3.length !== 0) {
-      getSROOTxStakingData();
       getROOTxStakingData();
+      getSROOTxStakingData();
     }
   }, [MyWeb3, myAccount[0]]);
 
@@ -101,31 +106,37 @@ function TokenStakingCompnent() {
       return;
     }
     setROOtxStakingPending(true);
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const ROOTxContract = new Contract(
-      contract.ROOTx[4],
-      ROOTxABI,
-      provider?.getSigner()
-    );
-    const ROOTxStakingcontract = new Contract(
-      contract.ROOTxStaking[4],
-      RootxStakingABI,
-      provider?.getSigner()
-    );
-    const approveTx = await ROOTxContract.approve(
-      contract.ROOTxStaking[4],
-      ethers.utils.parseUnits(String(amount), 18),
-      { from: myAccount[0] }
-    );
-    await approveTx.wait();
-    const tx = await ROOTxStakingcontract.stakeToken(
-      ethers.utils.parseUnits(String(amount), 18),
-      {
-        from: myAccount[0],
-      }
-    );
-    await tx.wait();
-    window.location.reload();
+    setShowModal(true);
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const ROOTxContract = new Contract(
+        contract.ROOTx[4],
+        ROOTxABI,
+        provider?.getSigner()
+      );
+      const ROOTxStakingcontract = new Contract(
+        contract.ROOTxStaking[4],
+        RootxStakingABI,
+        provider?.getSigner()
+      );
+      const approveTx = await ROOTxContract.approve(
+        contract.ROOTxStaking[4],
+        ethers.utils.parseUnits(String(amount), 18),
+        { from: myAccount[0] }
+      );
+      await approveTx.wait();
+      const tx = await ROOTxStakingcontract.stakeToken(
+        ethers.utils.parseUnits(String(amount), 18),
+        {
+          from: myAccount[0],
+        }
+      );
+      await tx.wait();
+      window.location.reload();
+    } catch (err) {
+      setROOtxStakingPending(false);
+      setShowModal(false);
+    }
   };
 
   const createSROOTxStake = async (amount) => {
@@ -136,37 +147,44 @@ function TokenStakingCompnent() {
       return;
     }
     setSROOtxStakingPending(true);
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const SROOTxContract = new Contract(
-      contract.SROOTx[4],
-      SROOTxABI,
-      provider?.getSigner()
-    );
-    const SROOTxStakingcontract = new Contract(
-      contract.SROOTxStaking[4],
-      SRootxStakingABI,
-      provider?.getSigner()
-    );
-    const approveTx = await SROOTxContract.approve(
-      contract.SROOTxStaking[4],
-      ethers.utils.parseUnits(String(amount), 18),
-      { from: myAccount[0] }
-    );
-    await approveTx.wait();
-    const tx = await SROOTxStakingcontract.stakeToken(
-      ethers.utils.parseUnits(String(amount), 18),
-      {
-        from: myAccount[0],
-      }
-    );
-    await tx.wait();
-    window.location.reload();
+    setShowModal(true);
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const SROOTxContract = new Contract(
+        contract.SROOTx[4],
+        SROOTxABI,
+        provider?.getSigner()
+      );
+      const SROOTxStakingcontract = new Contract(
+        contract.SROOTxStaking[4],
+        SRootxStakingABI,
+        provider?.getSigner()
+      );
+      const approveTx = await SROOTxContract.approve(
+        contract.SROOTxStaking[4],
+        ethers.utils.parseUnits(String(amount), 18),
+        { from: myAccount[0] }
+      );
+      await approveTx.wait();
+      const tx = await SROOTxStakingcontract.stakeToken(
+        ethers.utils.parseUnits(String(amount), 18),
+        {
+          from: myAccount[0],
+        }
+      );
+      await tx.wait();
+      window.location.reload();
+    } catch (err) {
+      setSROOtxStakingPending(false);
+      setShowModal(false);
+    }
   };
 
   const ROOTxUnstake = async (_id) => {
     console.log(_id);
     if (myAccount.length === 0) return;
     setROOTxUnstakepending(true);
+    setShowModal(true);
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const ROOTxStakingContract = new Contract(
@@ -174,14 +192,39 @@ function TokenStakingCompnent() {
         RootxStakingABI,
         provider?.getSigner()
       );
-  
-      const tx = await ROOTxStakingContract.unStake(_id, { from: myAccount[0] });
+
+      const tx = await ROOTxStakingContract.unStake(_id, {
+        from: myAccount[0],
+      });
       await tx.wait();
       window.location.reload();
-    } catch( err ) {
+    } catch (err) {
       setROOTxUnstakepending(false);
+      setShowModal(false);
     }
-    
+  };
+  const SROOTxUnstake = async (_id) => {
+    console.log(_id);
+    if (myAccount.length === 0) return;
+    setSROOTxUnstakepending(true);
+    setShowModal(true);
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const SROOTxStakingContract = new Contract(
+        contract.SROOTxStaking[4],
+        SRootxStakingABI,
+        provider?.getSigner()
+      );
+
+      const tx = await SROOTxStakingContract.unStake(_id, {
+        from: myAccount[0],
+      });
+      await tx.wait();
+      window.location.reload();
+    } catch (err) {
+      setSROOTxUnstakepending(false);
+      setShowModal(false);
+    }
   };
   return (
     <div className="main__listing">
@@ -295,8 +338,8 @@ function TokenStakingCompnent() {
                   <table className="unstakeTable ms-5">
                     <thead>
                       <tr>
+                        <td>Staking Date</td>
                         <td>Staked Amount</td>
-                        <td>Claim Amount</td>
                         <td>Claim</td>
                         <td>Unstake</td>
                       </tr>
@@ -305,9 +348,13 @@ function TokenStakingCompnent() {
                       {ROOTxstakedIds.map((item) => (
                         <tr key={item.id}>
                           <td>
+                            {new Date(
+                              item.stakeTimeStamp.toString() * 1000
+                            ).getHours()}
+                          </td>
+                          <td>
                             {(item.amount / 1000000000000000000).toString()}
                           </td>
-                          <td>{}</td>
                           <td>
                             <button type="button">CLAIAM</button>
                           </td>
@@ -349,8 +396,8 @@ function TokenStakingCompnent() {
                   <table className="unstakeTable ms-5">
                     <thead>
                       <tr>
+                        <td>Staking Date</td>
                         <td>Staked Amount</td>
-                        <td>Claim Amount</td>
                         <td>Claim</td>
                         <td>Unstake</td>
                       </tr>
@@ -359,14 +406,39 @@ function TokenStakingCompnent() {
                       {SROOTxstakedIds.map((item) => (
                         <tr key={item.id}>
                           <td>
+                            {new Date(
+                              item.stakeTimeStamp.toString() * 1000
+                            ).getHours()}
+                          </td>
+                          <td>
                             {(item.amount / 1000000000000000000).toString()}
                           </td>
-                          <td>{}</td>
                           <td>
                             <button type="button">CLAIAM</button>
                           </td>
                           <td>
-                            <button type="button">UNSTAKE</button>
+                            {SROOTxUnstakepending ? (
+                              <button type="button">
+                                <Spinner
+                                  as="span"
+                                  variant="light"
+                                  size="sm"
+                                  role="status"
+                                  aria-hidden="true"
+                                  animation="border"
+                                  style={{ width: "20px", height: "20px" }}
+                                />{" "}
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  SROOTxUnstake(item.id.toString())
+                                }
+                              >
+                                UNSTAKE
+                              </button>
+                            )}
                           </td>
                         </tr>
                       ))}
@@ -378,6 +450,14 @@ function TokenStakingCompnent() {
           </Row>
         </div>
       </Container>
+      <Modal visible={showModal} width="450px" height="300px" effect="fadeInUp">
+        <div style={{ marginLeft: "100px" }}>
+          <img src={loading} alt="loading" />
+        </div>
+        <div className="about__details">
+          <p style={{ color: "#fd7e14" }}>Processing...</p>
+        </div>
+      </Modal>
     </div>
   );
 }
