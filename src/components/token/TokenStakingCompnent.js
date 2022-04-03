@@ -9,6 +9,7 @@ import SRootxStakingABI from "../../config/SROOTxStaking.json";
 import SROOTxABI from "../../config/SROOTx_Rinkeby.json";
 import ROOTxABI from "../../config/ROOTx_Rinkeby.json";
 import RootxStakingABI from "../../config/ROOTxStaking.json";
+import { EtherscanProvider } from "@ethersproject/providers";
 
 function TokenStakingCompnent() {
   const [MyWeb3, setMyWeb3] = useState([]);
@@ -20,6 +21,7 @@ function TokenStakingCompnent() {
 
   const [SROOtxStakingPending, setSROOtxStakingPending] = useState(false);
   const [ROOtxStakingPending, setROOtxStakingPending] = useState(false);
+  const [ROOTxUnstakepending, setROOTxUnstakepending] = useState(false);
 
   useEffect(() => {
     if (window.web3 !== undefined && window.ethereum) {
@@ -91,7 +93,6 @@ function TokenStakingCompnent() {
     }
   };
 
-
   const createROOTxStake = async (amount) => {
     if (myAccount.length === 0) {
       return;
@@ -127,7 +128,6 @@ function TokenStakingCompnent() {
     window.location.reload();
   };
 
-
   const createSROOTxStake = async (amount) => {
     if (myAccount.length === 0) {
       return;
@@ -161,6 +161,27 @@ function TokenStakingCompnent() {
     );
     await tx.wait();
     window.location.reload();
+  };
+
+  const ROOTxUnstake = async (_id) => {
+    console.log(_id);
+    if (myAccount.length === 0) return;
+    setROOTxUnstakepending(true);
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const ROOTxStakingContract = new Contract(
+        contract.ROOTxStaking[4],
+        RootxStakingABI,
+        provider?.getSigner()
+      );
+  
+      const tx = await ROOTxStakingContract.unStake(_id, { from: myAccount[0] });
+      await tx.wait();
+      window.location.reload();
+    } catch( err ) {
+      setROOTxUnstakepending(false);
+    }
+    
   };
   return (
     <div className="main__listing">
@@ -204,7 +225,7 @@ function TokenStakingCompnent() {
                   />
                   {ROOtxStakingPending ? (
                     <button type="button" className="input_2">
-                        <Spinner
+                      <Spinner
                         as="span"
                         variant="light"
                         size="sm"
@@ -267,8 +288,7 @@ function TokenStakingCompnent() {
         <div className="listing d-none d-lg-block">
           <Row>
             <Col lg={6} md={6}>
-
-            <div className="container">
+              <div className="container">
                 {ROOTxstakedIds.length === 0 ? (
                   <></>
                 ) : (
@@ -292,7 +312,26 @@ function TokenStakingCompnent() {
                             <button type="button">CLAIAM</button>
                           </td>
                           <td>
-                            <button type="button">UNSTAKE</button>
+                            {ROOTxUnstakepending ? (
+                              <button type="button">
+                                <Spinner
+                                  as="span"
+                                  variant="light"
+                                  size="sm"
+                                  role="status"
+                                  aria-hidden="true"
+                                  animation="border"
+                                  style={{ width: "20px", height: "20px" }}
+                                />{" "}
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => ROOTxUnstake(item.id.toString())}
+                              >
+                                UNSTAKE
+                              </button>
+                            )}
                           </td>
                         </tr>
                       ))}
