@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { Col, Container, Row } from "react-bootstrap";
 import Modal from "react-awesome-modal";
+import Swal from "sweetalert2";
 import RootxMobile from "./RootxMobile";
 import Srootx from "./Srootx";
 import contract from "../../config/contract";
@@ -186,92 +187,145 @@ function TokenStakingCompnent() {
 
   const ROOTxUnstake = async (_id) => {
     if (myAccount.length === 0) return;
-    setROOTxUnstakepending(true);
-    setShowModal(true);
-    try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const ROOTxStakingContract = new Contract(
-        contract.ROOTxStaking[4],
-        RootxStakingABI,
-        provider?.getSigner()
-      );
 
-      const tx = await ROOTxStakingContract.unStake(_id, {
-        from: myAccount[0],
-      });
-      await tx.wait();
-      window.location.reload();
-    } catch (err) {
-      setROOTxUnstakepending(false);
-      setShowModal(false);
-    }
+    Swal.fire({
+      icon: "question",
+      title: "Confirm Unstake ROOTx",
+      text: "If you unstake this token, you won't claim rewards",
+      showCancelButton: true,
+    }).then(async (res) => {
+      if (res.isConfirmed) {
+        setROOTxUnstakepending(true);
+        setShowModal(true);
+        try {
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const ROOTxStakingContract = new Contract(
+            contract.ROOTxStaking[4],
+            RootxStakingABI,
+            provider?.getSigner()
+          );
+
+          const tx = await ROOTxStakingContract.unStake(_id, {
+            from: myAccount[0],
+          });
+          await tx.wait();
+          window.location.reload();
+        } catch (err) {
+          setROOTxUnstakepending(false);
+          setShowModal(false);
+        }
+      }
+    });
   };
   const SROOTxUnstake = async (_id) => {
     if (myAccount.length === 0) return;
-    setSROOTxUnstakepending(true);
-    setShowModal(true);
-    try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const SROOTxStakingContract = new Contract(
-        contract.SROOTxStaking[4],
-        SRootxStakingABI,
-        provider?.getSigner()
-      );
 
-      const tx = await SROOTxStakingContract.unStake(_id, {
-        from: myAccount[0],
-      });
-      await tx.wait();
-      window.location.reload();
-    } catch (err) {
-      setSROOTxUnstakepending(false);
-      setShowModal(false);
-    }
+    Swal.fire({
+      icon: "question",
+      title: "Confirm Unstake SROOTx",
+      text: "If you unstake this token, you won't claim rewards",
+      showCancelButton: true,
+    }).then(async (res) => {
+      if (res.isConfirmed) {
+        setSROOTxUnstakepending(true);
+        setShowModal(true);
+        try {
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const SROOTxStakingContract = new Contract(
+            contract.SROOTxStaking[4],
+            SRootxStakingABI,
+            provider?.getSigner()
+          );
+
+          const tx = await SROOTxStakingContract.unStake(_id, {
+            from: myAccount[0],
+          });
+          await tx.wait();
+          window.location.reload();
+        } catch (err) {
+          setSROOTxUnstakepending(false);
+          setShowModal(false);
+        }
+      }
+    });
   };
   const ROOTxClaim = async (_id) => {
     if (myAccount.length === 0) return;
-    setShowModal(true);
-    setROOTxClaimpending(true);
-    try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const ROOTxStakingContract = new Contract(
-        contract.ROOTxStaking[4],
-        RootxStakingABI,
-        provider?.getSigner()
-      );
 
-      const tx = await ROOTxStakingContract.claimReward(_id, {
-        from: myAccount[0],
-      });
-      await tx.wait();
-      window.location.reload();
-    } catch (err) {
-      setShowModal(false);
-      setROOTxClaimpending(false);
-    }
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const ROOTxStakingContract = new Contract(
+      contract.ROOTxStaking[4],
+      RootxStakingABI,
+      provider?.getSigner()
+    );
+    let claimableamount;
+    await ROOTxStakingContract.getClaimable(_id, { from: myAccount[0] }).then(
+      async (res) => {
+        console.log((res / 1000000000000000000).toString());
+        claimableamount = (res / 1000000000000000000).toString();
+      }
+    );
+
+    Swal.fire({
+      icon: "question",
+      title: "Confirm Claim ROOTx",
+      text: `Do you want to claim? You will get ${claimableamount} ROOTx token for rewards.`,
+      showCancelButton: true,
+    }).then(async (res) => {
+      if (res.isConfirmed) {
+        setShowModal(true);
+        setROOTxClaimpending(true);
+        try {
+          const tx = await ROOTxStakingContract.claimReward(_id, {
+            from: myAccount[0],
+          });
+          await tx.wait();
+          window.location.reload();
+        } catch (err) {
+          setShowModal(false);
+          setROOTxClaimpending(false);
+        }
+      }
+    });
   };
-
   const SROOTxClaim = async (_id) => {
     if (myAccount.length === 0) return;
-    setShowModal(true);
-    setSROOTxClaimpending(true);
-    try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const SROOTxStakingContract = new Contract(
-        contract.SROOTxStaking[4],
-        SRootxStakingABI,
-        provider?.getSigner()
-      );
 
-      const tx = await SROOTxStakingContract.claimReward(_id, {
-        from: myAccount[0],
-      });
-      await tx.wait();
-      window.location.reload();
-    } catch (err) {
-      setShowModal(false);
-      setSROOTxClaimpending(false);
-    }
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const SROOTxStakingContract = new Contract(
+      contract.SROOTxStaking[4],
+      SRootxStakingABI,
+      provider?.getSigner()
+    );
+
+    let claimableamount;
+    await SROOTxStakingContract.getClaimable(_id, { from: myAccount[0] }).then(
+      async (res) => {
+        console.log((res / 1000000000000000000).toString());
+        claimableamount = (res / 1000000000000000000).toString();
+      }
+    );
+    Swal.fire({
+      icon: "question",
+      title: "Confirm Claim SROOTx",
+      text: `Do you want to claim? You will get ${claimableamount} SROOTx token for rewards.`,
+      showCancelButton: true,
+    }).then(async (res) => {
+      if (res.isConfirmed) {
+        setShowModal(true);
+        setSROOTxClaimpending(true);
+        try {
+          const tx = await SROOTxStakingContract.claimReward(_id, {
+            from: myAccount[0],
+          });
+          await tx.wait();
+          window.location.reload();
+        } catch (err) {
+          setShowModal(false);
+          setSROOTxClaimpending(false);
+        }
+      }
+    });
   };
   return (
     <div className="main__listing">
@@ -483,7 +537,7 @@ function TokenStakingCompnent() {
                             {(item.amount / 1000000000000000000).toString()}
                           </td>
                           <td>
-                          {SROOTxClaimpending ? (
+                            {SROOTxClaimpending ? (
                               <button type="button" className="controlBtn">
                                 {" "}
                                 <Spinner
