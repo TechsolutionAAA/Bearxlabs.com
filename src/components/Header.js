@@ -24,11 +24,11 @@ function Header() {
       window.web3 = new ethers.providers.Web3Provider(window.ethereum);
       const chainId = await window.ethereum.request({ method: "eth_chainId" });
       // console.log(chainId);
-      if (chainId != "0x1") {
+      if (chainId != "0x4") {
         try {
           await window.ethereum.request({
             method: "wallet_switchEthereumChain",
-            params: [{ chainId: "0x1" }],
+            params: [{ chainId: "0x4" }],
           });
         } catch (switchError) {
           // This error code indicates that the chain has not been added to MetaMask.
@@ -38,10 +38,10 @@ function Header() {
                 method: "wallet_addEthereumChain",
                 params: [
                   {
-                    chainId: "0x1",
+                    chainId: "0x4",
                     rpcUrl:
-                      "https://mainnet.infura.io/v3/9f65f2e7dc324b6fba99c874cecfbadd",
-                    // "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+                      // "https://mainnet.infura.io/v3/9f65f2e7dc324b6fba99c874cecfbadd",
+                    "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
                   },
                 ],
               });
@@ -78,8 +78,8 @@ function Header() {
     } else if (window.web3) {
       window.web3 = new ethers.providers.Web3Provider(window.ethereum);
       new ethers.providers.Web3Provider(window.ethereum).providers.HttpProvider(
-        "https://mainnet.infura.io/v3/9f65f2e7dc324b6fba99c874cecfbadd"
-        // "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+        // "https://mainnet.infura.io/v3/9f65f2e7dc324b6fba99c874cecfbadd"
+        "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
       );
       // alert(2)
     } else {

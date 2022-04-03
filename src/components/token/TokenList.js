@@ -115,13 +115,13 @@ function TokenList() {
                     <Col lg={6} md={6} >
                     <div className='listing__btn'>
                         <Link className='rootbtn'  to="">chart</Link>
-                        <a className='rootbtn'  href="https://etherscan.io/address/0x99cfdf48d0ba4885a73786148a2f89d86c702170" target="_blank">contact</a>
+                        <a className='rootbtn'  href="https://etherscan.io/address/0x99cfdf48d0ba4885a73786148a2f89d86c702170" target="_blank" rel="noreferrer">contact</a>
                     </div>
                     </Col>
                     <Col lg={6} md={6} >
                     <div className='listing__btn'>
                         <Link className='rootbtn'  to="">chart</Link>
-                        <a className='rootbtn'  href="https://etherscan.io/address/0xd718ad25285d65ef4d79262a6cd3aea6a8e01023" target="_blank">contact</a>
+                        <a className='rootbtn'  href="https://etherscan.io/address/0xd718ad25285d65ef4d79262a6cd3aea6a8e01023" target="_blank" rel="noreferrer">contact</a>
                     </div>
                     </Col> 
                 </Row>

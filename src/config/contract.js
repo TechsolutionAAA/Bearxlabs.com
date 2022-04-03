@@ -15,5 +15,21 @@ export default {
       1: "0x99CFDf48d0ba4885A73786148A2f89d86c702170",
       4: "0x4F67EeD9cA3356FE5E4d4bc5BA2854E512a7DF85",
     },
+    ROOTxStaking: {
+      1: "",
+      4: "0x7cC791644FB8fC4C09dD0Ed49D8B720B95CF4f30",
+    },
+    SROOTxStaking: {
+      1: "",
+      4: "0x858932Cc249965dc4306Ce995B0aC6FAfC2be851",
+    },
+    LPROOTxStaking: {
+      1: "",
+      4: "",
+    },
+    LPSROOTxStaking: {
+      1: "",
+      4: "",
+    },
   };
   

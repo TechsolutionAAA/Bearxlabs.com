@@ -1,51 +1,108 @@
-import React, { useState } from "react";
+import { Contract, ethers } from "ethers";
+import React, { useEffect, useState, useCallback } from "react";
+import { Spinner } from "react-bootstrap";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import RootxMobile from "./RootxMobile";
 import Srootx from "./Srootx";
+import contract from "../../config/contract";
+import RootxStakingABI from "../../config/ROOTxStaking.json";
+import SRootxStakingABI from "../../config/SROOTxStaking.json";
+import SROOTxABI from "../../config/SROOTx_Rinkeby.json";
+import { BigNumber } from "ethers";
 
 function TokenStakingCompnent() {
-  const [amounts, setAmounts] = useState([]);
-  const [samounts, setSamounts] = useState([]);
-  const [rootAmount, setRootAmount] = useState(0);
-  const [sRootAmount, setsRootAmount] = useState(0);
+  const [MyWeb3, setMyWeb3] = useState([]);
+  const [myAccount, setMyAccount] = useState([]);
+  const [sROOtAmount, setsRootAmount] = useState(0);
+  const [RootAmount, setRootAmount] = useState(0);
+  const [stakedIds, SetStakedIds] = useState([]);
 
-  const staking = (val) => {
-    if (val) {
-      let sAmountArray = samounts;
-      sAmountArray.push(sRootAmount);
-      setSamounts(sAmountArray);
-    } else {
-      let amountArray = amounts;
-      amountArray.push(rootAmount);
-      setAmounts(amountArray);
+  const [SROOtxStakingPending, setSROOtxStakingPending] = useState(false);
+
+  useEffect(() => {
+    if (window.web3 !== undefined && window.ethereum) {
+      loadWeb3();
     }
-  }
+  }, []);
 
-  const amountData = amounts.map((amount) => {
-    let index = 1;
-    console.log(amount);
-    return (
-      <tr key={index}>
-        <td>{index}</td>
-        <td>{amount}</td>
-        <td>
-          <button type="button">
-            CLAIM
-          </button>
-        </td>
-        <td>
-          <button type="button">
-            UNSTAKE
-          </button>
-        </td>
-      </tr>
+  useEffect(() => {
+    if (MyWeb3.length !== 0) {
+      getSROOTxStakingData();
+    }
+  }, [MyWeb3, myAccount[0]]);
+
+  const loadWeb3 = async () => {
+    const web3 = await new ethers.providers.Web3Provider(window.ethereum);
+    await web3
+      .listAccounts()
+      .then((acc) => {
+        setMyWeb3(web3);
+        setMyAccount(acc);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getSROOTxStakingData = async () => {
+    if (myAccount.length === 0) return;
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const Stakingcontract = new Contract(
+      contract.SROOTxStaking[4],
+      SRootxStakingABI,
+      provider?.getSigner()
     );
-    index++;
-  })
 
+    try {
+      await Stakingcontract.getStakesByStaker(myAccount[0])
+        .then((r) => {
+          SetStakedIds((b) => r);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const createSROOTxStake = async (amount) => {
+    if (myAccount.length === 0) {
+      return;
+    } else if (amount === 0) {
+      alert("Please input Amount");
+      return;
+    }
+    console.log(amount);
+    setSROOtxStakingPending(true);
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const SROOTxContract = new Contract(
+        contract.SROOTx[4],
+        SROOTxABI,
+        provider?.getSigner()
+      );
+      const SROOTxStakingcontract = new Contract(
+        contract.SROOTxStaking[4],
+        SRootxStakingABI,
+        provider?.getSigner()
+      );
+      const approveTx = await SROOTxContract.approve(
+        contract.SROOTxStaking[4],
+        ethers.utils.parseUnits(String(amount), 18),
+        { from: myAccount[0] }
+      );
+      await approveTx.wait();
+      const tx = await SROOTxStakingcontract.stakeToken(
+        ethers.utils.parseUnits(String(amount), 18),
+        {
+          from: myAccount[0],
+        }
+      );
+      await tx.wait();
+      window.location.reload();
+  };
   return (
-    <div className=" main__listing">
+    <div className="main__listing">
       <Container>
         <Row>
           <Col>
@@ -81,14 +138,10 @@ function TokenStakingCompnent() {
                     onChange={(e) => setRootAmount(e.target.value)}
                     type="number"
                     placeholder="Type amount..."
-                    class="input_1"
+                    className="input_1"
                     min={1}
                   />
-                  <button
-                    type="button"
-                    class="input_2"
-                    onClick={() => staking(0)}
-                  >
+                  <button type="button" className="input_2">
                     STAKE
                   </button>
                 </div>
@@ -103,11 +156,30 @@ function TokenStakingCompnent() {
                     onChange={(e) => setsRootAmount(e.target.value)}
                     type="number"
                     placeholder="Type amount..."
-                    class="input_1"
+                    className="input_1"
                   />
-                  <button type="button" class="input_2">
-                    STAKE
-                  </button>
+                  {SROOtxStakingPending ? (
+                    <button type="button" className="input_2">
+                      {" "}
+                      <Spinner
+                        as="span"
+                        variant="light"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                        animation="border"
+                        style={{ width: "20px", height: "20px" }}
+                      />
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="input_2"
+                      onClick={() => createSROOTxStake(sROOtAmount)}
+                    >
+                      STAKE
+                    </button>
+                  )}
                 </div>
               </div>
             </Col>
@@ -115,26 +187,41 @@ function TokenStakingCompnent() {
         </div>
         <div className="listing d-none d-lg-block">
           <Row>
-            <Col lg={6} md={6}>
-              <div className="container">
-                <table className="unstakeTable ms-5">
-                  <thead>
-                    <tr>
-                      <td>No</td>
-                      <td>Amount</td>
-                      <td>Claim</td>
-                      <td>Unstake</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    { amountData }
-                  </tbody>
-                </table>
-              </div>
-            </Col>
+            <Col lg={6} md={6}></Col>
 
             <Col lg={6} md={6}>
-              <div className="container"></div>
+              <div className="container">
+                {stakedIds.length === 0 ? (
+                  <></>
+                ) : (
+                  <table className="unstakeTable ms-5">
+                    <thead>
+                      <tr>
+                        <td>Staked Amount</td>
+                        <td>Claim Amount</td>
+                        <td>Claim</td>
+                        <td>Unstake</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {stakedIds.map((item) => (
+                        <tr key={item.id}>
+                          <td>
+                            {(item.amount / 1000000000000000000).toString()}
+                          </td>
+                          <td>{}</td>
+                          <td>
+                            <button type="button">CLAIAM</button>
+                          </td>
+                          <td>
+                            <button type="button">UNSTAKE</button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
             </Col>
           </Row>
         </div>
