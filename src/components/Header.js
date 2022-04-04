@@ -125,6 +125,9 @@ function Header() {
             <NavDropdown.Item>
             <Link to="/LPtokenstaking">LP TOKEN STKAING</Link>
             </NavDropdown.Item>
+            <NavDropdown.Item>
+            <Link to="/BurnROOTxToGetSROOTx">Burn ROOTx To Get SROOTx</Link>
+            </NavDropdown.Item>
           </NavDropdown>
           <NavDropdown title="Bearworld" id="basic-nav-dropdown">
             <NavDropdown.Item>

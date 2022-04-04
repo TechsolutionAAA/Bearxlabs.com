@@ -30,7 +30,8 @@
     "react-scripts": "5.0.0",
     "sass": "^1.49.9",
     "sweetalert2": "^11.4.8",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "web3": "^1.7.1"
   },
   "scripts": {
     "start": "set port=3002 && react-scripts start",
