@@ -78,9 +78,9 @@ const BearSteakTwo = () => {
     await stakingcontract
       .claimOf(myAccount[0])
       .then((r) => {
+        console.log(r[1].toString());
         setClaimableROOTx(parseInt(r[0].toString()) / 10 ** 18);
         setClaimableSROOTx(parseInt(r[1].toString()) / 10 ** 18);
-        setClaimableETH(parseInt(r[2].toString()) / 10 ** 18);
       })
       .catch((err) => {
         setClaimableROOTx(0);
@@ -390,6 +390,7 @@ const BearSteakTwo = () => {
         await tx.wait();
         window.location.reload();
       } catch (err) {
+        console.log("error",err);
         setClaimROOT(false);
       }
     }
@@ -407,35 +408,36 @@ const BearSteakTwo = () => {
           provider?.getSigner()
         );
         const tx = await stakingcontract.claimOfSROOTxToken({
-          from: myAccount[0],
+          from : myAccount[0]
         });
         await tx.wait();
         window.location.reload();
       } catch (err) {
+        console.log("err", err);
         setClaimSROOT(false);
       }
     }
   }, [MyWeb3, myAccount[0]]);
 
-  const claimOfWETH = useCallback(async () => {
-    if (myAccount[0]) {
-      setClaimWETH(true);
+  // const claimOfWETH = useCallback(async () => {
+  //   if (myAccount[0]) {
+  //     setClaimWETH(true);
 
-      try {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const stakingcontract = new Contract(
-          contract.BearXStaking[1],
-          stakingabi,
-          provider?.getSigner()
-        );
-        const tx = await stakingcontract.claimOfWETH({ from: myAccount[0] });
-        await tx.wait();
-        window.location.reload();
-      } catch (err) {
-        setClaimWETH(false);
-      }
-    }
-  }, [MyWeb3, myAccount[0]]);
+  //     try {
+  //       const provider = new ethers.providers.Web3Provider(window.ethereum);
+  //       const stakingcontract = new Contract(
+  //         contract.BearXStaking[1],
+  //         stakingabi,
+  //         provider?.getSigner()
+  //       );
+  //       const tx = await stakingcontract.claimOfWETH({ from: myAccount[0] });
+  //       await tx.wait();
+  //       window.location.reload();
+  //     } catch (err) {
+  //       setClaimWETH(false);
+  //     }
+  //   }
+  // }, [MyWeb3, myAccount[0]]);
 
   let navigator = useNavigate();
 
@@ -699,7 +701,7 @@ const BearSteakTwo = () => {
               <div className="bearSteak__staked text-center mt-5">
                 <h5>Claimable Srootx</h5>
                 <h6>{claimableSROOTx.toFixed(3)}</h6>
-                {isVested ? (
+                {false ? (
                   <button>vested</button>
                 ) : !claimSROOT ? (
                   <button onClick={() => claimOfSROOTxToken()}>claim</button>
@@ -720,7 +722,7 @@ const BearSteakTwo = () => {
                   </button>
                 )}
               </div>
-              <div className="bearSteak__staked text-center mt-5">
+              {/* <div className="bearSteak__staked text-center mt-5">
                 <h5>AMOUNT OF WETH</h5>
                 <h6>
                   {claimableETH.toLocaleString("en-US", {
@@ -748,7 +750,7 @@ const BearSteakTwo = () => {
                     />
                   </button>
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="bearSteak__info">

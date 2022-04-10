@@ -20,8 +20,8 @@ export default {
       4: "0x7cC791644FB8fC4C09dD0Ed49D8B720B95CF4f30",
     },
     SROOTxStaking: {
-      1: "",
-      4: "0x858932Cc249965dc4306Ce995B0aC6FAfC2be851",
+      1: "0x858932Cc249965dc4306Ce995B0aC6FAfC2be851",
+      4: "0xEBc9E292E6573a65ccFd716EBD2588155a958885",
     },
     LPROOTxStaking: {
       1: "",

@@ -10,6 +10,7 @@ import {
   piOpensea,
   piTwitter,
 } from "../assets/images/icons";
+import { SiTorbrowser, SiBinance } from "react-icons/si";
 
 function Header() {
   const [defaultAccount, setDefaultAccount] = useState(null);
@@ -24,11 +25,11 @@ function Header() {
       window.web3 = new ethers.providers.Web3Provider(window.ethereum);
       const chainId = await window.ethereum.request({ method: "eth_chainId" });
       // console.log(chainId);
-      if (chainId != "0x4") {
+      if (chainId != "0x1") {
         try {
           await window.ethereum.request({
             method: "wallet_switchEthereumChain",
-            params: [{ chainId: "0x4" }],
+            params: [{ chainId: "0x1" }],
           });
         } catch (switchError) {
           // This error code indicates that the chain has not been added to MetaMask.
@@ -38,10 +39,10 @@ function Header() {
                 method: "wallet_addEthereumChain",
                 params: [
                   {
-                    chainId: "0x4",
+                    chainId: "0x1",
                     rpcUrl:
-                      // "https://mainnet.infura.io/v3/9f65f2e7dc324b6fba99c874cecfbadd",
-                    "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+                      "https://mainnet.infura.io/v3/9f65f2e7dc324b6fba99c874cecfbadd",
+                      // "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
                   },
                 ],
               });
@@ -78,8 +79,8 @@ function Header() {
     } else if (window.web3) {
       window.web3 = new ethers.providers.Web3Provider(window.ethereum);
       new ethers.providers.Web3Provider(window.ethereum).providers.HttpProvider(
-        // "https://mainnet.infura.io/v3/9f65f2e7dc324b6fba99c874cecfbadd"
-        "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+        "https://mainnet.infura.io/v3/9f65f2e7dc324b6fba99c874cecfbadd"
+        // "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
       );
       // alert(2)
     } else {
@@ -117,17 +118,17 @@ function Header() {
           </Nav.Link>
           <NavDropdown title="TOKENS" id="basic-nav-dropdown">
             <NavDropdown.Item>
-            <Link to="/token/">TOKENOMICS</Link>
+              <Link to="/token/">TOKENOMICS</Link>
             </NavDropdown.Item>
             <NavDropdown.Item>
-            <Link to="/tokenstaking">TOKEN STAKING</Link>
+              <Link to="/tokenstaking">TOKEN STAKING</Link>
             </NavDropdown.Item>
             <NavDropdown.Item>
-            <Link to="/LPtokenstaking">LP TOKEN STKAING</Link>
+              <Link to="/LPtokenstaking">LP TOKEN STKAING</Link>
             </NavDropdown.Item>
-            <NavDropdown.Item>
-            <Link to="/BurnROOTxToGetSROOTx">Burn ROOTx To Get SROOTx</Link>
-            </NavDropdown.Item>
+            {/* <NavDropdown.Item>
+              <Link to="/BurnROOTxToGetSROOTx">Burn ROOTx To Get SROOTx</Link>
+            </NavDropdown.Item> */}
           </NavDropdown>
           <NavDropdown title="Bearworld" id="basic-nav-dropdown">
             <NavDropdown.Item>
@@ -213,6 +214,23 @@ function Header() {
               className="navbarSocialMedia"
             >
               <Image src={piLooksrare} />
+            </Nav.Link>
+            <Nav.Link
+              href="https://x2y2.io/collection/bearxlabs/items"
+              target="_blank"
+              className="navbarSocialMedia"
+            >
+              <div className="icon">
+                <SiTorbrowser />
+              </div>
+            </Nav.Link> <Nav.Link
+              href="https://www.binance.com/en/nft/shopWindow/bearx-labs-7ff5d981be9e5c203e72e51bbb632132?orderBy=list_time&orderType=-1&isBack=1&uid=7ff5d981be9e5c203e72e51bbb632132&order=list_time%40-1"
+              target="_blank"
+              className="navbarSocialMedia"
+            >
+              <div className="icon">
+                <SiBinance />
+              </div>
             </Nav.Link>
           </div>
 

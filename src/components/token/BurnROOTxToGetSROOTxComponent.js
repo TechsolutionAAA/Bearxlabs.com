@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Contract, ethers, BigNumber } from "ethers";
 import { Spinner } from "react-bootstrap";
-import ROOTxABI from "../../config/ROOTx_Rinkeby.json";
-import BearXStakingABI from "../../config/stakingABI_Rinkeby.json";
+import ROOTxABI from "../../config/rootABI.json";
+import BearXStakingABI from "../../config/stakingABI.json";
 import Modal from "react-awesome-modal";
 import loading from "../../assets/images/loading.gif";
 import contract from "../../config/contract";
@@ -50,7 +50,7 @@ const BurnROOTxToGetSROOTxComponent = () => {
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const rootxcontract = new Contract(
-      contract.ROOTx[4],
+      contract.ROOTx[1],
       ROOTxABI,
       provider?.getSigner()
     );
@@ -70,7 +70,7 @@ const BurnROOTxToGetSROOTxComponent = () => {
     if (myAccount.length === 0) return;
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const rootxcontract = new Contract(
-      contract.ROOTx[4],
+      contract.ROOTx[1],
       ROOTxABI,
       provider?.getSigner()
     );
@@ -79,7 +79,7 @@ const BurnROOTxToGetSROOTxComponent = () => {
       setShowModal(true);
       try {
         const tx = await rootxcontract.approve(
-          contract.BearXStaking[4],
+          contract.BearXStaking[1],
           ROOTx,
           { from: myAccount[0] }
         );
@@ -96,7 +96,7 @@ const BurnROOTxToGetSROOTxComponent = () => {
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const stakingcontract = new Contract(
-      contract.BearXStaking[4],
+      contract.BearXStaking[1],
       BearXStakingABI,
       provider?.getSigner()
     );
@@ -117,7 +117,7 @@ const BurnROOTxToGetSROOTxComponent = () => {
         await tx.wait();
         window.location.reload();
       } catch (err) {
-          console.log(err);
+        console.log(err);
         setShowModal(false);
         setBurnbtnpending(false);
       }
@@ -129,7 +129,7 @@ const BurnROOTxToGetSROOTxComponent = () => {
     setMaxbtnpending(true);
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const rootxcontract = new Contract(
-      contract.ROOTx[4],
+      contract.ROOTx[1],
       ROOTxABI,
       provider?.getSigner()
     );
@@ -151,6 +151,12 @@ const BurnROOTxToGetSROOTxComponent = () => {
   return (
     <>
       <div className="burn-get-maincontain">
+        <div className="about__details">
+          <p style={{ color: "yellow", fontSize: "25px" }}>
+            Enter the amount of ROOTx you'd like to burn for SROOTx
+          </p>
+        </div>
+
         <div className="burn-get-subcontain">
           <div className="number">
             <button

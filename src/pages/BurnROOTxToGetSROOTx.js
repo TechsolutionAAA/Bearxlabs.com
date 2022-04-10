@@ -5,7 +5,7 @@ import BurnROOTxToGetSROOTxComponent from '../components/token/BurnROOTxToGetSRO
 function BurnROOTxToGetSROOTx() {
   return (
     <>
-        <Banner title="Burn ROOTx To Get SROOTx" />
+        <Banner title="ROOTx Burn" />
         <BurnROOTxToGetSROOTxComponent />
     </>
   )

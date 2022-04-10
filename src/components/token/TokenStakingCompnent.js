@@ -363,7 +363,7 @@ function TokenStakingCompnent() {
                   <input
                     onChange={(e) => setRootAmount(e.target.value)}
                     type="number"
-                    placeholder="Type amount..."
+                    placeholder="ex: 30"
                     className="input_1"
                     min={1}
                   />
@@ -399,7 +399,7 @@ function TokenStakingCompnent() {
                   <input
                     onChange={(e) => setsRootAmount(e.target.value)}
                     type="number"
-                    placeholder="Type amount..."
+                    placeholder="ex: 30"
                     className="input_1"
                   />
                   {SROOtxStakingPending ? (
