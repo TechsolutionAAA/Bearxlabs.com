@@ -1785,6 +1785,14 @@
   border: 1px solid #fdd803;
 }
 
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #fdd803;
+  opacity: 1;
+  /* Firefox */
+  font-family: earlyGameBoy;
+}
+
 .tokenButton {
   text-decoration: none;
   padding: 13px 20px;

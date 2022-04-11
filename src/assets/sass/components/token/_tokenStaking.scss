@@ -60,3 +60,9 @@
 .unstakeTable tr td {
   border: 1px solid #fdd803;
 }
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #fdd803;
+  opacity: 1; /* Firefox */
+  font-family: earlyGameBoy;
+}

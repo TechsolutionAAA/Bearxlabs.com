@@ -11,7 +11,6 @@ import SRootxStakingABI from "../../config/SROOTxStaking.json";
 import SROOTxABI from "../../config/SROOTx_Rinkeby.json";
 import ROOTxABI from "../../config/ROOTx_Rinkeby.json";
 import RootxStakingABI from "../../config/ROOTxStaking.json";
-import { EtherscanProvider } from "@ethersproject/providers";
 import loading from "../../assets/images/loading.gif";
 
 function TokenStakingCompnent() {
@@ -93,6 +92,7 @@ function TokenStakingCompnent() {
     try {
       await SROOTxStakingcontract.getStakesByStaker(myAccount[0])
         .then((r) => {
+          console.log(r);
           SetSROOTxstakedIds((b) => r);
         })
         .catch((err) => {
@@ -327,8 +327,11 @@ function TokenStakingCompnent() {
       }
     });
   };
+
+
   return (
     <div className="main__listing">
+      
       <Container>
         <Row>
           <Col>
@@ -439,7 +442,6 @@ function TokenStakingCompnent() {
                   <table className="unstakeTable ms-5">
                     <thead>
                       <tr>
-                        <td>Staking Date</td>
                         <td>Staked Amount</td>
                         <td>Claim</td>
                         <td>Unstake</td>
@@ -448,11 +450,6 @@ function TokenStakingCompnent() {
                     <tbody>
                       {ROOTxstakedIds.map((item) => (
                         <tr key={item.id}>
-                          <td>
-                            {new Date(
-                              item.stakeTimeStamp.toString() * 1000
-                            ).getHours()}
-                          </td>
                           <td>
                             {(item.amount / 1000000000000000000).toString()}
                           </td>
@@ -519,7 +516,7 @@ function TokenStakingCompnent() {
                   <table className="unstakeTable ms-5">
                     <thead>
                       <tr>
-                        <td>Staking Date</td>
+                        <td>Timer</td>
                         <td>Staked Amount</td>
                         <td>Claim</td>
                         <td>Unstake</td>
@@ -529,12 +526,10 @@ function TokenStakingCompnent() {
                       {SROOTxstakedIds.map((item) => (
                         <tr key={item.id}>
                           <td>
-                            {new Date(
-                              item.stakeTimeStamp.toString() * 1000
-                            ).getHours()}
+                           {(new Date(((item.lastClaimTimeStamp * 1000) + (3600 * 24 * 30 * 1000)) - Date.now()).getDate().toString())}
                           </td>
                           <td>
-                            {(item.amount / 1000000000000000000).toString()}
+                            {(item.amount / 1000000000000000000)}
                           </td>
                           <td>
                             {SROOTxClaimpending ? (
@@ -551,10 +546,14 @@ function TokenStakingCompnent() {
                                 />
                               </button>
                             ) : (
+                              
                               <button
                                 type="button"
                                 className="controlBtn"
                                 onClick={() => SROOTxClaim(item.id.toString())}
+                                disabled={
+                                  (new Date(((item.lastClaimTimeStamp * 1000) + (3600 * 24 * 30 * 1000)) - Date.now()).getDate().toString()) > 0
+                                }
                               >
                                 CLAIAM
                               </button>

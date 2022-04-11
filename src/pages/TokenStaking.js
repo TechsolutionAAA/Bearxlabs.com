@@ -6,11 +6,11 @@ function TokenStaking() {
   return (
     <>
       <Banner title="TokenStaking" />
-
+{/* 
       <div className="about__details">
         <p style={{ color: "yellow", fontSize: "50px" }}>COMING SOON</p>
-      </div>
-      {/* <TokenStakingCompnent /> */}
+      </div> */}
+      <TokenStakingCompnent />
     </>
   );
 }
