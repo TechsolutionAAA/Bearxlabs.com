@@ -1767,7 +1767,17 @@
 }
 
 .controlBtn {
+  color: #fdd803;
+  background-color: transparent;
+  border: 1px solid #fdd803;
+  border-radius: 20px;
+}
+
+.controlBtn:hover {
+  color: black;
   background-color: #fdd803;
+  border: 1px solid white;
+  border-radius: 20px;
 }
 
 .unstakeTable {

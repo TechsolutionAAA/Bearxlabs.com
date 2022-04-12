@@ -16,7 +16,7 @@ export default {
       4: "0x4F67EeD9cA3356FE5E4d4bc5BA2854E512a7DF85",
     },
     ROOTxStaking: {
-      1: "",
+      1: "0x5e1ee3988DE358155F723D72875f45668edc97DE",
       4: "",
     },
     SROOTxStaking: {
