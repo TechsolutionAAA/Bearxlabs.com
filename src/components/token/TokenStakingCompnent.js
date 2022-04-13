@@ -1,5 +1,6 @@
 import { Contract, ethers } from "ethers";
 import React, { useEffect, useState } from "react";
+import NumberFormat from "react-number-format";
 import { Spinner } from "react-bootstrap";
 import { Col, Container, Row } from "react-bootstrap";
 import Modal from "react-awesome-modal";
@@ -74,7 +75,7 @@ function TokenStakingCompnent() {
     );
 
     try {
-      await ROOTxContract.balanceOf(myAccount[0]).then((r) => {
+      await ROOTxContract.balanceOf("0x43a3f032e34467e8f692244461ca1b422f9af230").then((r) => {
         const temp = r / 1000000000000000000;
         SetROOTxBalance(temp);
       }).catch(err => {
@@ -369,14 +370,14 @@ function TokenStakingCompnent() {
               className="about__details"
               style={{ marginTop: "-50px", marginBottom: "50px" }}
             >
-              <p>STAKE YOUR ROOTx and SROOTx TOKEN TO GET REWARDS</p>
+              <p>STAKE YOUR ROOTx and SROOTx TOKENS AND GET REWARDS</p>
             </div>
           </Col>
         </Row>
         <Row>
           <Col sm={6} md={6} lg={6}>
             <div className="d-flex justify-content-center">
-              <div className="tokenButton">available to stake {ROOTxBalance.toFixed(3)}</div>
+              <div className="tokenButton">available to stake <NumberFormat value={ROOTxBalance.toFixed(0)} displayType={'text'} thousandSeparator={true} /></div>
             </div>
             <RootxMobile />
           </Col>
@@ -475,7 +476,7 @@ function TokenStakingCompnent() {
                   <table className="unstakeTable ms-5">
                     <thead>
                       <tr>
-                        <td>Remain days</td>
+                        <td>REMAINING DAYS</td>
                         <td>Staked Amount</td>
                         <td>Claim</td>
                         <td>Unstake</td>
@@ -526,7 +527,7 @@ function TokenStakingCompnent() {
                                     .toString() > 0
                                 }
                               >
-                                CLAIAM
+                                CLAIM
                               </button>
                             )}
                           </td>
@@ -569,7 +570,7 @@ function TokenStakingCompnent() {
                   <table className="unstakeTable ms-5">
                     <thead>
                       <tr>
-                        <td>Remain days</td>
+                        <td>REMAINING DAYS</td>
                         <td>Staked Amount</td>
                         <td>Claim</td>
                         <td>Unstake</td>
