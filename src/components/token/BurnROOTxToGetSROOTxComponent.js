@@ -1,6 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Contract, ethers, BigNumber } from "ethers";
+import NumberFormat from "react-number-format";
 import { Spinner } from "react-bootstrap";
+import Swal from "sweetalert2";
 import ROOTxABI from "../../config/rootABI.json";
 import BearXStakingABI from "../../config/stakingABI.json";
 import Modal from "react-awesome-modal";
@@ -11,7 +13,7 @@ const BurnROOTxToGetSROOTxComponent = () => {
   const [MyWeb3, setMyWeb3] = useState([]);
   const [myAccount, setMyAccount] = useState([]);
   const [maxROOTx, setMaxROOTx] = useState(1);
-  const [ROOTx, setROOTx] = useState(0);
+  const [ROOTx, setROOTx] = useState(1);
   const [maxbtnpending, setMaxbtnpending] = useState(false);
   const [burnbtnpending, setBurnbtnpending] = useState(false);
   const [approvebtnpending, setApprovebtnpending] = useState(false);
@@ -41,8 +43,13 @@ const BurnROOTxToGetSROOTxComponent = () => {
   };
   const setIMaxROOTx = (value) => {
     if (maxROOTx >= 1) {
-      if (value == 0) return;
-      setMaxROOTx(value);
+      if (value === 0) {
+        return;
+      } else if (value > ROOTx) {
+        return;
+      } else {
+        setMaxROOTx(value);
+      }
     }
   };
   async function getbalanceOfrootx() {
@@ -58,7 +65,7 @@ const BurnROOTxToGetSROOTxComponent = () => {
     await rootxcontract
       .balanceOf(myAccount[0])
       .then((r) => {
-        var result = r;
+        var result = r / 1000000000000000000;
         setROOTx(result);
       })
       .catch((err) => {
@@ -67,28 +74,64 @@ const BurnROOTxToGetSROOTxComponent = () => {
       });
   }
   async function approverootx() {
-    if (myAccount.length === 0) return;
+    if (myAccount.length === 0) {
+      return;
+    } else if (ROOTx === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Insufficient Token!",
+      });
+      return;
+    }
+
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const rootxcontract = new Contract(
       contract.ROOTx[1],
       ROOTxABI,
       provider?.getSigner()
     );
-    if (ROOTx != 0) {
-      setApprovebtnpending(true);
-      setShowModal(true);
-      try {
-        const tx = await rootxcontract.approve(
-          contract.BearXStaking[1],
-          ROOTx,
-          { from: myAccount[0] }
-        );
-        await tx.wait();
-        window.location.reload();
-      } catch (err) {
-        setApprovebtnpending(false);
-        setShowModal(false);
-      }
+
+    const myAllowanceTx = await rootxcontract.allowance(
+      myAccount[0],
+      contract.BearXStaking[1]
+    );
+    const myAllowance = myAllowanceTx.toString() / 1000000000000000000;
+    if (myAllowance >= ROOTx) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You already approved your token!",
+      });
+    } else {
+      Swal.fire({
+        icon: "question",
+        title: "Confirm ROOTx Approving",
+        text: `You will approve ${ROOTx} ROOTx token, continue ?`,
+        showCancelButton: true,
+      }).then(async (res) => {
+        if (res.isConfirmed) {
+          setApprovebtnpending(true);
+          setShowModal(true);
+          try {
+            const tx = await rootxcontract.approve(
+              contract.BearXStaking[1],
+              ethers.utils.parseUnits(String(ROOTx), 18),
+              { from: myAccount[0] }
+            );
+            await tx.wait();
+            window.location.reload();
+          } catch (err) {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went Wrong!",
+            });
+            setApprovebtnpending(false);
+            setShowModal(false);
+          }
+        }
+      });
     }
   }
   async function burnrootx() {
@@ -107,7 +150,7 @@ const BurnROOTxToGetSROOTxComponent = () => {
 
     var temp = bg_decimal.mul(bg_valueofrootx);
 
-    if (ROOTx != 0) {
+    if (ROOTx !== 0) {
       setBurnbtnpending(true);
       setShowModal(true);
       try {
@@ -117,7 +160,11 @@ const BurnROOTxToGetSROOTxComponent = () => {
         await tx.wait();
         window.location.reload();
       } catch (err) {
-        console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "You have to approve enough ROOTx token to staking contract!",
+        });
         setShowModal(false);
         setBurnbtnpending(false);
       }
@@ -155,6 +202,14 @@ const BurnROOTxToGetSROOTxComponent = () => {
           <p style={{ color: "yellow", fontSize: "25px" }}>
             Enter the amount of ROOTx you'd like to burn for SROOTx
           </p>
+          <p style={{ color: "yellow", fontSize: "25px" }}>
+            Your available ROOTx token is{" "}
+            <NumberFormat
+              value={ROOTx.toFixed(0)}
+              displayType={"text"}
+              thousandSeparator={true}
+            />
+          </p>
         </div>
 
         <div className="burn-get-subcontain">
@@ -171,7 +226,7 @@ const BurnROOTxToGetSROOTxComponent = () => {
               placeholder="0"
               min={1}
               id="value_rootx"
-              value={maxROOTx}
+              value={maxROOTx.toFixed(0)}
               onChange={(e) => setMaxROOTx(e.target.value)}
             />
             <button

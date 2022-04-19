@@ -4,7 +4,6 @@ import NumberFormat from "react-number-format";
 import { Spinner } from "react-bootstrap";
 import { Col, Container, Row } from "react-bootstrap";
 import Modal from "react-awesome-modal";
-import DateCountdown from "react-date-countdown-timer";
 import Swal from "sweetalert2";
 import RootxMobile from "./RootxMobile";
 import Srootx from "./Srootx";
@@ -37,6 +36,8 @@ function TokenStakingCompnent() {
   const [ROOTxClaimpending, setROOTxClaimpending] = useState(false);
   // const [SROOTxClaimpending, setSROOTxClaimpending] = useState(false);
 
+  const [ROOTxAPPROVE, setROOTxAPPROVE] = useState(false);
+
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -64,7 +65,7 @@ function TokenStakingCompnent() {
       .catch((err) => console.log(err));
   };
 
-  const getROOTxBalance = async() => {
+  const getROOTxBalance = async () => {
     if (myAccount.length === 0) return;
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -75,16 +76,18 @@ function TokenStakingCompnent() {
     );
 
     try {
-      await ROOTxContract.balanceOf("0x43a3f032e34467e8f692244461ca1b422f9af230").then((r) => {
-        const temp = r / 1000000000000000000;
-        SetROOTxBalance(temp);
-      }).catch(err => {
-        console.log(err);
-      })
+      await ROOTxContract.balanceOf(myAccount[0])
+        .then((r) => {
+          const temp = r / 1000000000000000000;
+          SetROOTxBalance(temp);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const getROOTxStakingData = async () => {
     if (myAccount.length === 0) return;
@@ -144,22 +147,11 @@ function TokenStakingCompnent() {
     setShowModal(true);
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const ROOTxContract = new Contract(
-        contract.ROOTx[1],
-        ROOTxABI,
-        provider?.getSigner()
-      );
       const ROOTxStakingcontract = new Contract(
         contract.ROOTxStaking[1],
         RootxStakingABI,
         provider?.getSigner()
       );
-      const approveTx = await ROOTxContract.approve(
-        contract.ROOTxStaking[1],
-        ethers.utils.parseUnits(String(amount), 18),
-        { from: myAccount[0] }
-      );
-      await approveTx.wait();
       const tx = await ROOTxStakingcontract.stakeToken(
         ethers.utils.parseUnits(String(amount), 18),
         {
@@ -169,6 +161,11 @@ function TokenStakingCompnent() {
       await tx.wait();
       window.location.reload();
     } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You have to approve enough token to stake",
+      });
       setROOtxStakingPending(false);
       setShowModal(false);
     }
@@ -220,8 +217,8 @@ function TokenStakingCompnent() {
 
     Swal.fire({
       icon: "question",
-      title: "Confirm Unstake ROOTx",
-      text: "If you unstake this token, you won't claim rewards",
+      title: "Confirm ROOTx Unstaking",
+      text: "If you unstake, you won't claim rewards for this period. Continue?",
       showCancelButton: true,
     }).then(async (res) => {
       if (res.isConfirmed) {
@@ -253,8 +250,8 @@ function TokenStakingCompnent() {
 
   //   Swal.fire({
   //     icon: "question",
-  //     title: "Confirm Unstake SROOTx",
-  //     text: "If you unstake this token, you won't claim rewards",
+  //     title: "Confirm SROOTx Unstaking",
+  //     text: "If you unstake, you won't claim rewards for this period. Continue?",
   //     showCancelButton: true,
   //   }).then(async (res) => {
   //     if (res.isConfirmed) {
@@ -300,7 +297,7 @@ function TokenStakingCompnent() {
 
     Swal.fire({
       icon: "question",
-      title: "Confirm Claim ROOTx",
+      title: "Confirm ROOTx Claiming",
       text: `Do you want to claim? You will get ${claimableamount} ROOTx token for rewards.`,
       showCancelButton: true,
     }).then(async (res) => {
@@ -361,6 +358,68 @@ function TokenStakingCompnent() {
   //   });
   // };
 
+  const ApproveROOTx = async (ROOTxAmount) => {
+    if (myAccount.length === 0) {
+      return;
+    }
+    else if (ROOTxAmount === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Insufficient Token!",
+      });
+      return;
+    }
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const ROOTxContract = new Contract(
+      contract.ROOTx[1],
+      ROOTxABI,
+      provider?.getSigner()
+    );
+
+    const myAllowanceTx = await ROOTxContract.allowance(
+      myAccount[0],
+      contract.ROOTxStaking[1]
+    );
+    const myAllowance = myAllowanceTx.toString() / 1000000000000000000;
+    if (myAllowance >= ROOTxAmount) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You already approved your token!",
+      });
+    } else {
+      Swal.fire({
+        icon: "question",
+        title: "Confirm ROOTx Approving",
+        text: `You will approve ${ROOTxAmount} ROOTx token, continue?`,
+        showCancelButton: true,
+      }).then(async (res) => {
+        if (res.isConfirmed) {
+          setROOTxAPPROVE(true);
+          setShowModal(true);
+          try {
+            const approveTx = await ROOTxContract.approve(
+              contract.ROOTxStaking[1],
+              ethers.utils.parseUnits(String(ROOTxAmount), 18),
+              { from: myAccount[0] }
+            );
+            await approveTx.wait();
+            window.location.reload();
+          } catch (err) {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went Wrong!",
+            });
+            setROOTxAPPROVE(false);
+            setShowModal(false);
+          }
+        }
+      });
+    }
+  };
+
   return (
     <div className="main__listing">
       <Container>
@@ -377,7 +436,34 @@ function TokenStakingCompnent() {
         <Row>
           <Col sm={6} md={6} lg={6}>
             <div className="d-flex justify-content-center">
-              <div className="tokenButton">available to stake <NumberFormat value={ROOTxBalance.toFixed(0)} displayType={'text'} thousandSeparator={true} /></div>
+              <div className="tokenButton">
+                available to stake{" "}
+                <NumberFormat
+                  value={ROOTxBalance.toFixed(0)}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                />
+              </div>
+              {ROOTxAPPROVE ? (
+                <div className="approveButton">
+                  <Spinner
+                    as="span"
+                    variant="light"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                    animation="border"
+                    style={{ width: "20px", height: "20px" }}
+                  />
+                </div>
+              ) : (
+                <div
+                  className="approveButton"
+                  onClick={() => ApproveROOTx(ROOTxBalance)}
+                >
+                  APPROVE ALL
+                </div>
+              )}
             </div>
             <RootxMobile />
           </Col>

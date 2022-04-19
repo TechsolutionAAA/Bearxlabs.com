@@ -1,7 +1,7 @@
 .load {
-  border: 1px solid $primaryColor;
+  border: 1px solid $primaryColor !important;
   padding: 20px;
-  border-radius: 25px;
+  border-radius: 25px !important;
   -webkit-border-radius: 25px;
   -moz-border-radius: 25px;
   -ms-border-radius: 25px;
@@ -31,6 +31,14 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 42px;
+
+    .description {
+      font-family: $earlyGameBoy;
+      font-size: 12px;
+      margin-bottom: 20px;
+      color: white;
+      text-align: justify;
+    }
 
     button {
       font-size: 12px;

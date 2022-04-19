@@ -5,7 +5,7 @@ import TokenStakingCompnent from "../components/token/TokenStakingCompnent";
 function TokenStaking() {
   return (
     <>
-      <Banner title="TokenStaking" />
+      <Banner title="Token Staking" />
 {/* 
       <div className="about__details">
         <p style={{ color: "yellow", fontSize: "50px" }}>COMING SOON</p>

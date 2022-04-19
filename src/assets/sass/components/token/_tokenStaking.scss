@@ -75,3 +75,17 @@
   opacity: 1; /* Firefox */
   font-family: earlyGameBoy;
 }
+
+.approveButton {
+  text-decoration: none;
+  padding: 15px 20px;
+  background-color: $primaryColor;
+  text-align: center;
+  color: black;
+  font-size: 15px;
+  font-family: $earlyGameBoy;
+  border-radius: 50px;
+
+  margin-bottom: 100px;
+  cursor: pointer;
+}

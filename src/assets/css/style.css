@@ -1505,9 +1505,9 @@
 }
 
 .load {
-  border: 1px solid #fdd803;
+  border: 1px solid #fdd803 !important;
   padding: 20px;
-  border-radius: 25px;
+  border-radius: 25px !important;
   -webkit-border-radius: 25px;
   -moz-border-radius: 25px;
   -ms-border-radius: 25px;
@@ -1537,6 +1537,13 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 42px;
+}
+.load .load__down .description {
+  font-family: earlyGameBoy;
+  font-size: 12px;
+  margin-bottom: 20px;
+  color: white;
+  text-align: justify;
 }
 .load .load__down button {
   font-size: 12px;
@@ -1801,6 +1808,19 @@
   opacity: 1;
   /* Firefox */
   font-family: earlyGameBoy;
+}
+
+.approveButton {
+  text-decoration: none;
+  padding: 15px 20px;
+  background-color: #fdd803;
+  text-align: center;
+  color: black;
+  font-size: 15px;
+  font-family: earlyGameBoy;
+  border-radius: 50px;
+  margin-bottom: 100px;
+  cursor: pointer;
 }
 
 .tokenButton {
