@@ -1549,6 +1549,15 @@
   background: transparent;
   color: green;
 }
+.load .load__down .servertxt {
+  color: white;
+  font-size: 12px;
+  font-family: earlyGameBoy;
+  text-decoration: none;
+}
+.load .load__down .server {
+  background-color: blue;
+}
 .load .load__down button {
   font-size: 12px;
   padding: 7px 13px;
