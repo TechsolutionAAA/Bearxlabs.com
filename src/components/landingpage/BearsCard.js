@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Container, Image, Row } from 'react-bootstrap';
-import yellow from '../../assets/images/ladingpage/card/1.png';
+import yellow from '../../assets/images/ladingpage/root-banner.png';
 import blue from '../../assets/images/ladingpage/card/2.png';
 import purple from '../../assets/images/ladingpage/card/3.png';
 import { Link } from 'react-router-dom';
