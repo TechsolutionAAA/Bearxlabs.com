@@ -916,7 +916,7 @@
   line-height: 54px;
   position: absolute;
   top: -1px;
-  left: -102px;
+  left: -120px;
 }
 .main__listing .listing .listing__card .roundOn span {
   color: #000;
@@ -936,7 +936,7 @@
   line-height: 54px;
   position: absolute;
   top: -1px;
-  right: -102px;
+  right: -120px;
 }
 .main__listing .listing .listing__card .roundOnLeft span {
   color: #000;
