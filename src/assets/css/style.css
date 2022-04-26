@@ -1836,6 +1836,14 @@
   cursor: pointer;
 }
 
+.percent {
+  color: #fdd803;
+  font-size: 25px;
+  font-family: earlyGameBoy;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
 .tokenButton {
   text-decoration: none;
   padding: 13px 20px;

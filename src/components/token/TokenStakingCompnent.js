@@ -36,6 +36,9 @@ function TokenStakingCompnent() {
   const [ROOTxClaimpending, setROOTxClaimpending] = useState(false);
   // const [SROOTxClaimpending, setSROOTxClaimpending] = useState(false);
 
+  const [ROOTxbalance, setROOTxbalance] = useState(0);
+  const [StakedROOTxBalance, SetStakedROOTxBalance] = useState(0);
+
   const [ROOTxAPPROVE, setROOTxAPPROVE] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
@@ -50,6 +53,9 @@ function TokenStakingCompnent() {
     if (MyWeb3.length !== 0) {
       getROOTxStakingData();
       getROOTxBalance();
+      
+      getROOTxtotalbalance();
+      getStakingROOTxtokenbalance();
       // getSROOTxStakingData();
     }
   }, [MyWeb3, myAccount[0]]);
@@ -63,6 +69,26 @@ function TokenStakingCompnent() {
         setMyAccount(acc);
       })
       .catch((err) => console.log(err));
+  };
+
+  const getROOTxtotalbalance = async () => {
+    if (myAccount.length === 0) return;
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const ROOTxContract = new Contract(
+      contract.ROOTx[1],
+      ROOTxABI,
+      provider?.getSigner()
+    );
+
+    try {
+      await ROOTxContract.totalSupply().then((res) => {
+        const temp = res / 1000000000000000000;
+        setROOTxbalance(temp);
+      }).catch(err => console.log(err))
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getROOTxBalance = async () => {
@@ -88,6 +114,26 @@ function TokenStakingCompnent() {
       console.log(error);
     }
   };
+
+  const getStakingROOTxtokenbalance = async () => {
+    if (myAccount.length === 0) return;
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const ROOTxStakingContract = new Contract(
+      contract.ROOTxStaking[1],
+      RootxStakingABI,
+      provider?.getSigner()
+    );
+
+    try {
+      await ROOTxStakingContract.getStakingTokenBalance().then((res) => {
+        const temp = res / 1000000000000000000;
+        SetStakedROOTxBalance(temp);
+      }).catch(err => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const getROOTxStakingData = async () => {
     if (myAccount.length === 0) return;
@@ -435,6 +481,7 @@ function TokenStakingCompnent() {
         </Row>
         <Row>
           <Col sm={6} md={6} lg={6}>
+          <div className="percent">Total ROOTx staked - {(StakedROOTxBalance/ROOTxbalance*100).toFixed(0)}%</div>
             <div className="d-flex justify-content-center">
               <div className="tokenButton">
                 available to stake{" "}
