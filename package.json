@@ -60,5 +60,5 @@
       "last 1 safari version"
     ]
   }, 
-  "proxy": "http://localhost:6000"
+  "proxy": "https://api.bearxlabs.com:6000"
 }
