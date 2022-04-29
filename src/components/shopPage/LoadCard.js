@@ -25,16 +25,10 @@ const LoadCard = () => {
   const [showModal, setShowModal] = useState(false);
 
   // Bearx Ticket Info
-  const [BearxburnROOTx, setburnROOTx] = useState(2500);
-  const [Bearxticketamount, setBearxticketamount] = useState();
+  const [BearxburnROOTx, setburnROOTx] = useState(10);
+  const [Bearxticketamount, setBearxticketamount] = useState(0);
   const [Bearxticketowned, setBearxticketowned] = useState(false);
   const [Bearxpending, setBearxpending] = useState(false);
-
-  // Souka Ticket Info
-  // const [SoukaburnROOTx, setSoukaburnROOTx] = useState(5000);
-  // const [Soukaticketamount, setSoukaticketamount] = useState();
-  // const [Soukaticketowned, setSoukaticketowned] = useState(false);
-  // const [Soukapending, setSoukapending] = useState(false);
 
   useEffect(() => {
     if (window.web3 !== undefined && window.ethereum) {
@@ -48,9 +42,6 @@ const LoadCard = () => {
 
       getBearxticketdata();
       getBearxowned();
-
-      // getSoukaowned();
-      // getSoukaticketdata();
     }
   }, [MyWeb3, myAccount[0]]);
 
@@ -81,22 +72,11 @@ const LoadCard = () => {
       .catch((err) => console.log(err));
   };
 
-  // const getSoukaowned = async () => {
-  //   const expData = {
-  //     item: "souka",
-  //     account: window.ethereum.selectedAddress
-  //   };
-  //   axios.post('/v1/api/user/gettickeowned', expData).then((res) => {
-  //     if(res.data.result) {
-  //       setSoukaticketowned(true);
-  //     }
-  //   }).catch(err => console.log(err));
-  // }
-
   const getBearxticketdata = async () => {
     const expData = {
       item: "bearx",
     };
+    console.log(expData);
     axios
       .post("/v1/api/user/getticketdata", expData)
       .then((res) => {
@@ -106,17 +86,6 @@ const LoadCard = () => {
       })
       .catch((err) => console.log(err));
   };
-
-  // const getSoukaticketdata = async () => {
-  //   const expData = {
-  //     item: "souka"
-  //   };
-  //   axios.post('/v1/api/user/getticketdata', expData).then((res) => {
-  //     if(res.data >= 0) {
-  //       setSoukaticketamount(res.data);
-  //     }
-  //   }).catch(err => console.log(err));
-  // };
 
   const getROOTxBalance = async () => {
     if (myAccount.length === 0) return;
@@ -169,7 +138,7 @@ const LoadCard = () => {
               await tx.wait();
               const expData = {
                 item: "bearx",
-                amount: Bearxticketamount + 1,
+                amount: Number(Bearxticketamount) + 1,
               };
               await axios
                 .post("/v1/api/user/setticketamount", expData)
@@ -201,44 +170,6 @@ const LoadCard = () => {
               setShowModal(false);
             }
           }
-          // } else if(item === "souka") {
-          //   setSoukapending(true);
-          //   setShowModal(true);
-          //   try {
-          //     const tx = await ROOTxContract._burn(
-          //       ethers.utils.parseUnits(String(amount), 18),
-          //       { from: myAccount[0] }
-          //     );
-          //     await tx.wait();
-          //     const expData = {
-          //       item: "souka",
-          //       amount: Soukaticketamount-1,
-          //     }
-          //     await axios.post('/v1/api/user/setticketamount', expData).then(res => {
-          //       console.log("succecss");
-          //     }).catch(err => console.log(err));
-          //     const expData1 = {
-          //       item: "souka",
-          //       owner: window.ethereum.selectedAddress
-          //     };
-          //     await axios.post('/v1/api/user/setticketowner', expData1).then(res => {
-          //       if(res.data.result) {
-          //         setSoukaticketowned(true);
-          //         window.location.reload();
-          //       }
-          //     }).catch(err => console.log(err));
-          //       setSoukaticketowned(true);
-          //       window.location.reload();
-          //   } catch (error) {
-          //     Swal.fire({
-          //       icon: "error",
-          //       title: "Oops...",
-          //       text: "Something went Wrong!",
-          //     });
-          //     setSoukapending(false);
-          //     setShowModal(false);
-          //   }
-          // }
         }
       })
       .catch((err) => console.log(err));
@@ -322,7 +253,7 @@ const LoadCard = () => {
                   </button>
                 ) : ROOTxBalance >= BearxburnROOTx ? (
                   <button onClick={() => burnROOTx(BearxburnROOTx, "bearx")}>
-                    BearVX
+                    Get Whitelist Spot
                   </button>
                 ) : Bearxticketamount >= 10 ? (
                   <button>SOLD OUT</button>
