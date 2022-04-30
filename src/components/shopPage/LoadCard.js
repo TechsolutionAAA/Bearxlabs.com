@@ -140,6 +140,7 @@ const LoadCard = () => {
                 item: "bearx",
                 amount: Number(Bearxticketamount) + 1,
               };
+              console.log(expData);
               await axios
                 .post("/v1/api/user/setticketamount", expData)
                 .then((res) => {
@@ -150,6 +151,7 @@ const LoadCard = () => {
                 item: "bearx",
                 owner: window.ethereum.selectedAddress,
               };
+              console.log(expData1);
               await axios
                 .post("/v1/api/user/setticketowner", expData1)
                 .then((res) => {
