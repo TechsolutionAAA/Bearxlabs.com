@@ -5,7 +5,7 @@ import axios from "axios";
 import Modal from "react-awesome-modal";
 import Swal from "sweetalert2";
 import contract from "../../config/contract";
-import ROOTxABI from "../../config/rootABI.json";
+import ROOTxABI from "../../config/ROOTx_Rinkeby.json";
 import loading from "../../assets/images/loading.gif";
 import { Col, Container, Row, Image } from "react-bootstrap";
 import bearvx from "../../assets/images/Item.jpg";
@@ -92,7 +92,7 @@ const LoadCard = () => {
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const ROOTxContract = new Contract(
-      contract.ROOTx[1],
+      contract.ROOTx[4],
       ROOTxABI,
       provider?.getSigner()
     );
@@ -122,7 +122,7 @@ const LoadCard = () => {
         if (res.isConfirmed) {
           const provider = new ethers.providers.Web3Provider(window.ethereum);
           const ROOTxContract = new Contract(
-            contract.ROOTx[1],
+            contract.ROOTx[4],
             ROOTxABI,
             provider?.getSigner()
           );
