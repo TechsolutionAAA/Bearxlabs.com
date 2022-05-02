@@ -527,7 +527,7 @@ const LoadCard = () => {
                   <div style={{ display: "flex", flexDirection: "column" }}>
                     <span>{soukaburnROOTx.toLocaleString("en-US")} ROOTx</span>
                     <span style={{ marginTop: "10px" }}>
-                      {soukaticketamount} / 3 SPOTS
+                      {soukaticketamount} / 3 filled
                     </span>
                   </div>
                 </div>
@@ -598,7 +598,7 @@ const LoadCard = () => {
                       {flickburnROOTx.toLocaleString("en-US")} ROOTx
                     </span>
                     <span style={{ marginTop: "10px" }}>
-                      {flickticketamount} / 3 SPOTS
+                      {flickticketamount} / 3 filled
                     </span>
                   </div>
                 </div>
@@ -669,7 +669,7 @@ const LoadCard = () => {
                   <div style={{ display: "flex", flexDirection: "column" }}>
                     <span>{wizardburnROOTx.toLocaleString("en-US")} ROOTx</span>
                     <span style={{ marginTop: "10px" }}>
-                      {wizardticketamount} / 3 SPOTS
+                      {wizardticketamount} / 3 filled
                     </span>
                   </div>
                 </div>
@@ -738,7 +738,7 @@ const LoadCard = () => {
                   <div style={{ display: "flex", flexDirection: "column" }}>
                     <span>{noodburnROOTx.toLocaleString("en-US")} ROOTx</span>
                     <span style={{ marginTop: "10px" }}>
-                      {noodticketamount} / 3 SPOTS
+                      {noodticketamount} / 3 filled
                     </span>
                   </div>
                 </div>
@@ -813,7 +813,7 @@ const LoadCard = () => {
                       {DodoburnROOTx.toLocaleString("en-US")} ROOTx
                     </span>
                     <span style={{ marginTop: "10px" }}>
-                      {Dodoticketamount} / 3 SPOTS
+                      {Dodoticketamount} / 3 filled
                     </span>
                   </div>
                 </div>
