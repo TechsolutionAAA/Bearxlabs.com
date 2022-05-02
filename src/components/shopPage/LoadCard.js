@@ -16,6 +16,9 @@ import Elysium from "../../assets/images/Item.jpg";
 import Espadra from "../../assets/images/Item.jpg";
 import Immortal from "../../assets/images/Item.jpg";
 import Samurai from "../../assets/images/Item.jpg";
+import Lostland from "../../assets/images/Item.jpg";
+import Alfie from "../../assets/images/Item.jpg";
+import NFTIsland from "../../assets/images/Item.jpg";
 
 const LoadCard = () => {
   const [MyWeb3, setMyWeb3] = useState([]);
@@ -71,7 +74,25 @@ const LoadCard = () => {
   const [samuraiticketamount, setsamuraiticketamount] = useState(0);
   const [samuraiticketowned, setsamuraiticketowned] = useState(false);
   const [samuraipending, setsamuraipending] = useState(false);
-  
+
+  // LostLands NFT Ticket
+  const [lostlandburnROOTx, setlostlandburnROOTx] = useState(25);
+  const [lostlandticketamount, setlostlandticketamount] = useState(0);
+  const [lostlandticketowned, setlostlandticketowned] = useState(false);
+  const [lostlandpending, setlostlandpending] = useState(false);
+
+  // Alfie Ticket
+  const [alfieburnROOTx, setalfieburnROOTx] = useState(30);
+  const [alfieticketamount, setalfieticketamount] = useState(0);
+  const [alfieticketowned, setalfieticketowned] = useState(false);
+  const [alfiepending, setalfiepending] = useState(false);
+
+  // NFTIsland Ticket
+  const [NFTIslandburnROOTx, setNFTIslandburnROOTx] = useState(25);
+  const [NFTIslandticketamount, setNFTIslandticketamount] = useState(0);
+  const [NFTIslandticketowned, setNFTIslandticketowned] = useState(false);
+  const [NFTIslandpending, setNFTIslandpending] = useState(false);
+
   useEffect(() => {
     if (window.web3 !== undefined && window.ethereum) {
       loadWeb3();
@@ -113,6 +134,18 @@ const LoadCard = () => {
       // Samurai Ticket
       getSamuraiTicketdata();
       getSamuraiTicketowned();
+
+      // LostLand Ticket
+      getlostlandTicketdata();
+      getlostlandTicketowned();
+
+      // Alfie Ticket
+      getalfieTicketdata();
+      getalfieTicketowned();
+
+      // NFTIsland Ticket
+      getNFTIslanddata();
+      getNFTIslandowned();
     }
   }, [MyWeb3, myAccount[0]]);
 
@@ -377,6 +410,93 @@ const LoadCard = () => {
       .then((res) => {
         if (res.data.result) {
           setsamuraiticketowned(true);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // Lostland Ticket
+  const getlostlandTicketdata = async () => {
+    const expData = {
+      item: "lostland",
+    };
+    axios
+      .post("/v1/api/user/getticketdata", expData)
+      .then((res) => {
+        if (res.data >= 0) {
+          setlostlandticketamount(res.data);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+  const getlostlandTicketowned = async () => {
+    const expData = {
+      item: "lostland",
+      account: window.ethereum.selectedAddress,
+    };
+    axios
+      .post("/v1/api/user/gettickeowned", expData)
+      .then((res) => {
+        if (res.data.result) {
+          setlostlandticketowned(true);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // Alfie Ticket
+  const getalfieTicketdata = async () => {
+    const expData = {
+      item: "alfie",
+    };
+    axios
+      .post("/v1/api/user/getticketdata", expData)
+      .then((res) => {
+        if (res.data >= 0) {
+          setalfieticketamount(res.data);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+  const getalfieTicketowned = async () => {
+    const expData = {
+      item: "alfie",
+      account: window.ethereum.selectedAddress,
+    };
+    axios
+      .post("/v1/api/user/gettickeowned", expData)
+      .then((res) => {
+        if (res.data.result) {
+          setalfieticketowned(true);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // NFTIsland Ticket
+  const getNFTIslanddata = async () => {
+    const expData = {
+      item: "NFTIsland",
+    };
+    axios
+      .post("/v1/api/user/getticketdata", expData)
+      .then((res) => {
+        if (res.data >= 0) {
+          setNFTIslandticketamount(res.data);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+  const getNFTIslandowned = async () => {
+    const expData = {
+      item: "NFTIsland",
+      account: window.ethereum.selectedAddress,
+    };
+    axios
+      .post("/v1/api/user/gettickeowned", expData)
+      .then((res) => {
+        if (res.data.result) {
+          setNFTIslandticketowned(true);
         }
       })
       .catch((err) => console.log(err));
@@ -663,6 +783,102 @@ const LoadCard = () => {
                 text: "Something went Wrong!",
               });
               setsamuraipending(false);
+              setShowModal(false);
+            }
+          } else if (item === "lostland") {
+            setlostlandpending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(ethers.utils.parseUnits(String(amount), 18), {from: myAccount[0]});
+              await tx.wait();
+              const expData = {
+                item: "lostland",
+                amount: Number(lostlandticketamount) + 1,
+              };
+              await axios.post("/v1/api/user/setticketamount", expData).then((res) => {
+                console.log("success");
+              }).catch(err => console.log(err));
+              const expData1 = {
+                item: "lostland",
+                owner: window.ethereum.selectedAddress,
+              };
+              await axios.post("/v1/api/user/setticketowner", expData1).then((res) => {
+                if(res.data.result) {
+                  setlostlandticketowned(true);
+                  window.location.reload();
+                }
+              }).catch(err => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setlostlandpending(false);
+              setShowModal(false);
+            }
+          } else if (item === "alfie") {
+            setalfiepending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(ethers.utils.parseUnits(String(amount), 18), {from: myAccount[0]});
+              await tx.wait();
+              const expData = {
+                item: "alfie",
+                amount: Number(alfieticketamount) + 1,
+              };
+              await axios.post("/v1/api/user/setticketamount", expData).then((res) => {
+                console.log("success");
+              }).catch(err => console.log(err));
+              const expData1 = {
+                item: "alfie",
+                owner: window.ethereum.selectedAddress,
+              };
+              await axios.post("/v1/api/user/setticketowner", expData1).then((res) => {
+                if(res.data.result) {
+                  setalfieticketowned(true);
+                  window.location.reload();
+                }
+              }).catch(err => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setalfiepending(false);
+              setShowModal(false);
+            }
+          } else if (item === "NFTIsland") {
+            setNFTIslandpending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(ethers.utils.parseUnits(String(amount), 18), {from: myAccount[0]});
+              await tx.wait();
+              const expData = {
+                item: "NFTIsland",
+                amount: Number(NFTIslandticketamount) + 1,
+              };
+              await axios.post("/v1/api/user/setticketamount", expData).then((res) => {
+                console.log("success");
+              }).catch(err => console.log(err));
+              const expData1 = {
+                item: "NFTIsland",
+                owner: window.ethereum.selectedAddress,
+              };
+              await axios.post("/v1/api/user/setticketowner", expData1).then((res) => {
+                if(res.data.result) {
+                  setNFTIslandticketowned(true);
+                  window.location.reload();
+                }
+              }).catch(err => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setNFTIslandpending(false);
               setShowModal(false);
             }
           }
@@ -1225,6 +1441,210 @@ const LoadCard = () => {
                     Get Whitelist Spot
                   </button>
                 ) : samuraiticketamount >= 10 ? (
+                  <button>SOLD OUT</button>
+                ) : (
+                  <button>Not Enough ROOTx</button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={Lostland} alt="shop images" fluid />
+                </div>
+              </div>
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <span>{lostlandburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {lostlandticketamount} / 10 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description">
+                  THIS IS Samurai GAME NFT ITEM
+                </div>
+                {lostlandticketowned ? (
+                  <button className="server">
+                    <a
+                      className="servertxt"
+                      target="_blank"
+                      href="https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
+                    >
+                      open a ticket in the server
+                    </a>
+                  </button>
+                ) : (
+                  <></>
+                )}
+                {lostlandticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : lostlandpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : ROOTxBalance >= lostlandburnROOTx ? (
+                  <button onClick={() => burnROOTx(lostlandburnROOTx, "lostland")}>
+                    Get Whitelist Spot
+                  </button>
+                ) : lostlandticketamount >= 10 ? (
+                  <button>SOLD OUT</button>
+                ) : (
+                  <button>Not Enough ROOTx</button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={Alfie} alt="shop images" fluid />
+                </div>
+              </div>
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <span>{alfieburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {alfieticketamount} / 10 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description">
+                  THIS IS Samurai GAME NFT ITEM
+                </div>
+                {alfieticketowned ? (
+                  <button className="server">
+                    <a
+                      className="servertxt"
+                      target="_blank"
+                      href="https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
+                    >
+                      open a ticket in the server
+                    </a>
+                  </button>
+                ) : (
+                  <></>
+                )}
+                {alfieticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : alfiepending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : ROOTxBalance >= alfieburnROOTx ? (
+                  <button onClick={() => burnROOTx(alfieburnROOTx, "alfie")}>
+                    Get Whitelist Spot
+                  </button>
+                ) : alfieticketamount >= 10 ? (
+                  <button>SOLD OUT</button>
+                ) : (
+                  <button>Not Enough ROOTx</button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={NFTIsland} alt="shop images" fluid />
+                </div>
+              </div>
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <span>{NFTIslandburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {NFTIslandticketamount} / 10 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description">
+                  THIS IS Samurai GAME NFT ITEM
+                </div>
+                {NFTIslandticketowned ? (
+                  <button className="server">
+                    <a
+                      className="servertxt"
+                      target="_blank"
+                      href="https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
+                    >
+                      open a ticket in the server
+                    </a>
+                  </button>
+                ) : (
+                  <></>
+                )}
+                {NFTIslandticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : NFTIslandpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : ROOTxBalance >= NFTIslandburnROOTx ? (
+                  <button onClick={() => burnROOTx(NFTIslandburnROOTx, "NFTIsland")}>
+                    Get Whitelist Spot
+                  </button>
+                ) : NFTIslandticketamount >= 10 ? (
                   <button>SOLD OUT</button>
                 ) : (
                   <button>Not Enough ROOTx</button>
