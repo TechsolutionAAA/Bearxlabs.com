@@ -6,10 +6,10 @@ function LPTokenStaking() {
   return (
     <>
         <Banner title="LP Staking" />
-        {/* <div className="about__details">
+        <div className="about__details">
         <p style={{ color: "yellow", fontSize: "50px" }}>COMING SOON</p>
-      </div> */}
-        <LPStakingComponent />
+      </div>
+        {/* <LPStakingComponent /> */}
     </>
   )
 }
