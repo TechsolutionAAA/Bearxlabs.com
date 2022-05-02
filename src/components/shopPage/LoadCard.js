@@ -5,21 +5,14 @@ import axios from "axios";
 import Modal from "react-awesome-modal";
 import Swal from "sweetalert2";
 import contract from "../../config/contract";
-import ROOTxABI from "../../config/ROOTx_Rinkeby.json";
+import ROOTxABI from "../../config/rootABI.json";
 import loading from "../../assets/images/loading.gif";
 import { Col, Container, Row, Image } from "react-bootstrap";
-import avatar from "../../assets/images/Item.jpg";
-import nood from "../../assets/images/Item.jpg";
-import Fluffies from "../../assets/images/Item.jpg";
-import Meta from "../../assets/images/Item.jpg";
-import Elysium from "../../assets/images/Item.jpg";
-import Espadra from "../../assets/images/Item.jpg";
-import Immortal from "../../assets/images/Item.jpg";
-import Samurai from "../../assets/images/Item.jpg";
-import Lostland from "../../assets/images/Item.jpg";
-import Alfie from "../../assets/images/Item.jpg";
-import NFTIsland from "../../assets/images/Item.jpg";
-
+import souka from "../../assets/images/Items/souka.jpg";
+import nood from "../../assets/images/Items/nood.jpg";
+import flick from "../../assets/images/Items/flick.jpg";
+import wizard from "../../assets/images/Items/wizard.jpg";
+import Dodo from "../../assets/images/Items/Dodo.jpg";
 const LoadCard = () => {
   const [MyWeb3, setMyWeb3] = useState([]);
   const [myAccount, setMyAccount] = useState([]);
@@ -27,71 +20,35 @@ const LoadCard = () => {
   const [ROOTxBalance, setROOTxBalance] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
-  // avatar Ticket Info
-  const [avatarburnROOTx, setburnROOTx] = useState(25);
-  const [avatarticketamount, setavatarticketamount] = useState(0);
-  const [avatarticketowned, setavatarticketowned] = useState(false);
-  const [avatarpending, setavatarpending] = useState(false);
+  // souka Ticket Info
+  const [soukaburnROOTx, setburnROOTx] = useState(2500);
+  const [soukaticketamount, setsoukaticketamount] = useState(0);
+  const [soukaticketowned, setsoukaticketowned] = useState(false);
+  const [soukapending, setsoukapending] = useState(false);
 
   // NOOD Ticket Info
-  const [noodburnROOTx, setnoodburnROOTx] = useState(25);
+  const [noodburnROOTx, setnoodburnROOTx] = useState(2500);
   const [noodticketamount, setnoodticketamount] = useState(0);
   const [noodticketowned, setnoodticketowned] = useState(false);
   const [noodpending, setnooedpending] = useState(false);
 
-  // Fluffies Ticket Info
-  const [fluffiesburnROOTx, setfluffiesburnROOTx] = useState(25);
-  const [fluffiesticketamount, setfluffiesticketamount] = useState(0);
-  const [fluffiesticketowned, setfluffiesticketowned] = useState(false);
-  const [fluffiespending, setfluffiespending] = useState(false);
+  // flick Ticket Info
+  const [flickburnROOTx, setflickburnROOTx] = useState(2500);
+  const [flickticketamount, setflickticketamount] = useState(0);
+  const [flickticketowned, setflickticketowned] = useState(false);
+  const [flickpending, setflickpending] = useState(false);
 
-  // Metagladiators Ticket Info
-  const [metaburnROOTx, setmetaburnROOTx] = useState(25);
-  const [metaticketamount, setmetaticketamount] = useState(0);
-  const [metaticketowned, setmetaticketowned] = useState(false);
-  const [metapending, setmetapending] = useState(false);
+  // wizardgladiators Ticket Info
+  const [wizardburnROOTx, setwizardburnROOTx] = useState(2500);
+  const [wizardticketamount, setwizardticketamount] = useState(0);
+  const [wizardticketowned, setwizardticketowned] = useState(false);
+  const [wizardpending, setwizardpending] = useState(false);
 
-  // Elysium Metagods Ticket Info
-  const [elysiumburnROOTx, setelysiumburnROOTx] = useState(50);
-  const [elysiumticketamount, setelysiumticketamount] = useState(0);
-  const [elysiumticketowned, setelysiumticketowned] = useState(false);
-  const [elysiumpending, setelysiumpending] = useState(false);
-
-  // Espadra Ticket Info
-  const [espadraburnROOTx, setespadraburnROOTx] = useState(25);
-  const [espadraticketamount, setespadraticketamount] = useState(0);
-  const [espadraticketowned, setespadraticketowned] = useState(false);
-  const [espadrapending, setespadrapending] = useState(false);
-
-  // Immortal Games 
-  const [immortalburnROOTx, setimmortalburnROOTx] = useState(25);
-  const [immortalticketamount, setimmortalticketamount] = useState(0);
-  const [immortalticketowned, setimmortalticketowned] = useState(false);
-  const [immortalpending, setimmortalpending] = useState(false);
-
-  // Samurai Cats, le projet de Hiro Ando Ticket
-  const [samuraiburnROOTx, setsamuraiburnROOTx] = useState(25);
-  const [samuraiticketamount, setsamuraiticketamount] = useState(0);
-  const [samuraiticketowned, setsamuraiticketowned] = useState(false);
-  const [samuraipending, setsamuraipending] = useState(false);
-
-  // LostLands NFT Ticket
-  const [lostlandburnROOTx, setlostlandburnROOTx] = useState(25);
-  const [lostlandticketamount, setlostlandticketamount] = useState(0);
-  const [lostlandticketowned, setlostlandticketowned] = useState(false);
-  const [lostlandpending, setlostlandpending] = useState(false);
-
-  // Alfie Ticket
-  const [alfieburnROOTx, setalfieburnROOTx] = useState(30);
-  const [alfieticketamount, setalfieticketamount] = useState(0);
-  const [alfieticketowned, setalfieticketowned] = useState(false);
-  const [alfiepending, setalfiepending] = useState(false);
-
-  // NFTIsland Ticket
-  const [NFTIslandburnROOTx, setNFTIslandburnROOTx] = useState(25);
-  const [NFTIslandticketamount, setNFTIslandticketamount] = useState(0);
-  const [NFTIslandticketowned, setNFTIslandticketowned] = useState(false);
-  const [NFTIslandpending, setNFTIslandpending] = useState(false);
+  // Dodo wizardgods Ticket Info
+  const [DodoburnROOTx, setDodoburnROOTx] = useState(6000);
+  const [Dodoticketamount, setDodoticketamount] = useState(0);
+  const [Dodoticketowned, setDodoticketowned] = useState(false);
+  const [Dodopending, setDodopending] = useState(false);
 
   useEffect(() => {
     if (window.web3 !== undefined && window.ethereum) {
@@ -104,8 +61,8 @@ const LoadCard = () => {
       getROOTxBalance();
 
       // AVART Ticket
-      getavatarticketdata();
-      getavatarowned();
+      getsoukaticketdata();
+      getsoukaowned();
 
       // NOOD Ticket
       getnoodticketdata();
@@ -115,37 +72,13 @@ const LoadCard = () => {
       getfluffieticketdata();
       getfluffieowned();
 
-      // Meta Ticket
-      getmetaticketdata();
-      getmetaticketowned();
+      // wizard Ticket
+      getwizardticketdata();
+      getwizardticketowned();
 
-      // Elysium Metagods Ticket
-      getelysiumticketdata();
-      getelysiumticketowned();
-
-      // Espadra Ticket 
-      getespadraticketdata();
-      getespadraticketowned();
-
-      // Immortal Game Ticket
-      getimmortalticketdata();
-      getimmortalticketowned();
-
-      // Samurai Ticket
-      getSamuraiTicketdata();
-      getSamuraiTicketowned();
-
-      // LostLand Ticket
-      getlostlandTicketdata();
-      getlostlandTicketowned();
-
-      // Alfie Ticket
-      getalfieTicketdata();
-      getalfieTicketowned();
-
-      // NFTIsland Ticket
-      getNFTIslanddata();
-      getNFTIslandowned();
+      // Dodo wizardgods Ticket
+      getDodoticketdata();
+      getDodoticketowned();
     }
   }, [MyWeb3, myAccount[0]]);
 
@@ -165,7 +98,7 @@ const LoadCard = () => {
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const ROOTxContract = new Contract(
-      contract.ROOTx[4],
+      contract.ROOTx[1],
       ROOTxABI,
       provider?.getSigner()
     );
@@ -181,32 +114,32 @@ const LoadCard = () => {
       console.log(error);
     }
   };
-  
-  // Avatar Ticket
-  
-  const getavatarticketdata = async () => {
+
+  // souka Ticket
+
+  const getsoukaticketdata = async () => {
     const expData = {
-      item: "avatar",
+      item: "souka",
     };
     axios
       .post("/v1/api/user/getticketdata", expData)
       .then((res) => {
         if (res.data >= 0) {
-          setavatarticketamount(res.data);
+          setsoukaticketamount(res.data);
         }
       })
       .catch((err) => console.log(err));
   };
-  const getavatarowned = async () => {
+  const getsoukaowned = async () => {
     const expData = {
-      item: "avatar",
+      item: "souka",
       account: window.ethereum.selectedAddress,
     };
     axios
       .post("/v1/api/user/gettickeowned", expData)
       .then((res) => {
         if (res.data.result) {
-          setavatarticketowned(true);
+          setsoukaticketowned(true);
         }
       })
       .catch((err) => console.log(err));
@@ -244,259 +177,85 @@ const LoadCard = () => {
   // fluffie Ticket
   const getfluffieticketdata = async () => {
     const expData = {
-      item: "fluffies",
+      item: "flick",
     };
     axios
       .post("/v1/api/user/getticketdata", expData)
       .then((res) => {
         if (res.data >= 0) {
-          setfluffiesticketamount(res.data);
+          setflickticketamount(res.data);
         }
       })
       .catch((err) => console.log(err));
   };
   const getfluffieowned = async () => {
     const expData = {
-      item: "fluffies",
+      item: "flick",
       account: window.ethereum.selectedAddress,
     };
     axios
       .post("/v1/api/user/gettickeowned", expData)
       .then((res) => {
         if (res.data.result) {
-          setfluffiesticketowned(true);
+          setflickticketowned(true);
         }
       })
       .catch((err) => console.log(err));
   };
 
-  // meta Ticket 
-  const getmetaticketdata = async () => {
+  // wizard Ticket
+  const getwizardticketdata = async () => {
     const expData = {
-      item: "meta",
+      item: "wizard",
     };
     axios
       .post("/v1/api/user/getticketdata", expData)
       .then((res) => {
         if (res.data >= 0) {
-          setmetaticketamount(res.data);
+          setwizardticketamount(res.data);
         }
       })
       .catch((err) => console.log(err));
   };
-  const getmetaticketowned = async () => {
+  const getwizardticketowned = async () => {
     const expData = {
-      item: "meta",
+      item: "wizard",
       account: window.ethereum.selectedAddress,
     };
     axios
       .post("/v1/api/user/gettickeowned", expData)
       .then((res) => {
         if (res.data.result) {
-          setmetaticketowned(true);
+          setwizardticketowned(true);
         }
       })
       .catch((err) => console.log(err));
   };
 
-  // Elysium Ticket
-  const getelysiumticketdata = async () => {
+  // Dodo Ticket
+  const getDodoticketdata = async () => {
     const expData = {
-      item: "elysium",
+      item: "Dodo",
     };
     axios
       .post("/v1/api/user/getticketdata", expData)
       .then((res) => {
         if (res.data >= 0) {
-          setelysiumticketamount(res.data);
+          setDodoticketamount(res.data);
         }
       })
       .catch((err) => console.log(err));
   };
-  const getelysiumticketowned = async () => {
+  const getDodoticketowned = async () => {
     const expData = {
-      item: "elysium",
+      item: "Dodo",
       account: window.ethereum.selectedAddress,
     };
     axios
       .post("/v1/api/user/gettickeowned", expData)
       .then((res) => {
         if (res.data.result) {
-          setelysiumticketowned(true);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
-  // Espadra Ticket
-  const getespadraticketdata = async () => {
-    const expData = {
-      item: "espadra",
-    };
-    axios
-      .post("/v1/api/user/getticketdata", expData)
-      .then((res) => {
-        if (res.data >= 0) {
-          setespadraticketamount(res.data);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-  const getespadraticketowned = async () => {
-    const expData = {
-      item: "espadra",
-      account: window.ethereum.selectedAddress,
-    };
-    axios
-      .post("/v1/api/user/gettickeowned", expData)
-      .then((res) => {
-        if (res.data.result) {
-          setespadraticketowned(true);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
-  // Immortal Game Ticket
-  const getimmortalticketdata = async () => {
-    const expData = {
-      item: "immortal",
-    };
-    axios
-      .post("/v1/api/user/getticketdata", expData)
-      .then((res) => {
-        if (res.data >= 0) {
-          setimmortalticketamount(res.data);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-  const getimmortalticketowned = async () => {
-    const expData = {
-      item: "immortal",
-      account: window.ethereum.selectedAddress,
-    };
-    axios
-      .post("/v1/api/user/gettickeowned", expData)
-      .then((res) => {
-        if (res.data.result) {
-          setimmortalticketowned(true);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
-  // Samurai Ticket
-  const getSamuraiTicketdata = async () => {
-    const expData = {
-      item: "samurai",
-    };
-    axios
-      .post("/v1/api/user/getticketdata", expData)
-      .then((res) => {
-        if (res.data >= 0) {
-          setsamuraiticketamount(res.data);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-  const getSamuraiTicketowned = async () => {
-    const expData = {
-      item: "samurai",
-      account: window.ethereum.selectedAddress,
-    };
-    axios
-      .post("/v1/api/user/gettickeowned", expData)
-      .then((res) => {
-        if (res.data.result) {
-          setsamuraiticketowned(true);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
-  // Lostland Ticket
-  const getlostlandTicketdata = async () => {
-    const expData = {
-      item: "lostland",
-    };
-    axios
-      .post("/v1/api/user/getticketdata", expData)
-      .then((res) => {
-        if (res.data >= 0) {
-          setlostlandticketamount(res.data);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-  const getlostlandTicketowned = async () => {
-    const expData = {
-      item: "lostland",
-      account: window.ethereum.selectedAddress,
-    };
-    axios
-      .post("/v1/api/user/gettickeowned", expData)
-      .then((res) => {
-        if (res.data.result) {
-          setlostlandticketowned(true);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
-  // Alfie Ticket
-  const getalfieTicketdata = async () => {
-    const expData = {
-      item: "alfie",
-    };
-    axios
-      .post("/v1/api/user/getticketdata", expData)
-      .then((res) => {
-        if (res.data >= 0) {
-          setalfieticketamount(res.data);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-  const getalfieTicketowned = async () => {
-    const expData = {
-      item: "alfie",
-      account: window.ethereum.selectedAddress,
-    };
-    axios
-      .post("/v1/api/user/gettickeowned", expData)
-      .then((res) => {
-        if (res.data.result) {
-          setalfieticketowned(true);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
-  // NFTIsland Ticket
-  const getNFTIslanddata = async () => {
-    const expData = {
-      item: "NFTIsland",
-    };
-    axios
-      .post("/v1/api/user/getticketdata", expData)
-      .then((res) => {
-        if (res.data >= 0) {
-          setNFTIslandticketamount(res.data);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-  const getNFTIslandowned = async () => {
-    const expData = {
-      item: "NFTIsland",
-      account: window.ethereum.selectedAddress,
-    };
-    axios
-      .post("/v1/api/user/gettickeowned", expData)
-      .then((res) => {
-        if (res.data.result) {
-          setNFTIslandticketowned(true);
+          setDodoticketowned(true);
         }
       })
       .catch((err) => console.log(err));
@@ -508,20 +267,20 @@ const LoadCard = () => {
     Swal.fire({
       icon: "question",
       title: "Confirm Burn ROOTx",
-      text: `Burn ${amount} ROOTx token and get WL spot of avatar, continue ?`,
+      text: `Burn ${amount} ROOTx token and get WL spot of souka, continue ?`,
       showCancelButton: true,
     })
       .then(async (res) => {
         if (res.isConfirmed) {
           const provider = new ethers.providers.Web3Provider(window.ethereum);
           const ROOTxContract = new Contract(
-            contract.ROOTx[4],
+            contract.ROOTx[1],
             ROOTxABI,
             provider?.getSigner()
           );
 
-          if (item === "avatar") {
-            setavatarpending(true);
+          if (item === "souka") {
+            setsoukapending(true);
             setShowModal(true);
             try {
               const tx = await ROOTxContract._burn(
@@ -530,8 +289,8 @@ const LoadCard = () => {
               );
               await tx.wait();
               const expData = {
-                item: "avatar",
-                amount: Number(avatarticketamount) + 1,
+                item: "souka",
+                amount: Number(soukaticketamount) + 1,
               };
               await axios
                 .post("/v1/api/user/setticketamount", expData)
@@ -540,14 +299,14 @@ const LoadCard = () => {
                 })
                 .catch((err) => console.log(err));
               const expData1 = {
-                item: "avatar",
+                item: "souka",
                 owner: window.ethereum.selectedAddress,
               };
               await axios
                 .post("/v1/api/user/setticketowner", expData1)
                 .then((res) => {
                   if (res.data.result) {
-                    setavatarticketowned(true);
+                    setsoukaticketowned(true);
                     window.location.reload();
                   }
                 })
@@ -558,32 +317,41 @@ const LoadCard = () => {
                 title: "Oops...",
                 text: "Something went Wrong!",
               });
-              setavatarpending(false);
+              setsoukapending(false);
               setShowModal(false);
             }
           } else if (item === "nood") {
             setnooedpending(true);
             setShowModal(true);
             try {
-              const tx = await ROOTxContract._burn(ethers.utils.parseUnits(String(amount), 18), {from: myAccount[0]});
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
               await tx.wait();
               const expData = {
                 item: "nood",
                 amount: Number(noodticketamount) + 1,
               };
-              await axios.post("/v1/api/user/setticketamount", expData).then((res) => {
-                console.log("success");
-              }).catch(err => console.log(err));
+              await axios
+                .post("/v1/api/user/setticketamount", expData)
+                .then((res) => {
+                  console.log("success");
+                })
+                .catch((err) => console.log(err));
               const expData1 = {
                 item: "nood",
                 owner: window.ethereum.selectedAddress,
               };
-              await axios.post("/v1/api/user/setticketowner", expData1).then((res) => {
-                if(res.data.result) {
-                  setnoodticketowned(true);
-                  window.location.reload();
-                }
-              }).catch(err => console.log(err));
+              await axios
+                .post("/v1/api/user/setticketowner", expData1)
+                .then((res) => {
+                  if (res.data.result) {
+                    setnoodticketowned(true);
+                    window.location.reload();
+                  }
+                })
+                .catch((err) => console.log(err));
             } catch (error) {
               Swal.fire({
                 icon: "error",
@@ -593,292 +361,127 @@ const LoadCard = () => {
               setnooedpending(false);
               setShowModal(false);
             }
-          } else if (item === "fluffies") {
-            setfluffiespending(true);
+          } else if (item === "flick") {
+            setflickpending(true);
             setShowModal(true);
             try {
-              const tx = await ROOTxContract._burn(ethers.utils.parseUnits(String(amount), 18), {from: myAccount[0]});
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
               await tx.wait();
               const expData = {
-                item: "fluffies",
-                amount: Number(fluffiesticketamount) + 1,
+                item: "flick",
+                amount: Number(flickticketamount) + 1,
               };
-              await axios.post("/v1/api/user/setticketamount", expData).then((res) => {
-                console.log("success");
-              }).catch(err => console.log(err));
+              await axios
+                .post("/v1/api/user/setticketamount", expData)
+                .then((res) => {
+                  console.log("success");
+                })
+                .catch((err) => console.log(err));
               const expData1 = {
-                item: "fluffies",
+                item: "flick",
                 owner: window.ethereum.selectedAddress,
               };
-              await axios.post("/v1/api/user/setticketowner", expData1).then((res) => {
-                if(res.data.result) {
-                  setfluffiesticketowned(true);
-                  window.location.reload();
-                }
-              }).catch(err => console.log(err));
+              await axios
+                .post("/v1/api/user/setticketowner", expData1)
+                .then((res) => {
+                  if (res.data.result) {
+                    setflickticketowned(true);
+                    window.location.reload();
+                  }
+                })
+                .catch((err) => console.log(err));
             } catch (error) {
               Swal.fire({
                 icon: "error",
                 title: "Oops...",
                 text: "Something went Wrong!",
               });
-              setfluffiespending(false);
+              setflickpending(false);
               setShowModal(false);
             }
-          } else if (item === "meta") {
-            setmetapending(true);
+          } else if (item === "wizard") {
+            setwizardpending(true);
             setShowModal(true);
             try {
-              const tx = await ROOTxContract._burn(ethers.utils.parseUnits(String(amount), 18), {from: myAccount[0]});
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
               await tx.wait();
               const expData = {
-                item: "meta",
-                amount: Number(metaticketamount) + 1,
+                item: "wizard",
+                amount: Number(wizardticketamount) + 1,
               };
-              await axios.post("/v1/api/user/setticketamount", expData).then((res) => {
-                console.log("success");
-              }).catch(err => console.log(err));
+              await axios
+                .post("/v1/api/user/setticketamount", expData)
+                .then((res) => {
+                  console.log("success");
+                })
+                .catch((err) => console.log(err));
               const expData1 = {
-                item: "meta",
+                item: "wizard",
                 owner: window.ethereum.selectedAddress,
               };
-              await axios.post("/v1/api/user/setticketowner", expData1).then((res) => {
-                if(res.data.result) {
-                  setmetaticketowned(true);
-                  window.location.reload();
-                }
-              }).catch(err => console.log(err));
+              await axios
+                .post("/v1/api/user/setticketowner", expData1)
+                .then((res) => {
+                  if (res.data.result) {
+                    setwizardticketowned(true);
+                    window.location.reload();
+                  }
+                })
+                .catch((err) => console.log(err));
             } catch (error) {
               Swal.fire({
                 icon: "error",
                 title: "Oops...",
                 text: "Something went Wrong!",
               });
-              setmetapending(false);
+              setwizardpending(false);
               setShowModal(false);
             }
-          } else if (item === "elysium") {
-            setelysiumpending(true);
+          } else if (item === "Dodo") {
+            setDodopending(true);
             setShowModal(true);
             try {
-              const tx = await ROOTxContract._burn(ethers.utils.parseUnits(String(amount), 18), {from: myAccount[0]});
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
               await tx.wait();
               const expData = {
-                item: "elysium",
-                amount: Number(elysiumticketamount) + 1,
+                item: "Dodo",
+                amount: Number(Dodoticketamount) + 1,
               };
-              await axios.post("/v1/api/user/setticketamount", expData).then((res) => {
-                console.log("success");
-              }).catch(err => console.log(err));
+              await axios
+                .post("/v1/api/user/setticketamount", expData)
+                .then((res) => {
+                  console.log("success");
+                })
+                .catch((err) => console.log(err));
               const expData1 = {
-                item: "elysium",
+                item: "Dodo",
                 owner: window.ethereum.selectedAddress,
               };
-              await axios.post("/v1/api/user/setticketowner", expData1).then((res) => {
-                if(res.data.result) {
-                  setelysiumticketowned(true);
-                  window.location.reload();
-                }
-              }).catch(err => console.log(err));
+              await axios
+                .post("/v1/api/user/setticketowner", expData1)
+                .then((res) => {
+                  if (res.data.result) {
+                    setDodoticketowned(true);
+                    window.location.reload();
+                  }
+                })
+                .catch((err) => console.log(err));
             } catch (error) {
               Swal.fire({
                 icon: "error",
                 title: "Oops...",
                 text: "Something went Wrong!",
               });
-              setelysiumpending(false);
-              setShowModal(false);
-            }
-          } else if (item === "espadra") {
-            setespadrapending(true);
-            setShowModal(true);
-            try {
-              const tx = await ROOTxContract._burn(ethers.utils.parseUnits(String(amount), 18), {from: myAccount[0]});
-              await tx.wait();
-              const expData = {
-                item: "espadra",
-                amount: Number(espadraticketamount) + 1,
-              };
-              await axios.post("/v1/api/user/setticketamount", expData).then((res) => {
-                console.log("success");
-              }).catch(err => console.log(err));
-              const expData1 = {
-                item: "espadra",
-                owner: window.ethereum.selectedAddress,
-              };
-              await axios.post("/v1/api/user/setticketowner", expData1).then((res) => {
-                if(res.data.result) {
-                  setespadraticketowned(true);
-                  window.location.reload();
-                }
-              }).catch(err => console.log(err));
-            } catch (error) {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went Wrong!",
-              });
-              setespadrapending(false);
-              setShowModal(false);
-            }
-          } else if (item === "immortal") {
-            setimmortalpending(true);
-            setShowModal(true);
-            try {
-              const tx = await ROOTxContract._burn(ethers.utils.parseUnits(String(amount), 18), {from: myAccount[0]});
-              await tx.wait();
-              const expData = {
-                item: "immortal",
-                amount: Number(immortalticketamount) + 1,
-              };
-              await axios.post("/v1/api/user/setticketamount", expData).then((res) => {
-                console.log("success");
-              }).catch(err => console.log(err));
-              const expData1 = {
-                item: "immortal",
-                owner: window.ethereum.selectedAddress,
-              };
-              await axios.post("/v1/api/user/setticketowner", expData1).then((res) => {
-                if(res.data.result) {
-                  setimmortalticketowned(true);
-                  window.location.reload();
-                }
-              }).catch(err => console.log(err));
-            } catch (error) {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went Wrong!",
-              });
-              setimmortalpending(false);
-              setShowModal(false);
-            }
-          } else if (item === "samurai") {
-            setsamuraipending(true);
-            setShowModal(true);
-            try {
-              const tx = await ROOTxContract._burn(ethers.utils.parseUnits(String(amount), 18), {from: myAccount[0]});
-              await tx.wait();
-              const expData = {
-                item: "samurai",
-                amount: Number(samuraiticketamount) + 1,
-              };
-              await axios.post("/v1/api/user/setticketamount", expData).then((res) => {
-                console.log("success");
-              }).catch(err => console.log(err));
-              const expData1 = {
-                item: "samurai",
-                owner: window.ethereum.selectedAddress,
-              };
-              await axios.post("/v1/api/user/setticketowner", expData1).then((res) => {
-                if(res.data.result) {
-                  setsamuraiticketowned(true);
-                  window.location.reload();
-                }
-              }).catch(err => console.log(err));
-            } catch (error) {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went Wrong!",
-              });
-              setsamuraipending(false);
-              setShowModal(false);
-            }
-          } else if (item === "lostland") {
-            setlostlandpending(true);
-            setShowModal(true);
-            try {
-              const tx = await ROOTxContract._burn(ethers.utils.parseUnits(String(amount), 18), {from: myAccount[0]});
-              await tx.wait();
-              const expData = {
-                item: "lostland",
-                amount: Number(lostlandticketamount) + 1,
-              };
-              await axios.post("/v1/api/user/setticketamount", expData).then((res) => {
-                console.log("success");
-              }).catch(err => console.log(err));
-              const expData1 = {
-                item: "lostland",
-                owner: window.ethereum.selectedAddress,
-              };
-              await axios.post("/v1/api/user/setticketowner", expData1).then((res) => {
-                if(res.data.result) {
-                  setlostlandticketowned(true);
-                  window.location.reload();
-                }
-              }).catch(err => console.log(err));
-            } catch (error) {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went Wrong!",
-              });
-              setlostlandpending(false);
-              setShowModal(false);
-            }
-          } else if (item === "alfie") {
-            setalfiepending(true);
-            setShowModal(true);
-            try {
-              const tx = await ROOTxContract._burn(ethers.utils.parseUnits(String(amount), 18), {from: myAccount[0]});
-              await tx.wait();
-              const expData = {
-                item: "alfie",
-                amount: Number(alfieticketamount) + 1,
-              };
-              await axios.post("/v1/api/user/setticketamount", expData).then((res) => {
-                console.log("success");
-              }).catch(err => console.log(err));
-              const expData1 = {
-                item: "alfie",
-                owner: window.ethereum.selectedAddress,
-              };
-              await axios.post("/v1/api/user/setticketowner", expData1).then((res) => {
-                if(res.data.result) {
-                  setalfieticketowned(true);
-                  window.location.reload();
-                }
-              }).catch(err => console.log(err));
-            } catch (error) {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went Wrong!",
-              });
-              setalfiepending(false);
-              setShowModal(false);
-            }
-          } else if (item === "NFTIsland") {
-            setNFTIslandpending(true);
-            setShowModal(true);
-            try {
-              const tx = await ROOTxContract._burn(ethers.utils.parseUnits(String(amount), 18), {from: myAccount[0]});
-              await tx.wait();
-              const expData = {
-                item: "NFTIsland",
-                amount: Number(NFTIslandticketamount) + 1,
-              };
-              await axios.post("/v1/api/user/setticketamount", expData).then((res) => {
-                console.log("success");
-              }).catch(err => console.log(err));
-              const expData1 = {
-                item: "NFTIsland",
-                owner: window.ethereum.selectedAddress,
-              };
-              await axios.post("/v1/api/user/setticketowner", expData1).then((res) => {
-                if(res.data.result) {
-                  setNFTIslandticketowned(true);
-                  window.location.reload();
-                }
-              }).catch(err => console.log(err));
-            } catch (error) {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went Wrong!",
-              });
-              setNFTIslandpending(false);
+              setDodopending(false);
               setShowModal(false);
             }
           }
@@ -906,7 +509,7 @@ const LoadCard = () => {
             <div className="load">
               <div className="load__up">
                 <div className="load__img">
-                  <Image src={avatar} alt="shop images" fluid />
+                  <Image src={souka} alt="shop images" fluid />
                 </div>
               </div>
               <div
@@ -922,18 +525,17 @@ const LoadCard = () => {
                   }}
                 >
                   <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span>{avatarburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span>{soukaburnROOTx.toLocaleString("en-US")} ROOTx</span>
                     <span style={{ marginTop: "10px" }}>
-                      {avatarticketamount} / 10 FILLED
+                      {soukaticketamount} / 3 SPOTS
                     </span>
                   </div>
                 </div>
                 <div className="description">
-                  Brainy #NFT avatars that give you membership access to 🍄
-                  #Brainiacland a corner of the internet where speakers and
-                  pioneers unite.
+                  An oasis for weary travelers, greedy merchants and dutiful
+                  warriors — even vengeful vagrants.
                 </div>
-                {avatarticketowned ? (
+                {soukaticketowned ? (
                   <button className="server">
                     <a
                       className="servertxt"
@@ -946,9 +548,9 @@ const LoadCard = () => {
                 ) : (
                   <></>
                 )}
-                {avatarticketowned ? (
+                {soukaticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
-                ) : avatarpending ? (
+                ) : soukapending ? (
                   <button>
                     <Spinner
                       as="span"
@@ -960,11 +562,153 @@ const LoadCard = () => {
                       style={{ width: "20px", height: "20px" }}
                     />
                   </button>
-                ) : ROOTxBalance >= avatarburnROOTx ? (
-                  <button onClick={() => burnROOTx(avatarburnROOTx, "avatar")}>
+                ) : ROOTxBalance >= soukaburnROOTx ? (
+                  <button onClick={() => burnROOTx(soukaburnROOTx, "souka")}>
                     Get Whitelist Spot
                   </button>
-                ) : avatarticketamount >= 10 ? (
+                ) : soukaticketamount >= 3 ? (
+                  <button>SOLD OUT</button>
+                ) : (
+                  <button>Not Enough ROOTx</button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={flick} alt="shop images" fluid />
+                </div>
+              </div>
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <span>
+                      {flickburnROOTx.toLocaleString("en-US")} ROOTx
+                    </span>
+                    <span style={{ marginTop: "10px" }}>
+                      {flickticketamount} / 3 SPOTS
+                    </span>
+                  </div>
+                </div>
+                <div className="description">
+                  The first NFT collection to be displayed with AR in the real
+                  world, thanks to FlickPlay App.
+                </div>
+                {flickticketowned ? (
+                  <button className="server">
+                    <a
+                      className="servertxt"
+                      target="_blank"
+                      href="https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
+                    >
+                      open a ticket in the server
+                    </a>
+                  </button>
+                ) : (
+                  <></>
+                )}
+                {flickticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : flickpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : ROOTxBalance >= flickburnROOTx ? (
+                  <button
+                    onClick={() => burnROOTx(flickburnROOTx, "flick")}
+                  >
+                    Get Whitelist Spot
+                  </button>
+                ) : flickticketamount >= 3 ? (
+                  <button>SOLD OUT</button>
+                ) : (
+                  <button>Not Enough ROOTx</button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={wizard} alt="shop images" fluid />
+                </div>
+              </div>
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <span>{wizardburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {wizardticketamount} / 3 SPOTS
+                    </span>
+                  </div>
+                </div>
+                <div className="description">
+                  3,333 mystical wizards building a P2P NFT trading platform &
+                  sharing alpha | Doxxed team
+                </div>
+                {wizardticketowned ? (
+                  <button className="server">
+                    <a
+                      className="servertxt"
+                      target="_blank"
+                      href="https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
+                    >
+                      open a ticket in the server
+                    </a>
+                  </button>
+                ) : (
+                  <></>
+                )}
+                {wizardticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : wizardpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : ROOTxBalance >= wizardburnROOTx ? (
+                  <button onClick={() => burnROOTx(wizardburnROOTx, "wizard")}>
+                    Get Whitelist Spot
+                  </button>
+                ) : wizardticketamount >= 3 ? (
                   <button>SOLD OUT</button>
                 ) : (
                   <button>Not Enough ROOTx</button>
@@ -994,12 +738,17 @@ const LoadCard = () => {
                   <div style={{ display: "flex", flexDirection: "column" }}>
                     <span>{noodburnROOTx.toLocaleString("en-US")} ROOTx</span>
                     <span style={{ marginTop: "10px" }}>
-                      {noodticketamount} / 10 FILLED
+                      {noodticketamount} / 3 SPOTS
                     </span>
                   </div>
                 </div>
                 <div className="description">
-                  THIS IS NOOD NFT ITEM
+                  Nood Fungible Token is an NFT project that aims to promote
+                  body positivity, equality, and freedom within the NFT
+                  community. This project will consist of 4444 unique Noodies
+                  separated into 4 different drops in line with different
+                  advocacies. Each drop from all collections is sure to be
+                  unique and have their own flair.
                 </div>
                 {noodticketowned ? (
                   <button className="server">
@@ -1032,7 +781,7 @@ const LoadCard = () => {
                   <button onClick={() => burnROOTx(noodburnROOTx, "nood")}>
                     Get Whitelist Spot
                   </button>
-                ) : noodticketamount >= 10 ? (
+                ) : noodticketamount >= 3 ? (
                   <button>SOLD OUT</button>
                 ) : (
                   <button>Not Enough ROOTx</button>
@@ -1044,7 +793,7 @@ const LoadCard = () => {
             <div className="load">
               <div className="load__up">
                 <div className="load__img">
-                  <Image src={Fluffies} alt="shop images" fluid />
+                  <Image src={Dodo} alt="shop images" fluid />
                 </div>
               </div>
               <div
@@ -1060,16 +809,21 @@ const LoadCard = () => {
                   }}
                 >
                   <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span>{fluffiesburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span>
+                      {DodoburnROOTx.toLocaleString("en-US")} ROOTx
+                    </span>
                     <span style={{ marginTop: "10px" }}>
-                      {fluffiesticketamount} / 10 FILLED
+                      {Dodoticketamount} / 3 SPOTS
                     </span>
                   </div>
                 </div>
                 <div className="description">
-                  THIS IS FLUFFIES NFT ITEM
+                  Infinite Dodos is a complete ecosystem starting with an
+                  Unhackable wallet. UTILITY READY AT MINT team spent 7 months
+                  building before announcing the collection consisting of world
+                  class entrepreneurs all Doxxed.
                 </div>
-                {fluffiesticketowned ? (
+                {Dodoticketowned ? (
                   <button className="server">
                     <a
                       className="servertxt"
@@ -1082,9 +836,9 @@ const LoadCard = () => {
                 ) : (
                   <></>
                 )}
-                {fluffiesticketowned ? (
+                {Dodoticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
-                ) : fluffiespending ? (
+                ) : Dodopending ? (
                   <button>
                     <Spinner
                       as="span"
@@ -1096,555 +850,13 @@ const LoadCard = () => {
                       style={{ width: "20px", height: "20px" }}
                     />
                   </button>
-                ) : ROOTxBalance >= fluffiesburnROOTx ? (
-                  <button onClick={() => burnROOTx(fluffiesburnROOTx, "fluffies")}>
+                ) : ROOTxBalance >= DodoburnROOTx ? (
+                  <button
+                    onClick={() => burnROOTx(DodoburnROOTx, "Dodo")}
+                  >
                     Get Whitelist Spot
                   </button>
-                ) : fluffiesticketamount >= 10 ? (
-                  <button>SOLD OUT</button>
-                ) : (
-                  <button>Not Enough ROOTx</button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={Meta} alt="shop images" fluid />
-                </div>
-              </div>
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span>{metaburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {metaticketamount} / 10 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description">
-                  THIS IS METAGLADIATORS NFT ITEM
-                </div>
-                {metaticketowned ? (
-                  <button className="server">
-                    <a
-                      className="servertxt"
-                      target="_blank"
-                      href="https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
-                    >
-                      open a ticket in the server
-                    </a>
-                  </button>
-                ) : (
-                  <></>
-                )}
-                {metaticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : metapending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : ROOTxBalance >= metaburnROOTx ? (
-                  <button onClick={() => burnROOTx(metaburnROOTx, "meta")}>
-                    Get Whitelist Spot
-                  </button>
-                ) : metaticketamount >= 10 ? (
-                  <button>SOLD OUT</button>
-                ) : (
-                  <button>Not Enough ROOTx</button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={Elysium} alt="shop images" fluid />
-                </div>
-              </div>
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span>{elysiumburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {elysiumticketamount} / 10 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description">
-                  THIS IS ELYSIUM NFT ITEM
-                </div>
-                {elysiumticketowned ? (
-                  <button className="server">
-                    <a
-                      className="servertxt"
-                      target="_blank"
-                      href="https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
-                    >
-                      open a ticket in the server
-                    </a>
-                  </button>
-                ) : (
-                  <></>
-                )}
-                {elysiumticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : elysiumpending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : ROOTxBalance >= elysiumburnROOTx ? (
-                  <button onClick={() => burnROOTx(elysiumburnROOTx, "elysium")}>
-                    Get Whitelist Spot
-                  </button>
-                ) : elysiumticketamount >= 10 ? (
-                  <button>SOLD OUT</button>
-                ) : (
-                  <button>Not Enough ROOTx</button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={Espadra} alt="shop images" fluid />
-                </div>
-              </div>
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span>{espadraburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {espadraticketamount} / 10 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description">
-                  THIS IS ESPADRA NFT ITEM
-                </div>
-                {espadraticketowned ? (
-                  <button className="server">
-                    <a
-                      className="servertxt"
-                      target="_blank"
-                      href="https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
-                    >
-                      open a ticket in the server
-                    </a>
-                  </button>
-                ) : (
-                  <></>
-                )}
-                {espadraticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : espadrapending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : ROOTxBalance >= espadraburnROOTx ? (
-                  <button onClick={() => burnROOTx(espadraburnROOTx, "espadra")}>
-                    Get Whitelist Spot
-                  </button>
-                ) : espadraticketamount >= 10 ? (
-                  <button>SOLD OUT</button>
-                ) : (
-                  <button>Not Enough ROOTx</button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={Immortal} alt="shop images" fluid />
-                </div>
-              </div>
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span>{immortalburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {immortalticketamount} / 10 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description">
-                  THIS IS IMMORTAL GAME NFT ITEM
-                </div>
-                {immortalticketowned ? (
-                  <button className="server">
-                    <a
-                      className="servertxt"
-                      target="_blank"
-                      href="https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
-                    >
-                      open a ticket in the server
-                    </a>
-                  </button>
-                ) : (
-                  <></>
-                )}
-                {immortalticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : immortalpending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : ROOTxBalance >= immortalburnROOTx ? (
-                  <button onClick={() => burnROOTx(immortalburnROOTx, "immortal")}>
-                    Get Whitelist Spot
-                  </button>
-                ) : immortalticketamount >= 10 ? (
-                  <button>SOLD OUT</button>
-                ) : (
-                  <button>Not Enough ROOTx</button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={Samurai} alt="shop images" fluid />
-                </div>
-              </div>
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span>{samuraiburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {samuraiticketamount} / 10 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description">
-                  THIS IS Samurai GAME NFT ITEM
-                </div>
-                {samuraiticketowned ? (
-                  <button className="server">
-                    <a
-                      className="servertxt"
-                      target="_blank"
-                      href="https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
-                    >
-                      open a ticket in the server
-                    </a>
-                  </button>
-                ) : (
-                  <></>
-                )}
-                {samuraiticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : samuraipending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : ROOTxBalance >= samuraiburnROOTx ? (
-                  <button onClick={() => burnROOTx(samuraiburnROOTx, "samurai")}>
-                    Get Whitelist Spot
-                  </button>
-                ) : samuraiticketamount >= 10 ? (
-                  <button>SOLD OUT</button>
-                ) : (
-                  <button>Not Enough ROOTx</button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={Lostland} alt="shop images" fluid />
-                </div>
-              </div>
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span>{lostlandburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {lostlandticketamount} / 10 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description">
-                  THIS IS Samurai GAME NFT ITEM
-                </div>
-                {lostlandticketowned ? (
-                  <button className="server">
-                    <a
-                      className="servertxt"
-                      target="_blank"
-                      href="https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
-                    >
-                      open a ticket in the server
-                    </a>
-                  </button>
-                ) : (
-                  <></>
-                )}
-                {lostlandticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : lostlandpending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : ROOTxBalance >= lostlandburnROOTx ? (
-                  <button onClick={() => burnROOTx(lostlandburnROOTx, "lostland")}>
-                    Get Whitelist Spot
-                  </button>
-                ) : lostlandticketamount >= 10 ? (
-                  <button>SOLD OUT</button>
-                ) : (
-                  <button>Not Enough ROOTx</button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={Alfie} alt="shop images" fluid />
-                </div>
-              </div>
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span>{alfieburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {alfieticketamount} / 10 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description">
-                  THIS IS Samurai GAME NFT ITEM
-                </div>
-                {alfieticketowned ? (
-                  <button className="server">
-                    <a
-                      className="servertxt"
-                      target="_blank"
-                      href="https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
-                    >
-                      open a ticket in the server
-                    </a>
-                  </button>
-                ) : (
-                  <></>
-                )}
-                {alfieticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : alfiepending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : ROOTxBalance >= alfieburnROOTx ? (
-                  <button onClick={() => burnROOTx(alfieburnROOTx, "alfie")}>
-                    Get Whitelist Spot
-                  </button>
-                ) : alfieticketamount >= 10 ? (
-                  <button>SOLD OUT</button>
-                ) : (
-                  <button>Not Enough ROOTx</button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={NFTIsland} alt="shop images" fluid />
-                </div>
-              </div>
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span>{NFTIslandburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {NFTIslandticketamount} / 10 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description">
-                  THIS IS Samurai GAME NFT ITEM
-                </div>
-                {NFTIslandticketowned ? (
-                  <button className="server">
-                    <a
-                      className="servertxt"
-                      target="_blank"
-                      href="https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
-                    >
-                      open a ticket in the server
-                    </a>
-                  </button>
-                ) : (
-                  <></>
-                )}
-                {NFTIslandticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : NFTIslandpending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : ROOTxBalance >= NFTIslandburnROOTx ? (
-                  <button onClick={() => burnROOTx(NFTIslandburnROOTx, "NFTIsland")}>
-                    Get Whitelist Spot
-                  </button>
-                ) : NFTIslandticketamount >= 10 ? (
+                ) : Dodoticketamount >= 3 ? (
                   <button>SOLD OUT</button>
                 ) : (
                   <button>Not Enough ROOTx</button>

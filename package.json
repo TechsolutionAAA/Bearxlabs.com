@@ -60,5 +60,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://54.167.53.77:6000"
+  "proxy": "http://localhost:6000"
 }

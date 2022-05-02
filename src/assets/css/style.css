@@ -1506,6 +1506,7 @@
 
 .load {
   border: 1px solid #fdd803 !important;
+  height: 550px !important;
   padding: 20px;
   border-radius: 25px !important;
   -webkit-border-radius: 25px;
@@ -1543,7 +1544,8 @@
   font-size: 12px;
   margin-bottom: 20px;
   color: white;
-  text-align: justify;
+  text-align: center;
+  height: 200px;
 }
 .load .load__down .owned {
   background: transparent;
