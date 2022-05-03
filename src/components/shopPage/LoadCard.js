@@ -267,7 +267,7 @@ const LoadCard = () => {
     Swal.fire({
       icon: "question",
       title: "Confirm Burn ROOTx",
-      text: `Burn ${amount} ROOTx token and get WL spot of souka, continue ?`,
+      text: `Burn ${amount} ROOTx token and get WL spot, continue ?`,
       showCancelButton: true,
     })
       .then(async (res) => {
