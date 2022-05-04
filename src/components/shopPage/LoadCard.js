@@ -574,7 +574,7 @@ const LoadCard = () => {
               </div>
             </div>
           </Col>
-          <Col lg={4}>
+          {/* <Col lg={4}>
             <div className="load">
               <div className="load__up">
                 <div className="load__img">
@@ -863,7 +863,7 @@ const LoadCard = () => {
                 )}
               </div>
             </div>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
       <Modal visible={showModal} width="450px" height="300px" effect="fadeInUp">
