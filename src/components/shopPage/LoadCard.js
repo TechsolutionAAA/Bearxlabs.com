@@ -5,50 +5,56 @@ import axios from "axios";
 import Modal from "react-awesome-modal";
 import Swal from "sweetalert2";
 import contract from "../../config/contract";
-import ROOTxABI from "../../config/rootABI.json";
+import ROOTxABI from "../../config/ROOTx_Rinkeby.json";
 import loading from "../../assets/images/loading.gif";
 import { Col, Container, Row, Image } from "react-bootstrap";
 import souka from "../../assets/images/Items/souka.jpg";
-import nood from "../../assets/images/Items/nood.jpg";
-import flick from "../../assets/images/Items/flick.jpg";
-import wizard from "../../assets/images/Items/wizard.jpg";
-import Dodo from "../../assets/images/Items/Dodo.jpg";
+// import nood from "../../assets/images/Items/nood.jpg";
+// import flick from "../../assets/images/Items/flick.jpg";
+// import wizard from "../../assets/images/Items/wizard.jpg";
+// import Dodo from "../../assets/images/Items/Dodo.jpg";
 const LoadCard = () => {
   const [MyWeb3, setMyWeb3] = useState([]);
   const [myAccount, setMyAccount] = useState([]);
 
   const [ROOTxBalance, setROOTxBalance] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [showSettingModal, setShowSettingModal] = useState(false);
+
+  // Setting Modal
+  const [disId, setdisId] = useState("");
+  const [Addr, setAddr] = useState("");
+  const [ProName, setProName] = useState("");
 
   // souka Ticket Info
-  const [soukaburnROOTx, setburnROOTx] = useState(2500);
+  const [soukaburnROOTx, setburnROOTx] = useState(2);
   const [soukaticketamount, setsoukaticketamount] = useState(0);
   const [soukaticketowned, setsoukaticketowned] = useState(false);
   const [soukapending, setsoukapending] = useState(false);
 
   // NOOD Ticket Info
-  const [noodburnROOTx, setnoodburnROOTx] = useState(2500);
-  const [noodticketamount, setnoodticketamount] = useState(0);
-  const [noodticketowned, setnoodticketowned] = useState(false);
-  const [noodpending, setnooedpending] = useState(false);
+  // const [noodburnROOTx, setnoodburnROOTx] = useState(2500);
+  // const [noodticketamount, setnoodticketamount] = useState(0);
+  // const [noodticketowned, setnoodticketowned] = useState(false);
+  // const [noodpending, setnooedpending] = useState(false);
 
   // flick Ticket Info
-  const [flickburnROOTx, setflickburnROOTx] = useState(2500);
-  const [flickticketamount, setflickticketamount] = useState(0);
-  const [flickticketowned, setflickticketowned] = useState(false);
-  const [flickpending, setflickpending] = useState(false);
+  // const [flickburnROOTx, setflickburnROOTx] = useState(2500);
+  // const [flickticketamount, setflickticketamount] = useState(0);
+  // const [flickticketowned, setflickticketowned] = useState(false);
+  // const [flickpending, setflickpending] = useState(false);
 
   // wizardgladiators Ticket Info
-  const [wizardburnROOTx, setwizardburnROOTx] = useState(2500);
-  const [wizardticketamount, setwizardticketamount] = useState(0);
-  const [wizardticketowned, setwizardticketowned] = useState(false);
-  const [wizardpending, setwizardpending] = useState(false);
+  // const [wizardburnROOTx, setwizardburnROOTx] = useState(2500);
+  // const [wizardticketamount, setwizardticketamount] = useState(0);
+  // const [wizardticketowned, setwizardticketowned] = useState(false);
+  // const [wizardpending, setwizardpending] = useState(false);
 
   // Dodo wizardgods Ticket Info
-  const [DodoburnROOTx, setDodoburnROOTx] = useState(6000);
-  const [Dodoticketamount, setDodoticketamount] = useState(0);
-  const [Dodoticketowned, setDodoticketowned] = useState(false);
-  const [Dodopending, setDodopending] = useState(false);
+  // const [DodoburnROOTx, setDodoburnROOTx] = useState(6000);
+  // const [Dodoticketamount, setDodoticketamount] = useState(0);
+  // const [Dodoticketowned, setDodoticketowned] = useState(false);
+  // const [Dodopending, setDodopending] = useState(false);
 
   useEffect(() => {
     if (window.web3 !== undefined && window.ethereum) {
@@ -61,24 +67,24 @@ const LoadCard = () => {
       getROOTxBalance();
 
       // AVART Ticket
-      getsoukaticketdata();
-      getsoukaowned();
+      // getsoukaticketdata();
+      // getsoukaowned();
 
       // NOOD Ticket
-      getnoodticketdata();
-      getnoodowned();
+      // getnoodticketdata();
+      // getnoodowned();
 
       // fluffie Ticket
-      getfluffieticketdata();
-      getfluffieowned();
+      // getfluffieticketdata();
+      // getfluffieowned();
 
       // wizard Ticket
-      getwizardticketdata();
-      getwizardticketowned();
+      // getwizardticketdata();
+      // getwizardticketowned();
 
       // Dodo wizardgods Ticket
-      getDodoticketdata();
-      getDodoticketowned();
+      // getDodoticketdata();
+      // getDodoticketowned();
     }
   }, [MyWeb3, myAccount[0]]);
 
@@ -98,7 +104,7 @@ const LoadCard = () => {
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const ROOTxContract = new Contract(
-      contract.ROOTx[1],
+      contract.ROOTx[4],
       ROOTxABI,
       provider?.getSigner()
     );
@@ -117,149 +123,149 @@ const LoadCard = () => {
 
   // souka Ticket
 
-  const getsoukaticketdata = async () => {
-    const expData = {
-      item: "souka",
-    };
-    axios
-      .post("/v1/api/user/getticketdata", expData)
-      .then((res) => {
-        if (res.data >= 0) {
-          setsoukaticketamount(res.data);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-  const getsoukaowned = async () => {
-    const expData = {
-      item: "souka",
-      account: window.ethereum.selectedAddress,
-    };
-    axios
-      .post("/v1/api/user/gettickeowned", expData)
-      .then((res) => {
-        if (res.data.result) {
-          setsoukaticketowned(true);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
+  // const getsoukaticketdata = async () => {
+  //   const expData = {
+  //     item: "souka",
+  //   };
+  //   axios
+  //     .post("/v1/api/user/getticketdata", expData)
+  //     .then((res) => {
+  //       if (res.data >= 0) {
+  //         setsoukaticketamount(res.data);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+  // const getsoukaowned = async () => {
+  //   const expData = {
+  //     item: "souka",
+  //     account: window.ethereum.selectedAddress,
+  //   };
+  //   axios
+  //     .post("/v1/api/user/gettickeowned", expData)
+  //     .then((res) => {
+  //       if (res.data.result) {
+  //         setsoukaticketowned(true);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   // NOOD Ticket
-  const getnoodticketdata = async () => {
-    const expData = {
-      item: "nood",
-    };
-    axios
-      .post("/v1/api/user/getticketdata", expData)
-      .then((res) => {
-        if (res.data >= 0) {
-          setnoodticketamount(res.data);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-  const getnoodowned = async () => {
-    const expData = {
-      item: "nood",
-      account: window.ethereum.selectedAddress,
-    };
-    axios
-      .post("/v1/api/user/gettickeowned", expData)
-      .then((res) => {
-        if (res.data.result) {
-          setnoodticketowned(true);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
+  // const getnoodticketdata = async () => {
+  //   const expData = {
+  //     item: "nood",
+  //   };
+  //   axios
+  //     .post("/v1/api/user/getticketdata", expData)
+  //     .then((res) => {
+  //       if (res.data >= 0) {
+  //         setnoodticketamount(res.data);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+  // const getnoodowned = async () => {
+  //   const expData = {
+  //     item: "nood",
+  //     account: window.ethereum.selectedAddress,
+  //   };
+  //   axios
+  //     .post("/v1/api/user/gettickeowned", expData)
+  //     .then((res) => {
+  //       if (res.data.result) {
+  //         setnoodticketowned(true);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   // fluffie Ticket
-  const getfluffieticketdata = async () => {
-    const expData = {
-      item: "flick",
-    };
-    axios
-      .post("/v1/api/user/getticketdata", expData)
-      .then((res) => {
-        if (res.data >= 0) {
-          setflickticketamount(res.data);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-  const getfluffieowned = async () => {
-    const expData = {
-      item: "flick",
-      account: window.ethereum.selectedAddress,
-    };
-    axios
-      .post("/v1/api/user/gettickeowned", expData)
-      .then((res) => {
-        if (res.data.result) {
-          setflickticketowned(true);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
+  // const getfluffieticketdata = async () => {
+  //   const expData = {
+  //     item: "flick",
+  //   };
+  //   axios
+  //     .post("/v1/api/user/getticketdata", expData)
+  //     .then((res) => {
+  //       if (res.data >= 0) {
+  //         setflickticketamount(res.data);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+  // const getfluffieowned = async () => {
+  //   const expData = {
+  //     item: "flick",
+  //     account: window.ethereum.selectedAddress,
+  //   };
+  //   axios
+  //     .post("/v1/api/user/gettickeowned", expData)
+  //     .then((res) => {
+  //       if (res.data.result) {
+  //         setflickticketowned(true);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   // wizard Ticket
-  const getwizardticketdata = async () => {
-    const expData = {
-      item: "wizard",
-    };
-    axios
-      .post("/v1/api/user/getticketdata", expData)
-      .then((res) => {
-        if (res.data >= 0) {
-          setwizardticketamount(res.data);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-  const getwizardticketowned = async () => {
-    const expData = {
-      item: "wizard",
-      account: window.ethereum.selectedAddress,
-    };
-    axios
-      .post("/v1/api/user/gettickeowned", expData)
-      .then((res) => {
-        if (res.data.result) {
-          setwizardticketowned(true);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
+  // const getwizardticketdata = async () => {
+  //   const expData = {
+  //     item: "wizard",
+  //   };
+  //   axios
+  //     .post("/v1/api/user/getticketdata", expData)
+  //     .then((res) => {
+  //       if (res.data >= 0) {
+  //         setwizardticketamount(res.data);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+  // const getwizardticketowned = async () => {
+  //   const expData = {
+  //     item: "wizard",
+  //     account: window.ethereum.selectedAddress,
+  //   };
+  //   axios
+  //     .post("/v1/api/user/gettickeowned", expData)
+  //     .then((res) => {
+  //       if (res.data.result) {
+  //         setwizardticketowned(true);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   // Dodo Ticket
-  const getDodoticketdata = async () => {
-    const expData = {
-      item: "Dodo",
-    };
-    axios
-      .post("/v1/api/user/getticketdata", expData)
-      .then((res) => {
-        if (res.data >= 0) {
-          setDodoticketamount(res.data);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-  const getDodoticketowned = async () => {
-    const expData = {
-      item: "Dodo",
-      account: window.ethereum.selectedAddress,
-    };
-    axios
-      .post("/v1/api/user/gettickeowned", expData)
-      .then((res) => {
-        if (res.data.result) {
-          setDodoticketowned(true);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
+  // const getDodoticketdata = async () => {
+  //   const expData = {
+  //     item: "Dodo",
+  //   };
+  //   axios
+  //     .post("/v1/api/user/getticketdata", expData)
+  //     .then((res) => {
+  //       if (res.data >= 0) {
+  //         setDodoticketamount(res.data);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+  // const getDodoticketowned = async () => {
+  //   const expData = {
+  //     item: "Dodo",
+  //     account: window.ethereum.selectedAddress,
+  //   };
+  //   axios
+  //     .post("/v1/api/user/gettickeowned", expData)
+  //     .then((res) => {
+  //       if (res.data.result) {
+  //         setDodoticketowned(true);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   const burnROOTx = async (amount, item) => {
     if (myAccount.length === 0) return;
@@ -274,12 +280,13 @@ const LoadCard = () => {
         if (res.isConfirmed) {
           const provider = new ethers.providers.Web3Provider(window.ethereum);
           const ROOTxContract = new Contract(
-            contract.ROOTx[1],
+            contract.ROOTx[4],
             ROOTxABI,
             provider?.getSigner()
           );
 
           if (item === "souka") {
+            setProName(item);
             setsoukapending(true);
             setShowModal(true);
             try {
@@ -288,26 +295,16 @@ const LoadCard = () => {
                 { from: myAccount[0] }
               );
               await tx.wait();
-              const expData = {
-                item: "souka",
-                amount: Number(soukaticketamount) + 1,
-              };
-              await axios
-                .post("/v1/api/user/setticketamount", expData)
+              setShowModal(false);
+              setsoukapending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "Burn ROOTx token Success!",
+              })
                 .then((res) => {
-                  console.log("succecss");
-                })
-                .catch((err) => console.log(err));
-              const expData1 = {
-                item: "souka",
-                owner: window.ethereum.selectedAddress,
-              };
-              await axios
-                .post("/v1/api/user/setticketowner", expData1)
-                .then((res) => {
-                  if (res.data.result) {
-                    setsoukaticketowned(true);
-                    window.location.reload();
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
                   }
                 })
                 .catch((err) => console.log(err));
@@ -320,174 +317,181 @@ const LoadCard = () => {
               setsoukapending(false);
               setShowModal(false);
             }
-          } else if (item === "nood") {
-            setnooedpending(true);
-            setShowModal(true);
-            try {
-              const tx = await ROOTxContract._burn(
-                ethers.utils.parseUnits(String(amount), 18),
-                { from: myAccount[0] }
-              );
-              await tx.wait();
-              const expData = {
-                item: "nood",
-                amount: Number(noodticketamount) + 1,
-              };
-              await axios
-                .post("/v1/api/user/setticketamount", expData)
-                .then((res) => {
-                  console.log("success");
-                })
-                .catch((err) => console.log(err));
-              const expData1 = {
-                item: "nood",
-                owner: window.ethereum.selectedAddress,
-              };
-              await axios
-                .post("/v1/api/user/setticketowner", expData1)
-                .then((res) => {
-                  if (res.data.result) {
-                    setnoodticketowned(true);
-                    window.location.reload();
-                  }
-                })
-                .catch((err) => console.log(err));
-            } catch (error) {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went Wrong!",
-              });
-              setnooedpending(false);
-              setShowModal(false);
-            }
-          } else if (item === "flick") {
-            setflickpending(true);
-            setShowModal(true);
-            try {
-              const tx = await ROOTxContract._burn(
-                ethers.utils.parseUnits(String(amount), 18),
-                { from: myAccount[0] }
-              );
-              await tx.wait();
-              const expData = {
-                item: "flick",
-                amount: Number(flickticketamount) + 1,
-              };
-              await axios
-                .post("/v1/api/user/setticketamount", expData)
-                .then((res) => {
-                  console.log("success");
-                })
-                .catch((err) => console.log(err));
-              const expData1 = {
-                item: "flick",
-                owner: window.ethereum.selectedAddress,
-              };
-              await axios
-                .post("/v1/api/user/setticketowner", expData1)
-                .then((res) => {
-                  if (res.data.result) {
-                    setflickticketowned(true);
-                    window.location.reload();
-                  }
-                })
-                .catch((err) => console.log(err));
-            } catch (error) {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went Wrong!",
-              });
-              setflickpending(false);
-              setShowModal(false);
-            }
-          } else if (item === "wizard") {
-            setwizardpending(true);
-            setShowModal(true);
-            try {
-              const tx = await ROOTxContract._burn(
-                ethers.utils.parseUnits(String(amount), 18),
-                { from: myAccount[0] }
-              );
-              await tx.wait();
-              const expData = {
-                item: "wizard",
-                amount: Number(wizardticketamount) + 1,
-              };
-              await axios
-                .post("/v1/api/user/setticketamount", expData)
-                .then((res) => {
-                  console.log("success");
-                })
-                .catch((err) => console.log(err));
-              const expData1 = {
-                item: "wizard",
-                owner: window.ethereum.selectedAddress,
-              };
-              await axios
-                .post("/v1/api/user/setticketowner", expData1)
-                .then((res) => {
-                  if (res.data.result) {
-                    setwizardticketowned(true);
-                    window.location.reload();
-                  }
-                })
-                .catch((err) => console.log(err));
-            } catch (error) {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went Wrong!",
-              });
-              setwizardpending(false);
-              setShowModal(false);
-            }
-          } else if (item === "Dodo") {
-            setDodopending(true);
-            setShowModal(true);
-            try {
-              const tx = await ROOTxContract._burn(
-                ethers.utils.parseUnits(String(amount), 18),
-                { from: myAccount[0] }
-              );
-              await tx.wait();
-              const expData = {
-                item: "Dodo",
-                amount: Number(Dodoticketamount) + 1,
-              };
-              await axios
-                .post("/v1/api/user/setticketamount", expData)
-                .then((res) => {
-                  console.log("success");
-                })
-                .catch((err) => console.log(err));
-              const expData1 = {
-                item: "Dodo",
-                owner: window.ethereum.selectedAddress,
-              };
-              await axios
-                .post("/v1/api/user/setticketowner", expData1)
-                .then((res) => {
-                  if (res.data.result) {
-                    setDodoticketowned(true);
-                    window.location.reload();
-                  }
-                })
-                .catch((err) => console.log(err));
-            } catch (error) {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went Wrong!",
-              });
-              setDodopending(false);
-              setShowModal(false);
-            }
           }
+          // } else if (item === "nood") {
+          //   setnooedpending(true);
+          //   setShowModal(true);
+          //   try {
+          //     const tx = await ROOTxContract._burn(
+          //       ethers.utils.parseUnits(String(amount), 18),
+          //       { from: myAccount[0] }
+          //     );
+          //     await tx.wait();
+          //     const expData = {
+          //       item: "nood",
+          //       amount: Number(noodticketamount) + 1,
+          //     };
+          //     await axios
+          //       .post("/v1/api/user/setticketamount", expData)
+          //       .then((res) => {
+          //         console.log("success");
+          //       })
+          //       .catch((err) => console.log(err));
+          //     const expData1 = {
+          //       item: "nood",
+          //       owner: window.ethereum.selectedAddress,
+          //     };
+          //     await axios
+          //       .post("/v1/api/user/setticketowner", expData1)
+          //       .then((res) => {
+          //         if (res.data.result) {
+          //           setnoodticketowned(true);
+          //           window.location.reload();
+          //         }
+          //       })
+          //       .catch((err) => console.log(err));
+          //   } catch (error) {
+          //     Swal.fire({
+          //       icon: "error",
+          //       title: "Oops...",
+          //       text: "Something went Wrong!",
+          //     });
+          //     setnooedpending(false);
+          //     setShowModal(false);
+          //   }
+          // } else if (item === "flick") {
+          //   setflickpending(true);
+          //   setShowModal(true);
+          //   try {
+          //     const tx = await ROOTxContract._burn(
+          //       ethers.utils.parseUnits(String(amount), 18),
+          //       { from: myAccount[0] }
+          //     );
+          //     await tx.wait();
+          //     const expData = {
+          //       item: "flick",
+          //       amount: Number(flickticketamount) + 1,
+          //     };
+          //     await axios
+          //       .post("/v1/api/user/setticketamount", expData)
+          //       .then((res) => {
+          //         console.log("success");
+          //       })
+          //       .catch((err) => console.log(err));
+          //     const expData1 = {
+          //       item: "flick",
+          //       owner: window.ethereum.selectedAddress,
+          //     };
+          //     await axios
+          //       .post("/v1/api/user/setticketowner", expData1)
+          //       .then((res) => {
+          //         if (res.data.result) {
+          //           setflickticketowned(true);
+          //           window.location.reload();
+          //         }
+          //       })
+          //       .catch((err) => console.log(err));
+          //   } catch (error) {
+          //     Swal.fire({
+          //       icon: "error",
+          //       title: "Oops...",
+          //       text: "Something went Wrong!",
+          //     });
+          //     setflickpending(false);
+          //     setShowModal(false);
+          //   }
+          // } else if (item === "wizard") {
+          //   setwizardpending(true);
+          //   setShowModal(true);
+          //   try {
+          //     const tx = await ROOTxContract._burn(
+          //       ethers.utils.parseUnits(String(amount), 18),
+          //       { from: myAccount[0] }
+          //     );
+          //     await tx.wait();
+          //     const expData = {
+          //       item: "wizard",
+          //       amount: Number(wizardticketamount) + 1,
+          //     };
+          //     await axios
+          //       .post("/v1/api/user/setticketamount", expData)
+          //       .then((res) => {
+          //         console.log("success");
+          //       })
+          //       .catch((err) => console.log(err));
+          //     const expData1 = {
+          //       item: "wizard",
+          //       owner: window.ethereum.selectedAddress,
+          //     };
+          //     await axios
+          //       .post("/v1/api/user/setticketowner", expData1)
+          //       .then((res) => {
+          //         if (res.data.result) {
+          //           setwizardticketowned(true);
+          //           window.location.reload();
+          //         }
+          //       })
+          //       .catch((err) => console.log(err));
+          //   } catch (error) {
+          //     Swal.fire({
+          //       icon: "error",
+          //       title: "Oops...",
+          //       text: "Something went Wrong!",
+          //     });
+          //     setwizardpending(false);
+          //     setShowModal(false);
+          //   }
+          // } else if (item === "Dodo") {
+          //   setDodopending(true);
+          //   setShowModal(true);
+          //   try {
+          //     const tx = await ROOTxContract._burn(
+          //       ethers.utils.parseUnits(String(amount), 18),
+          //       { from: myAccount[0] }
+          //     );
+          //     await tx.wait();
+          //     const expData = {
+          //       item: "Dodo",
+          //       amount: Number(Dodoticketamount) + 1,
+          //     };
+          //     await axios
+          //       .post("/v1/api/user/setticketamount", expData)
+          //       .then((res) => {
+          //         console.log("success");
+          //       })
+          //       .catch((err) => console.log(err));
+          //     const expData1 = {
+          //       item: "Dodo",
+          //       owner: window.ethereum.selectedAddress,
+          //     };
+          //     await axios
+          //       .post("/v1/api/user/setticketowner", expData1)
+          //       .then((res) => {
+          //         if (res.data.result) {
+          //           setDodoticketowned(true);
+          //           window.location.reload();
+          //         }
+          //       })
+          //       .catch((err) => console.log(err));
+          //   } catch (error) {
+          //     Swal.fire({
+          //       icon: "error",
+          //       title: "Oops...",
+          //       text: "Something went Wrong!",
+          //     });
+          //     setDodopending(false);
+          //     setShowModal(false);
+          //   }
+          // }
         }
       })
       .catch((err) => console.log(err));
+  };
+
+  const savesheet = (val1, val2, val3) => {
+    console.log(val1);
+    console.log(val2);
+    console.log(val3);
   };
 
   return (
@@ -873,6 +877,106 @@ const LoadCard = () => {
         <div className="about__details">
           <p style={{ color: "#fd7e14" }}>Processing...</p>
         </div>
+      </Modal>
+      <Modal visible={showSettingModal} width="450px" height="300px" effect="fadeInUp">
+        <p
+          style={{
+            color: "#fd7e14",
+            textAlign: "center",
+            marginTop: "10%",
+            fontFamily: "earlyGameboy",
+          }}
+        >
+          Input Discord Id to purchase WL Spot!
+        </p>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            textAlign: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              marginBottom: "2%",
+            }}
+          >
+            <div
+              style={{
+                flex: "0.3",
+                fontFamily: "earlyGameboy",
+                fontSize: "12px",
+                alignSelf: "center",
+              }}
+            >
+              Discord ID
+            </div>
+            <div style={{ flex: "0.7" }}>
+              <input type="text" id="discord" value={disId} onChange={(e) => setdisId(e.target.value)}/>
+            </div>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              marginBottom: "2%",
+            }}
+          >
+            <div
+              style={{
+                flex: "0.3",
+                fontFamily: "earlyGameboy",
+                fontSize: "12px",
+                alignSelf: "center",
+              }}
+            >
+              Account
+            </div>
+            <div style={{ flex: "0.7" }}>
+              <input type="text" id="wallet" value={Addr} onChange={(e) => setAddr(e.target.value)} />
+            </div>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              marginBottom: "2%",
+            }}
+          >
+            <div
+              style={{
+                flex: "0.3",
+                fontFamily: "earlyGameboy",
+                fontSize: "12px",
+                alignSelf: "center",
+              }}
+            >
+              Project
+            </div>
+            <div style={{ flex: "0.7" }}>
+              <input type="text" id="project" value={ProName} disabled />
+            </div>
+          </div>
+        </div>
+        <button
+          style={{
+            fontSize: "12px",
+            padding: "7px 13px",
+            backgroundColor: "#fdd803",
+            color: "black",
+            borderRadius: "50px",
+            fontFamily: "earlyGameBoy",
+            cursor: "pointer",
+            border: "0px",
+            marginLeft: "35%",
+            marginTop: "3%"
+          }}
+          onClick={()=>savesheet(disId, Addr, ProName)}
+        >
+          PURCHASE
+        </button>
       </Modal>
     </div>
   );
