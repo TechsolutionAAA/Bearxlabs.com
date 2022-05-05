@@ -9,6 +9,7 @@ import ROOTxABI from "../../config/ROOTx_Rinkeby.json";
 import loading from "../../assets/images/loading.gif";
 import { Col, Container, Row, Image } from "react-bootstrap";
 import souka from "../../assets/images/Items/souka.jpg";
+
 // import nood from "../../assets/images/Items/nood.jpg";
 // import flick from "../../assets/images/Items/flick.jpg";
 // import wizard from "../../assets/images/Items/wizard.jpg";
