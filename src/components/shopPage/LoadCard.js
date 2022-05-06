@@ -7,8 +7,10 @@ import Swal from "sweetalert2";
 import contract from "../../config/contract";
 import ROOTxABI from "../../config/ROOTx_Rinkeby.json";
 import loading from "../../assets/images/loading.gif";
+
 import { Col, Container, Row, Image } from "react-bootstrap";
 import souka from "../../assets/images/Items/souka.jpg";
+import { GoogleSpreadsheet } from "google-spreadsheets";
 
 // import nood from "../../assets/images/Items/nood.jpg";
 // import flick from "../../assets/images/Items/flick.jpg";
@@ -489,10 +491,7 @@ const LoadCard = () => {
       .catch((err) => console.log(err));
   };
 
-  const savesheet = (val1, val2, val3) => {
-    console.log(val1);
-    console.log(val2);
-    console.log(val3);
+  const savesheet = async (val1, val2, val3) => {
   };
 
   return (

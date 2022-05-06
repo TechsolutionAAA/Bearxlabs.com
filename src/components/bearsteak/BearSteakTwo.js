@@ -761,10 +761,6 @@ const BearSteakTwo = () => {
               </div>
               <div className="bearsteak__icon__text__item">
                 <FontAwesomeIcon icon={faCheckCircle} color="#FFAE41" />
-                <span>
-                  Stake 5+ Genesis Bear and yield 50%. SROOTX + 50% SROOTX
-                  rewarded in WETH.
-                </span>
               </div>
               <div className="bearsteak__icon__text__item">
                 <FontAwesomeIcon icon={faCheckCircle} color="#FFAE41" />
