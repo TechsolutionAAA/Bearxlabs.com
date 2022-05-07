@@ -92,9 +92,22 @@ const LoadCard = () => {
     }
   }, [MyWeb3, myAccount[0]]);
 
-
   const getsheetdata = async () => {
-    
+    await axios
+      .get("https://sheet.best/api/sheets/8ffde6e8-5d89-4fee-bc84-a588d5e0ba28")
+      .then((res) => {
+        var count = 0;
+        for (var i = 0; i < res.data.length; i++) {
+          if (res.data[i].Project == "souka") {
+            count++;
+            if (res.data[i].Account == myAccount[0]) {
+              setsoukaticketowned(true);
+            }
+          }
+        }
+        setsoukaticketamount(count);
+      })
+      .catch((err) => console.log(err));
   };
 
   const loadWeb3 = async () => {
@@ -296,7 +309,9 @@ const LoadCard = () => {
 
           if (item === "souka") {
             setProName(item);
-            setdisId("https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608");
+            setdisId(
+              "https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
+            );
             setAddr(myAccount[0]);
             setsoukapending(true);
             setShowModal(true);
@@ -504,15 +519,19 @@ const LoadCard = () => {
       Project: val3,
       Account: val2,
       discordId: val1,
-    }
-    axios.post('https://sheet.best/api/sheets/8ffde6e8-5d89-4fee-bc84-a588d5e0ba28', expdata)
-    .then((res) => {
-      setShowSettingModal(false);
-      setTimeout(() => {
-        window. location.reload()
-      }, 1000);
-    })
-    .catch(err => console.log(err));
+    };
+    axios
+      .post(
+        "https://sheet.best/api/sheets/8ffde6e8-5d89-4fee-bc84-a588d5e0ba28",
+        expdata
+      )
+      .then((res) => {
+        setShowSettingModal(false);
+        setTimeout(() => {
+          window.location.replace("/Whitelist")
+        }, 1000);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -561,19 +580,6 @@ const LoadCard = () => {
                   warriors — even vengeful vagrants.
                 </div>
                 {soukaticketowned ? (
-                  <button className="server">
-                    <a
-                      className="servertxt"
-                      target="_blank"
-                      href="https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
-                    >
-                      open a ticket in the server
-                    </a>
-                  </button>
-                ) : (
-                  <></>
-                )}
-                {soukaticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
                 ) : soukapending ? (
                   <button>
@@ -587,14 +593,14 @@ const LoadCard = () => {
                       style={{ width: "20px", height: "20px" }}
                     />
                   </button>
+                ) : soukaticketamount >= 3 ? (
+                  <button>SOLD OUT</button>
                 ) : ROOTxBalance >= soukaburnROOTx ? (
                   <button onClick={() => burnROOTx(soukaburnROOTx, "souka")}>
                     Get Whitelist Spot
                   </button>
-                ) : soukaticketamount >= 3 ? (
-                  <button>SOLD OUT</button>
                 ) : (
-                  <button>Not Enough ROOTx</button>
+                  <button>NOT ENOUGH ROOTX</button>
                 )}
               </div>
             </div>
@@ -899,7 +905,12 @@ const LoadCard = () => {
           <p style={{ color: "#fd7e14" }}>Processing...</p>
         </div>
       </Modal>
-      <Modal visible={showSettingModal} width="450px" height="300px" effect="fadeInUp">
+      <Modal
+        visible={showSettingModal}
+        width="450px"
+        height="300px"
+        effect="fadeInUp"
+      >
         <p
           style={{
             color: "#fd7e14",
@@ -992,9 +1003,9 @@ const LoadCard = () => {
             cursor: "pointer",
             border: "0px",
             marginLeft: "35%",
-            marginTop: "3%"
+            marginTop: "3%",
           }}
-          onClick={()=>savesheet(disId, Addr, ProName)}
+          onClick={() => savesheet(disId, Addr, ProName)}
         >
           PURCHASE
         </button>
