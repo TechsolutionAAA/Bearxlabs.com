@@ -594,7 +594,7 @@ const LoadCard = () => {
                   <button>SOLD OUT</button>
                 ) : ROOTxBalance >= soukaburnROOTx ? (
                   <button onClick={() => burnROOTx(soukaburnROOTx, "souka")}>
-                    Get Whitelist Spot
+                    Get Spot
                   </button>
                 ) : (
                   <button>NOT ENOUGH ROOTX</button>
@@ -1015,7 +1015,7 @@ const LoadCard = () => {
               marginTop: "3%",
               fontSize: "12px"
             }}
-          >GET WHITELIST SPOT </p>
+          >GET SPOT </p>
 
 
           <p
