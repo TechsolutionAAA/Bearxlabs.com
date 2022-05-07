@@ -309,9 +309,6 @@ const LoadCard = () => {
 
           if (item === "souka") {
             setProName(item);
-            setdisId(
-              "https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
-            );
             setAddr(myAccount[0]);
             setsoukapending(true);
             setShowModal(true);
@@ -528,7 +525,7 @@ const LoadCard = () => {
       .then((res) => {
         setShowSettingModal(false);
         setTimeout(() => {
-          window.location.replace("/Whitelist")
+          window.location.replace("/Whitelist");
         }, 1000);
       })
       .catch((err) => console.log(err));
@@ -905,12 +902,7 @@ const LoadCard = () => {
           <p style={{ color: "#fd7e14" }}>Processing...</p>
         </div>
       </Modal>
-      <Modal
-        visible={showSettingModal}
-        width="450px"
-        height="300px"
-        effect="fadeInUp"
-      >
+      <Modal visible={showSettingModal} width="500px" height="450px" effect="fadeInUp">
         <p
           style={{
             color: "#fd7e14",
@@ -919,7 +911,7 @@ const LoadCard = () => {
             fontFamily: "earlyGameboy",
           }}
         >
-          Input Discord Id to purchase WL Spot!
+          Input Discord Id to Get WL Spot!
         </p>
         <div
           style={{
@@ -946,7 +938,12 @@ const LoadCard = () => {
               Discord ID
             </div>
             <div style={{ flex: "0.7" }}>
-              <input type="text" id="discord" value={disId} disabled />
+              <input
+                type="text"
+                id="discord"
+                value={disId}
+                onChange={(e) => setdisId(e.target.value)}
+              />
             </div>
           </div>
           <div
@@ -1007,8 +1004,35 @@ const LoadCard = () => {
           }}
           onClick={() => savesheet(disId, Addr, ProName)}
         >
-          PURCHASE
+          Get Spot
         </button>
+        <div>
+        <p
+            style={{
+              color: "red",
+              textAlign: "center",
+              fontFamily: "earlyGameboy",
+              marginTop: "3%",
+              fontSize: "12px"
+            }}
+          >GET WHITELIST SPOT </p>
+
+
+          <p
+            style={{
+              color: "#fd7e14",
+              textAlign: "center",
+              fontFamily: "earlyGameboy",
+              marginTop: "3%",
+              fontSize: "12px"
+            }}
+          >
+            Input discord ID to purchase WL spot! <br></br>please ensure you copy and
+            paste username from discord to avoid mistakes <br></br>Any incorrect
+            discord usernames will not be chased, and no refunds will be given
+            from mistakes. Double check your username before submitting
+          </p>
+        </div>
       </Modal>
     </div>
   );

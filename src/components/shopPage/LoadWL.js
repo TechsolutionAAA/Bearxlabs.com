@@ -56,7 +56,7 @@ const LoadWL = () => {
         </thead>
         <tbody>
           {WLData.map((item) => (
-            <tr key={item.id}>
+            <tr key={item.Account}>
               <td>
                 {item.Account}
               </td>
