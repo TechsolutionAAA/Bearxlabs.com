@@ -94,7 +94,7 @@ const LoadCard = () => {
 
   const getsheetdata = async () => {
     await axios
-      .get("https://sheet.best/api/sheets/8ffde6e8-5d89-4fee-bc84-a588d5e0ba28")
+      .get("https://sheet.best/api/sheets/49b95d3b-26b9-41b6-a1d6-ade923fab08d")
       .then((res) => {
         var count = 0;
         for (var i = 0; i < res.data.length; i++) {
@@ -294,8 +294,8 @@ const LoadCard = () => {
 
     Swal.fire({
       icon: "question",
-      title: "Confirm Burn ROOTx",
-      text: `Burn ${amount} ROOTx token and get WL spot, continue ?`,
+      title: "Burn ROOTx confirmation",
+      text: `You are burning ${amount} ROOTx to get WL spot, continue?`,
       showCancelButton: true,
     })
       .then(async (res) => {
@@ -323,7 +323,7 @@ const LoadCard = () => {
               Swal.fire({
                 icon: "success",
                 title: "Burn Success !",
-                text: "Burn ROOTx token Success!",
+                text: "You have successfully burned ROOTx!",
               })
                 .then((res) => {
                   if (res.isConfirmed) {
@@ -519,7 +519,7 @@ const LoadCard = () => {
     };
     axios
       .post(
-        "https://sheet.best/api/sheets/8ffde6e8-5d89-4fee-bc84-a588d5e0ba28",
+        "https://sheet.best/api/sheets/49b95d3b-26b9-41b6-a1d6-ade923fab08d",
         expdata
       )
       .then((res) => {
@@ -568,10 +568,13 @@ const LoadCard = () => {
                   <div style={{ display: "flex", flexDirection: "column" }}>
                     <span>{soukaburnROOTx.toLocaleString("en-US")} ROOTx</span>
                     <span style={{ marginTop: "10px" }}>
-                      {soukaticketamount} / 3 filleds
+                      {soukaticketamount} / 3 FILLED
                     </span>
                   </div>
                 </div>
+                <span className="title" >
+                  SOUKA
+                </span>
                 <div className="description">
                   An oasis for weary travelers, greedy merchants and dutiful
                   warriors — even vengeful vagrants.
@@ -593,9 +596,16 @@ const LoadCard = () => {
                 ) : soukaticketamount >= 3 ? (
                   <button>SOLD OUT</button>
                 ) : ROOTxBalance >= soukaburnROOTx ? (
-                  <button onClick={() => burnROOTx(soukaburnROOTx, "souka")}>
-                    Get Spot
-                  </button>
+                  <>
+                    <button onClick={() => burnROOTx(soukaburnROOTx, "souka")} style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                      }}>
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
                 ) : (
                   <button>NOT ENOUGH ROOTX</button>
                 )}
@@ -626,7 +636,7 @@ const LoadCard = () => {
                       {flickburnROOTx.toLocaleString("en-US")} ROOTx
                     </span>
                     <span style={{ marginTop: "10px" }}>
-                      {flickticketamount} / 3 filleds
+                      {flickticketamount} / 3 FILLED
                     </span>
                   </div>
                 </div>
@@ -697,7 +707,7 @@ const LoadCard = () => {
                   <div style={{ display: "flex", flexDirection: "column" }}>
                     <span>{wizardburnROOTx.toLocaleString("en-US")} ROOTx</span>
                     <span style={{ marginTop: "10px" }}>
-                      {wizardticketamount} / 3 filleds
+                      {wizardticketamount} / 3 FILLED
                     </span>
                   </div>
                 </div>
@@ -766,7 +776,7 @@ const LoadCard = () => {
                   <div style={{ display: "flex", flexDirection: "column" }}>
                     <span>{noodburnROOTx.toLocaleString("en-US")} ROOTx</span>
                     <span style={{ marginTop: "10px" }}>
-                      {noodticketamount} / 3 filleds
+                      {noodticketamount} / 3 FILLED
                     </span>
                   </div>
                 </div>
@@ -841,7 +851,7 @@ const LoadCard = () => {
                       {DodoburnROOTx.toLocaleString("en-US")} ROOTx
                     </span>
                     <span style={{ marginTop: "10px" }}>
-                      {Dodoticketamount} / 3 filleds
+                      {Dodoticketamount} / 3 FILLED
                     </span>
                   </div>
                 </div>
@@ -902,7 +912,12 @@ const LoadCard = () => {
           <p style={{ color: "#fd7e14" }}>Processing...</p>
         </div>
       </Modal>
-      <Modal visible={showSettingModal} width="500px" height="450px" effect="fadeInUp">
+      <Modal
+        visible={showSettingModal}
+        width="500px"
+        height="450px"
+        effect="fadeInUp"
+      >
         <p
           style={{
             color: "#fd7e14",
@@ -1007,16 +1022,17 @@ const LoadCard = () => {
           Get Spot
         </button>
         <div>
-        <p
+          <p
             style={{
               color: "red",
               textAlign: "center",
               fontFamily: "earlyGameboy",
               marginTop: "3%",
-              fontSize: "12px"
+              fontSize: "12px",
             }}
-          >GET SPOT </p>
-
+          >
+            GET WHITELIST SPOT{" "}
+          </p>
 
           <p
             style={{
@@ -1024,13 +1040,13 @@ const LoadCard = () => {
               textAlign: "center",
               fontFamily: "earlyGameboy",
               marginTop: "3%",
-              fontSize: "12px"
+              fontSize: "12px",
             }}
           >
-            Input discord ID to purchase WL spot! <br></br>please ensure you copy and
-            paste username from discord to avoid mistakes <br></br>Any incorrect
-            discord usernames will not be chased, and no refunds will be given
-            from mistakes. Double check your username before submitting
+            Input discord ID to purchase WL spot! <br></br>please ensure you
+            copy and paste username from discord to avoid mistakes <br></br>Any
+            incorrect discord usernames will not be chased, and no refunds will
+            be given from mistakes. Double check your username before submitting
           </p>
         </div>
       </Modal>

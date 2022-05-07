@@ -131,9 +131,9 @@ function Header() {
             </NavDropdown.Item>
           </NavDropdown>
           <NavDropdown title="Bearworld" id="basic-nav-dropdown">
-            <NavDropdown.Item>
+            {/* <NavDropdown.Item>
               <Link to="/rootx-v1-claim/">Claim V1 ROOTx</Link>
-            </NavDropdown.Item>
+            </NavDropdown.Item> */}
             <NavDropdown.Item>
               <Link to="/about/">About BEARWORLD</Link>
             </NavDropdown.Item>

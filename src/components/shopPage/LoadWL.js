@@ -11,7 +11,7 @@ const LoadWL = () => {
 
   const getWhitelistData = async () => {
     await axios
-      .get("https://sheet.best/api/sheets/8ffde6e8-5d89-4fee-bc84-a588d5e0ba28")
+      .get("https://sheet.best/api/sheets/49b95d3b-26b9-41b6-a1d6-ade923fab08d")
       .then((res) => {
         setWLData(res.data);
       })

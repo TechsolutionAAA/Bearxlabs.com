@@ -1542,10 +1542,16 @@
 .load .load__down .description {
   font-family: earlyGameBoy;
   font-size: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   color: white;
   text-align: center;
-  height: 200px;
+  height: 180px;
+}
+.load .load__down .title {
+  font-family: earlyGameBoy;
+  font-size: 20px;
+  color: blue;
+  text-align: center;
 }
 .load .load__down .owned {
   background: transparent;

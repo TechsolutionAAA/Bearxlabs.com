@@ -757,15 +757,12 @@ const BearSteakTwo = () => {
             <div className="bearsteak__icon__text__wrapper">
               <div className="bearsteak__icon__text__item">
                 <FontAwesomeIcon icon={faCheckCircle} color="#FFAE41" />
-                <span>Earn WETH + SROOT by staking</span>
-              </div>
-              <div className="bearsteak__icon__text__item">
-                <FontAwesomeIcon icon={faCheckCircle} color="#FFAE41" />
+                <span>Earn ROOTX by staking</span>
               </div>
               <div className="bearsteak__icon__text__item">
                 <FontAwesomeIcon icon={faCheckCircle} color="#FFAE41" />
                 <span>
-                  Earn SROOT by providing liquidity to the SROOTX - ETH pair via
+                  Earn SROOTX by providing liquidity to the SROOTX - ETH pair via
                   Uniswap V2 to earn additional rewards on top of Uniswap's
                   regular liquidity provider rewards.(Coming Soon)
                 </span>
