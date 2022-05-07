@@ -1581,6 +1581,50 @@
   margin-left: 8px;
 }
 
+body {
+  font-family: earlyGameboy;
+  color: #ffae41;
+}
+
+.tbl_container {
+  border: 1px solid #ffae41;
+  width: 80%;
+  border-radius: 15px;
+  margin: 0 auto;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.tbl_container::-webkit-scrollbar {
+  display: none;
+}
+
+table {
+  font-family: earlyGameboy;
+  color: #ffae41;
+  text-align: center;
+  border-collapse: collapse;
+  border-radius: 12px !important;
+  margin: 0 auto;
+  width: 90%;
+}
+
+th {
+  font-size: 30px;
+}
+
+#myInput {
+  background-color: transparent;
+  background-position: 10px 10px;
+  width: 100%;
+  height: 35px;
+  font-size: 16px;
+  font-family: earlyGameboy;
+  color: #ffae41;
+  border: 1px solid #ffae41;
+  margin-bottom: 12px;
+}
+
 .shop__option {
   margin: 90px 0 50px;
   display: flex;

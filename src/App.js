@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Landing from "./pages/Landing";
 import Resources from "./pages/Resources";
 import Shop from "./pages/Shop";
+import Whitelist from "./pages/Whitelist";
 import RootV1Claim from "./pages/RootV1Claim";
 import BearSteak from "./pages/BearSteak";
 import FaqPage from "./pages/FaqPage";
@@ -39,6 +40,7 @@ function App() {
         <Route path="/bear-steak/" element={<BearSteak/>}/>
         <Route path="/rootx-v1-claim/" element={<RootV1Claim/>}/>
         <Route path="/shop/" element={<Shop/>}/>
+        <Route path="/whitelist/" element={<Whitelist />} />
         <Route path="/resources/" element={<Resources/>}/>
         <Route path="/collections/" element={<Utility/>}/>
         <Route path="/lores/" element={<Lore/>}/>

@@ -141,6 +141,9 @@ function Header() {
               <Link to="/shop/">Market Stall</Link>
             </NavDropdown.Item>
             <NavDropdown.Item>
+              <Link to="/whitelist/">check Whitelist</Link>
+            </NavDropdown.Item>
+            <NavDropdown.Item>
               <Link to="/marketplace/">MARKETPLACE</Link>
             </NavDropdown.Item>
             <NavDropdown.Item>

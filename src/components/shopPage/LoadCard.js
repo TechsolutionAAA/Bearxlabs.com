@@ -9,13 +9,14 @@ import ROOTxABI from "../../config/ROOTx_Rinkeby.json";
 import loading from "../../assets/images/loading.gif";
 
 import { Col, Container, Row, Image } from "react-bootstrap";
-import souka from "../../assets/images/Items/souka.jpg";
-import { GoogleSpreadsheet } from "google-spreadsheets";
+// import { GoogleSpreadsheet } from "google-spreadsheets";
 
+import souka from "../../assets/images/Items/souka.jpg";
 // import nood from "../../assets/images/Items/nood.jpg";
 // import flick from "../../assets/images/Items/flick.jpg";
 // import wizard from "../../assets/images/Items/wizard.jpg";
 // import Dodo from "../../assets/images/Items/Dodo.jpg";
+
 const LoadCard = () => {
   const [MyWeb3, setMyWeb3] = useState([]);
   const [myAccount, setMyAccount] = useState([]);
@@ -68,7 +69,7 @@ const LoadCard = () => {
   useEffect(() => {
     if (MyWeb3.length !== 0) {
       getROOTxBalance();
-
+      getsheetdata();
       // AVART Ticket
       // getsoukaticketdata();
       // getsoukaowned();
@@ -90,6 +91,11 @@ const LoadCard = () => {
       // getDodoticketowned();
     }
   }, [MyWeb3, myAccount[0]]);
+
+
+  const getsheetdata = async () => {
+    
+  };
 
   const loadWeb3 = async () => {
     const web3 = await new ethers.providers.Web3Provider(window.ethereum);
@@ -290,6 +296,8 @@ const LoadCard = () => {
 
           if (item === "souka") {
             setProName(item);
+            setdisId("https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608");
+            setAddr(myAccount[0]);
             setsoukapending(true);
             setShowModal(true);
             try {
@@ -492,6 +500,19 @@ const LoadCard = () => {
   };
 
   const savesheet = async (val1, val2, val3) => {
+    const expdata = {
+      Project: val3,
+      Account: val2,
+      discordId: val1,
+    }
+    axios.post('https://sheet.best/api/sheets/8ffde6e8-5d89-4fee-bc84-a588d5e0ba28', expdata)
+    .then((res) => {
+      setShowSettingModal(false);
+      setTimeout(() => {
+        window. location.reload()
+      }, 1000);
+    })
+    .catch(err => console.log(err));
   };
 
   return (
@@ -914,7 +935,7 @@ const LoadCard = () => {
               Discord ID
             </div>
             <div style={{ flex: "0.7" }}>
-              <input type="text" id="discord" value={disId} onChange={(e) => setdisId(e.target.value)}/>
+              <input type="text" id="discord" value={disId} disabled />
             </div>
           </div>
           <div
@@ -935,7 +956,7 @@ const LoadCard = () => {
               Account
             </div>
             <div style={{ flex: "0.7" }}>
-              <input type="text" id="wallet" value={Addr} onChange={(e) => setAddr(e.target.value)} />
+              <input type="text" id="wallet" value={Addr} disabled />
             </div>
           </div>
           <div
