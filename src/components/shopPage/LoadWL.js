@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-const FilterableTable = require("react-filterable-table");
 
 const LoadWL = () => {
   const [WLData, setWLData] = useState([]);

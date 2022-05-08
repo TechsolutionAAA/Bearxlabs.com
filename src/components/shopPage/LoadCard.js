@@ -7,13 +7,11 @@ import Swal from "sweetalert2";
 import contract from "../../config/contract";
 import ROOTxABI from "../../config/ROOTx_Rinkeby.json";
 import loading from "../../assets/images/loading.gif";
-
 import { Col, Container, Row, Image } from "react-bootstrap";
-// import { GoogleSpreadsheet } from "google-spreadsheets";
 
 import souka from "../../assets/images/Items/souka.jpg";
-// import nood from "../../assets/images/Items/nood.jpg";
-// import flick from "../../assets/images/Items/flick.jpg";
+import flick from "../../assets/images/Items/flick.jpg";
+import nood from "../../assets/images/Items/nood.jpg";
 // import wizard from "../../assets/images/Items/wizard.jpg";
 // import Dodo from "../../assets/images/Items/Dodo.jpg";
 
@@ -36,17 +34,17 @@ const LoadCard = () => {
   const [soukaticketowned, setsoukaticketowned] = useState(false);
   const [soukapending, setsoukapending] = useState(false);
 
-  // NOOD Ticket Info
-  // const [noodburnROOTx, setnoodburnROOTx] = useState(2500);
-  // const [noodticketamount, setnoodticketamount] = useState(0);
-  // const [noodticketowned, setnoodticketowned] = useState(false);
-  // const [noodpending, setnooedpending] = useState(false);
-
   // flick Ticket Info
-  // const [flickburnROOTx, setflickburnROOTx] = useState(2500);
-  // const [flickticketamount, setflickticketamount] = useState(0);
-  // const [flickticketowned, setflickticketowned] = useState(false);
-  // const [flickpending, setflickpending] = useState(false);
+  const [flickburnROOTx, setflickburnROOTx] = useState(2);
+  const [flickticketamount, setflickticketamount] = useState(0);
+  const [flickticketowned, setflickticketowned] = useState(false);
+  const [flickpending, setflickpending] = useState(false);
+
+  // NOOD Ticket Info
+  const [noodburnROOTx, setnoodburnROOTx] = useState(2500);
+  const [noodticketamount, setnoodticketamount] = useState(0);
+  const [noodticketowned, setnoodticketowned] = useState(false);
+  const [noodpending, setnooedpending] = useState(false);
 
   // wizardgladiators Ticket Info
   // const [wizardburnROOTx, setwizardburnROOTx] = useState(2500);
@@ -70,25 +68,6 @@ const LoadCard = () => {
     if (MyWeb3.length !== 0) {
       getROOTxBalance();
       getsheetdata();
-      // AVART Ticket
-      // getsoukaticketdata();
-      // getsoukaowned();
-
-      // NOOD Ticket
-      // getnoodticketdata();
-      // getnoodowned();
-
-      // fluffie Ticket
-      // getfluffieticketdata();
-      // getfluffieowned();
-
-      // wizard Ticket
-      // getwizardticketdata();
-      // getwizardticketowned();
-
-      // Dodo wizardgods Ticket
-      // getDodoticketdata();
-      // getDodoticketowned();
     }
   }, [MyWeb3, myAccount[0]]);
 
@@ -96,16 +75,30 @@ const LoadCard = () => {
     await axios
       .get("https://sheet.best/api/sheets/49b95d3b-26b9-41b6-a1d6-ade923fab08d")
       .then((res) => {
-        var count = 0;
+        var soukacount = 0;
+        var flickcount = 0;
+        var noodcount = 0;
         for (var i = 0; i < res.data.length; i++) {
-          if (res.data[i].Project == "souka") {
-            count++;
-            if (res.data[i].Account == myAccount[0]) {
+          if (res.data[i].Project === "souka") {
+            soukacount++;
+            if (res.data[i].Account === myAccount[0]) {
               setsoukaticketowned(true);
+            }
+          } else if(res.data[i].Project === "flick") {
+            flickcount++;
+            if(res.data[i].Account === myAccount[0]) {
+              setflickticketowned(true);
+            }
+          } else if(res.data[i].Project === "nood") {
+            noodcount++;
+            if(res.data[i].Account === myAccount[0]) {
+              setnoodticketowned(true);
             }
           }
         }
-        setsoukaticketamount(count);
+        setsoukaticketamount(soukacount);
+        setflickticketamount(flickcount);
+        setnoodticketamount(noodcount);
       })
       .catch((err) => console.log(err));
   };
@@ -142,152 +135,6 @@ const LoadCard = () => {
       console.log(error);
     }
   };
-
-  // souka Ticket
-
-  // const getsoukaticketdata = async () => {
-  //   const expData = {
-  //     item: "souka",
-  //   };
-  //   axios
-  //     .post("/v1/api/user/getticketdata", expData)
-  //     .then((res) => {
-  //       if (res.data >= 0) {
-  //         setsoukaticketamount(res.data);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-  // const getsoukaowned = async () => {
-  //   const expData = {
-  //     item: "souka",
-  //     account: window.ethereum.selectedAddress,
-  //   };
-  //   axios
-  //     .post("/v1/api/user/gettickeowned", expData)
-  //     .then((res) => {
-  //       if (res.data.result) {
-  //         setsoukaticketowned(true);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  // NOOD Ticket
-  // const getnoodticketdata = async () => {
-  //   const expData = {
-  //     item: "nood",
-  //   };
-  //   axios
-  //     .post("/v1/api/user/getticketdata", expData)
-  //     .then((res) => {
-  //       if (res.data >= 0) {
-  //         setnoodticketamount(res.data);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-  // const getnoodowned = async () => {
-  //   const expData = {
-  //     item: "nood",
-  //     account: window.ethereum.selectedAddress,
-  //   };
-  //   axios
-  //     .post("/v1/api/user/gettickeowned", expData)
-  //     .then((res) => {
-  //       if (res.data.result) {
-  //         setnoodticketowned(true);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  // fluffie Ticket
-  // const getfluffieticketdata = async () => {
-  //   const expData = {
-  //     item: "flick",
-  //   };
-  //   axios
-  //     .post("/v1/api/user/getticketdata", expData)
-  //     .then((res) => {
-  //       if (res.data >= 0) {
-  //         setflickticketamount(res.data);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-  // const getfluffieowned = async () => {
-  //   const expData = {
-  //     item: "flick",
-  //     account: window.ethereum.selectedAddress,
-  //   };
-  //   axios
-  //     .post("/v1/api/user/gettickeowned", expData)
-  //     .then((res) => {
-  //       if (res.data.result) {
-  //         setflickticketowned(true);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  // wizard Ticket
-  // const getwizardticketdata = async () => {
-  //   const expData = {
-  //     item: "wizard",
-  //   };
-  //   axios
-  //     .post("/v1/api/user/getticketdata", expData)
-  //     .then((res) => {
-  //       if (res.data >= 0) {
-  //         setwizardticketamount(res.data);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-  // const getwizardticketowned = async () => {
-  //   const expData = {
-  //     item: "wizard",
-  //     account: window.ethereum.selectedAddress,
-  //   };
-  //   axios
-  //     .post("/v1/api/user/gettickeowned", expData)
-  //     .then((res) => {
-  //       if (res.data.result) {
-  //         setwizardticketowned(true);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  // Dodo Ticket
-  // const getDodoticketdata = async () => {
-  //   const expData = {
-  //     item: "Dodo",
-  //   };
-  //   axios
-  //     .post("/v1/api/user/getticketdata", expData)
-  //     .then((res) => {
-  //       if (res.data >= 0) {
-  //         setDodoticketamount(res.data);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-  // const getDodoticketowned = async () => {
-  //   const expData = {
-  //     item: "Dodo",
-  //     account: window.ethereum.selectedAddress,
-  //   };
-  //   axios
-  //     .post("/v1/api/user/gettickeowned", expData)
-  //     .then((res) => {
-  //       if (res.data.result) {
-  //         setDodoticketowned(true);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
 
   const burnROOTx = async (amount, item) => {
     if (myAccount.length === 0) return;
@@ -340,172 +187,73 @@ const LoadCard = () => {
               setsoukapending(false);
               setShowModal(false);
             }
+          } else if (item === "flick") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setflickpending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setflickpending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setflickpending(false);
+              setShowModal(false);
+            }
+          } else if (item === "nood") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setnooedpending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setflickpending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setnooedpending(false);
+              setShowModal(false);
+            }
           }
-          // } else if (item === "nood") {
-          //   setnooedpending(true);
-          //   setShowModal(true);
-          //   try {
-          //     const tx = await ROOTxContract._burn(
-          //       ethers.utils.parseUnits(String(amount), 18),
-          //       { from: myAccount[0] }
-          //     );
-          //     await tx.wait();
-          //     const expData = {
-          //       item: "nood",
-          //       amount: Number(noodticketamount) + 1,
-          //     };
-          //     await axios
-          //       .post("/v1/api/user/setticketamount", expData)
-          //       .then((res) => {
-          //         console.log("success");
-          //       })
-          //       .catch((err) => console.log(err));
-          //     const expData1 = {
-          //       item: "nood",
-          //       owner: window.ethereum.selectedAddress,
-          //     };
-          //     await axios
-          //       .post("/v1/api/user/setticketowner", expData1)
-          //       .then((res) => {
-          //         if (res.data.result) {
-          //           setnoodticketowned(true);
-          //           window.location.reload();
-          //         }
-          //       })
-          //       .catch((err) => console.log(err));
-          //   } catch (error) {
-          //     Swal.fire({
-          //       icon: "error",
-          //       title: "Oops...",
-          //       text: "Something went Wrong!",
-          //     });
-          //     setnooedpending(false);
-          //     setShowModal(false);
-          //   }
-          // } else if (item === "flick") {
-          //   setflickpending(true);
-          //   setShowModal(true);
-          //   try {
-          //     const tx = await ROOTxContract._burn(
-          //       ethers.utils.parseUnits(String(amount), 18),
-          //       { from: myAccount[0] }
-          //     );
-          //     await tx.wait();
-          //     const expData = {
-          //       item: "flick",
-          //       amount: Number(flickticketamount) + 1,
-          //     };
-          //     await axios
-          //       .post("/v1/api/user/setticketamount", expData)
-          //       .then((res) => {
-          //         console.log("success");
-          //       })
-          //       .catch((err) => console.log(err));
-          //     const expData1 = {
-          //       item: "flick",
-          //       owner: window.ethereum.selectedAddress,
-          //     };
-          //     await axios
-          //       .post("/v1/api/user/setticketowner", expData1)
-          //       .then((res) => {
-          //         if (res.data.result) {
-          //           setflickticketowned(true);
-          //           window.location.reload();
-          //         }
-          //       })
-          //       .catch((err) => console.log(err));
-          //   } catch (error) {
-          //     Swal.fire({
-          //       icon: "error",
-          //       title: "Oops...",
-          //       text: "Something went Wrong!",
-          //     });
-          //     setflickpending(false);
-          //     setShowModal(false);
-          //   }
-          // } else if (item === "wizard") {
-          //   setwizardpending(true);
-          //   setShowModal(true);
-          //   try {
-          //     const tx = await ROOTxContract._burn(
-          //       ethers.utils.parseUnits(String(amount), 18),
-          //       { from: myAccount[0] }
-          //     );
-          //     await tx.wait();
-          //     const expData = {
-          //       item: "wizard",
-          //       amount: Number(wizardticketamount) + 1,
-          //     };
-          //     await axios
-          //       .post("/v1/api/user/setticketamount", expData)
-          //       .then((res) => {
-          //         console.log("success");
-          //       })
-          //       .catch((err) => console.log(err));
-          //     const expData1 = {
-          //       item: "wizard",
-          //       owner: window.ethereum.selectedAddress,
-          //     };
-          //     await axios
-          //       .post("/v1/api/user/setticketowner", expData1)
-          //       .then((res) => {
-          //         if (res.data.result) {
-          //           setwizardticketowned(true);
-          //           window.location.reload();
-          //         }
-          //       })
-          //       .catch((err) => console.log(err));
-          //   } catch (error) {
-          //     Swal.fire({
-          //       icon: "error",
-          //       title: "Oops...",
-          //       text: "Something went Wrong!",
-          //     });
-          //     setwizardpending(false);
-          //     setShowModal(false);
-          //   }
-          // } else if (item === "Dodo") {
-          //   setDodopending(true);
-          //   setShowModal(true);
-          //   try {
-          //     const tx = await ROOTxContract._burn(
-          //       ethers.utils.parseUnits(String(amount), 18),
-          //       { from: myAccount[0] }
-          //     );
-          //     await tx.wait();
-          //     const expData = {
-          //       item: "Dodo",
-          //       amount: Number(Dodoticketamount) + 1,
-          //     };
-          //     await axios
-          //       .post("/v1/api/user/setticketamount", expData)
-          //       .then((res) => {
-          //         console.log("success");
-          //       })
-          //       .catch((err) => console.log(err));
-          //     const expData1 = {
-          //       item: "Dodo",
-          //       owner: window.ethereum.selectedAddress,
-          //     };
-          //     await axios
-          //       .post("/v1/api/user/setticketowner", expData1)
-          //       .then((res) => {
-          //         if (res.data.result) {
-          //           setDodoticketowned(true);
-          //           window.location.reload();
-          //         }
-          //       })
-          //       .catch((err) => console.log(err));
-          //   } catch (error) {
-          //     Swal.fire({
-          //       icon: "error",
-          //       title: "Oops...",
-          //       text: "Something went Wrong!",
-          //     });
-          //     setDodopending(false);
-          //     setShowModal(false);
-          //   }
-          // }
         }
       })
       .catch((err) => console.log(err));
@@ -572,9 +320,7 @@ const LoadCard = () => {
                     </span>
                   </div>
                 </div>
-                <span className="title" >
-                  SOUKA
-                </span>
+                <span className="title">SOUKA</span>
                 <div className="description">
                   An oasis for weary travelers, greedy merchants and dutiful
                   warriors — even vengeful vagrants.
@@ -597,12 +343,15 @@ const LoadCard = () => {
                   <button>SOLD OUT</button>
                 ) : ROOTxBalance >= soukaburnROOTx ? (
                   <>
-                    <button onClick={() => burnROOTx(soukaburnROOTx, "souka")} style={{
+                    <button
+                      onClick={() => burnROOTx(soukaburnROOTx, "souka")}
+                      style={{
                         color: "red",
                         textAlign: "center",
                         fontFamily: "earlyGameboy",
                         fontSize: "12px",
-                      }}>
+                      }}
+                    >
                       GET WHITELIST SPOT
                     </button>
                   </>
@@ -612,7 +361,7 @@ const LoadCard = () => {
               </div>
             </div>
           </Col>
-          {/* <Col lg={4}>
+          <Col lg={4}>
             <div className="load">
               <div className="load__up">
                 <div className="load__img">
@@ -632,31 +381,17 @@ const LoadCard = () => {
                   }}
                 >
                   <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span>
-                      {flickburnROOTx.toLocaleString("en-US")} ROOTx
-                    </span>
+                    <span>{flickburnROOTx.toLocaleString("en-US")} ROOTx</span>
                     <span style={{ marginTop: "10px" }}>
                       {flickticketamount} / 3 FILLED
                     </span>
                   </div>
                 </div>
+                <span className="title">FLICK</span>
                 <div className="description">
                   The first NFT collection to be displayed with AR in the real
                   world, thanks to FlickPlay App.
                 </div>
-                {flickticketowned ? (
-                  <button className="server">
-                    <a
-                      className="servertxt"
-                      target="_blank"
-                      href="https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
-                    >
-                      open a ticket in the server
-                    </a>
-                  </button>
-                ) : (
-                  <></>
-                )}
                 {flickticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
                 ) : flickpending ? (
@@ -671,237 +406,28 @@ const LoadCard = () => {
                       style={{ width: "20px", height: "20px" }}
                     />
                   </button>
-                ) : ROOTxBalance >= flickburnROOTx ? (
-                  <button
-                    onClick={() => burnROOTx(flickburnROOTx, "flick")}
-                  >
-                    Get Whitelist Spot
-                  </button>
                 ) : flickticketamount >= 3 ? (
                   <button>SOLD OUT</button>
+                ) : ROOTxBalance >= flickburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(flickburnROOTx, "flick")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
                 ) : (
-                  <button>Not Enough ROOTx</button>
+                  <button>NOT ENOUGH ROOTX</button>
                 )}
               </div>
             </div>
           </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={wizard} alt="shop images" fluid />
-                </div>
-              </div>
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span>{wizardburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {wizardticketamount} / 3 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description">
-                  3,333 mystical wizards building a P2P NFT trading platform &
-                  sharing alpha | Doxxed team
-                </div>
-                {wizardticketowned ? (
-                  <button className="server">
-                    <a
-                      className="servertxt"
-                      target="_blank"
-                      href="https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
-                    >
-                      open a ticket in the server
-                    </a>
-                  </button>
-                ) : (
-                  <></>
-                )}
-                {wizardticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : wizardpending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : ROOTxBalance >= wizardburnROOTx ? (
-                  <button onClick={() => burnROOTx(wizardburnROOTx, "wizard")}>
-                    Get Whitelist Spot
-                  </button>
-                ) : wizardticketamount >= 3 ? (
-                  <button>SOLD OUT</button>
-                ) : (
-                  <button>Not Enough ROOTx</button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={nood} alt="shop images" fluid />
-                </div>
-              </div>
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span>{noodburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {noodticketamount} / 3 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description">
-                  Nood Fungible Token is an NFT project that aims to promote
-                  body positivity, equality, and freedom within the NFT
-                  community. This project will consist of 4444 unique Noodies
-                  separated into 4 different drops in line with different
-                  advocacies. Each drop from all collections is sure to be
-                  unique and have their own flair.
-                </div>
-                {noodticketowned ? (
-                  <button className="server">
-                    <a
-                      className="servertxt"
-                      target="_blank"
-                      href="https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
-                    >
-                      open a ticket in the server
-                    </a>
-                  </button>
-                ) : (
-                  <></>
-                )}
-                {noodticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : noodpending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : ROOTxBalance >= noodburnROOTx ? (
-                  <button onClick={() => burnROOTx(noodburnROOTx, "nood")}>
-                    Get Whitelist Spot
-                  </button>
-                ) : noodticketamount >= 3 ? (
-                  <button>SOLD OUT</button>
-                ) : (
-                  <button>Not Enough ROOTx</button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={Dodo} alt="shop images" fluid />
-                </div>
-              </div>
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span>
-                      {DodoburnROOTx.toLocaleString("en-US")} ROOTx
-                    </span>
-                    <span style={{ marginTop: "10px" }}>
-                      {Dodoticketamount} / 3 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description">
-                  Infinite Dodos is a complete ecosystem starting with an
-                  Unhackable wallet. UTILITY READY AT MINT team spent 7 months
-                  building before announcing the collection consisting of world
-                  class entrepreneurs all Doxxed.
-                </div>
-                {Dodoticketowned ? (
-                  <button className="server">
-                    <a
-                      className="servertxt"
-                      target="_blank"
-                      href="https://discord.com/channels/893470863876300830/893476471157436436/902961581661503608"
-                    >
-                      open a ticket in the server
-                    </a>
-                  </button>
-                ) : (
-                  <></>
-                )}
-                {Dodoticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : Dodopending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : ROOTxBalance >= DodoburnROOTx ? (
-                  <button
-                    onClick={() => burnROOTx(DodoburnROOTx, "Dodo")}
-                  >
-                    Get Whitelist Spot
-                  </button>
-                ) : Dodoticketamount >= 3 ? (
-                  <button>SOLD OUT</button>
-                ) : (
-                  <button>Not Enough ROOTx</button>
-                )}
-              </div>
-            </div>
-          </Col> */}
         </Row>
       </Container>
       <Modal visible={showModal} width="450px" height="300px" effect="fadeInUp">
@@ -1004,42 +530,33 @@ const LoadCard = () => {
             </div>
           </div>
         </div>
-        <button
-          style={{
-            fontSize: "12px",
-            padding: "7px 13px",
-            backgroundColor: "#fdd803",
-            color: "black",
-            borderRadius: "50px",
-            fontFamily: "earlyGameBoy",
-            cursor: "pointer",
-            border: "0px",
-            marginLeft: "35%",
-            marginTop: "3%",
-          }}
-          onClick={() => savesheet(disId, Addr, ProName)}
-        >
-          Get Spot
-        </button>
-        <div>
-          <p
+        <div style={{display: "flex", justifyContent:"center"}}>
+          <button
             style={{
-              color: "red",
-              textAlign: "center",
-              fontFamily: "earlyGameboy",
-              marginTop: "3%",
               fontSize: "12px",
+              padding: "7px 13px",
+              backgroundColor: "#fd7e14",
+              color: "black",
+              borderRadius: "50px",
+              fontFamily: "earlyGameBoy",
+              cursor: "pointer",
+              border: "0px",
+              marginTop: "3%",
             }}
+            onClick={() => savesheet(disId, Addr, ProName)}
           >
-            GET WHITELIST SPOT{" "}
-          </p>
+            {" "}
+            GET WHITELIST SPOT
+          </button>
+        </div>
 
+        <div>
           <p
             style={{
               color: "#fd7e14",
               textAlign: "center",
               fontFamily: "earlyGameboy",
-              marginTop: "3%",
+              marginTop: "5%",
               fontSize: "12px",
             }}
           >
