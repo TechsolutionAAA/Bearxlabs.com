@@ -5,15 +5,15 @@ import axios from "axios";
 import Modal from "react-awesome-modal";
 import Swal from "sweetalert2";
 import contract from "../../config/contract";
-import ROOTxABI from "../../config/ROOTx_Rinkeby.json";
+import ROOTxABI from "../../config/rootABI.json";
 import loading from "../../assets/images/loading.gif";
 import { Col, Container, Row, Image } from "react-bootstrap";
 
 import souka from "../../assets/images/Items/souka.jpg";
 import flick from "../../assets/images/Items/flick.jpg";
 import nood from "../../assets/images/Items/nood.jpg";
-// import wizard from "../../assets/images/Items/wizard.jpg";
-// import Dodo from "../../assets/images/Items/Dodo.jpg";
+import wizard from "../../assets/images/Items/wizard.jpg";
+import Dodo from "../../assets/images/Items/Dodo.jpg";
 
 const LoadCard = () => {
   const [MyWeb3, setMyWeb3] = useState([]);
@@ -29,13 +29,13 @@ const LoadCard = () => {
   const [ProName, setProName] = useState("");
 
   // souka Ticket Info
-  const [soukaburnROOTx, setburnROOTx] = useState(2);
+  const [soukaburnROOTx, setburnROOTx] = useState(2500);
   const [soukaticketamount, setsoukaticketamount] = useState(0);
   const [soukaticketowned, setsoukaticketowned] = useState(false);
   const [soukapending, setsoukapending] = useState(false);
 
   // flick Ticket Info
-  const [flickburnROOTx, setflickburnROOTx] = useState(2);
+  const [flickburnROOTx, setflickburnROOTx] = useState(2500);
   const [flickticketamount, setflickticketamount] = useState(0);
   const [flickticketowned, setflickticketowned] = useState(false);
   const [flickpending, setflickpending] = useState(false);
@@ -47,16 +47,16 @@ const LoadCard = () => {
   const [noodpending, setnooedpending] = useState(false);
 
   // wizardgladiators Ticket Info
-  // const [wizardburnROOTx, setwizardburnROOTx] = useState(2500);
-  // const [wizardticketamount, setwizardticketamount] = useState(0);
-  // const [wizardticketowned, setwizardticketowned] = useState(false);
-  // const [wizardpending, setwizardpending] = useState(false);
+  const [wizardburnROOTx, setwizardburnROOTx] = useState(2500);
+  const [wizardticketamount, setwizardticketamount] = useState(0);
+  const [wizardticketowned, setwizardticketowned] = useState(false);
+  const [wizardpending, setwizardpending] = useState(false);
 
   // Dodo wizardgods Ticket Info
-  // const [DodoburnROOTx, setDodoburnROOTx] = useState(6000);
-  // const [Dodoticketamount, setDodoticketamount] = useState(0);
-  // const [Dodoticketowned, setDodoticketowned] = useState(false);
-  // const [Dodopending, setDodopending] = useState(false);
+  const [DodoburnROOTx, setDodoburnROOTx] = useState(6000);
+  const [Dodoticketamount, setDodoticketamount] = useState(0);
+  const [Dodoticketowned, setDodoticketowned] = useState(false);
+  const [Dodopending, setDodopending] = useState(false);
 
   useEffect(() => {
     if (window.web3 !== undefined && window.ethereum) {
@@ -73,32 +73,46 @@ const LoadCard = () => {
 
   const getsheetdata = async () => {
     await axios
-      .get("https://sheet.best/api/sheets/49b95d3b-26b9-41b6-a1d6-ade923fab08d")
+      .get("https://sheet.best/api/sheets/e2580e2b-cc24-4aa0-86bf-39d52659b2d8")
       .then((res) => {
         var soukacount = 0;
         var flickcount = 0;
         var noodcount = 0;
+        var wizardcount = 0;
+        var Dodocount = 0;
         for (var i = 0; i < res.data.length; i++) {
           if (res.data[i].Project === "souka") {
             soukacount++;
             if (res.data[i].Account === myAccount[0]) {
               setsoukaticketowned(true);
             }
-          } else if(res.data[i].Project === "flick") {
+          } else if (res.data[i].Project === "flick") {
             flickcount++;
-            if(res.data[i].Account === myAccount[0]) {
+            if (res.data[i].Account === myAccount[0]) {
               setflickticketowned(true);
             }
-          } else if(res.data[i].Project === "nood") {
+          } else if (res.data[i].Project === "nood") {
             noodcount++;
-            if(res.data[i].Account === myAccount[0]) {
+            if (res.data[i].Account === myAccount[0]) {
               setnoodticketowned(true);
+            }
+          } else if (res.data[i].Project === "wizard") {
+            wizardcount++;
+            if (res.data[i].Account === myAccount[0]) {
+              setwizardticketowned(true);
+            }
+          } else if (res.data[i].Project === "Dodo") {
+            Dodocount++;
+            if (res.data[i].Account === myAccount[0]) {
+              setDodoticketowned(true);
             }
           }
         }
         setsoukaticketamount(soukacount);
         setflickticketamount(flickcount);
         setnoodticketamount(noodcount);
+        setwizardticketamount(wizardcount);
+        setDodoticketamount(Dodocount);
       })
       .catch((err) => console.log(err));
   };
@@ -119,7 +133,7 @@ const LoadCard = () => {
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const ROOTxContract = new Contract(
-      contract.ROOTx[4],
+      contract.ROOTx[1],
       ROOTxABI,
       provider?.getSigner()
     );
@@ -149,7 +163,7 @@ const LoadCard = () => {
         if (res.isConfirmed) {
           const provider = new ethers.providers.Web3Provider(window.ethereum);
           const ROOTxContract = new Contract(
-            contract.ROOTx[4],
+            contract.ROOTx[1],
             ROOTxABI,
             provider?.getSigner()
           );
@@ -253,6 +267,72 @@ const LoadCard = () => {
               setnooedpending(false);
               setShowModal(false);
             }
+          } else if (item === "wizard") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setwizardpending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setwizardpending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setwizardpending(false);
+              setShowModal(false);
+            }
+          } else if (item === "Dodo") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setDodopending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setDodopending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setDodopending(false);
+              setShowModal(false);
+            }
           }
         }
       })
@@ -267,7 +347,7 @@ const LoadCard = () => {
     };
     axios
       .post(
-        "https://sheet.best/api/sheets/49b95d3b-26b9-41b6-a1d6-ade923fab08d",
+        "https://sheet.best/api/sheets/e2580e2b-cc24-4aa0-86bf-39d52659b2d8",
         expdata
       )
       .then((res) => {
@@ -428,6 +508,212 @@ const LoadCard = () => {
               </div>
             </div>
           </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={nood} alt="shop images" fluid />
+                </div>
+              </div>
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <span>{noodburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {noodticketamount} / 3 FILLED
+                    </span>
+                  </div>
+                </div>
+                <span className="title">Nood</span>
+                <div className="description">
+                  Nood Fungible Token is an NFT project that aims to promote
+                  body positivity, equality, and freedom within the NFT
+                  community. This project will consist of 4444 unique Noodies
+                  separated into 4 different drops in line with different
+                  advocacies.
+                </div>
+                {noodticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : noodpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : noodticketamount >= 3 ? (
+                  <button>SOLD OUT</button>
+                ) : ROOTxBalance >= noodburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(noodburnROOTx, "nood")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button>NOT ENOUGH ROOTX</button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={wizard} alt="shop images" fluid />
+                </div>
+              </div>
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <span>{wizardburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {wizardticketamount} / 3 FILLED
+                    </span>
+                  </div>
+                </div>
+                <span className="title">Wizard</span>
+                <div className="description">
+                  3,333 mystical wizards building a P2P NFT trading platform &
+                  sharing alpha | Doxxed team.
+                </div>
+                {wizardticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : wizardpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : wizardticketamount >= 3 ? (
+                  <button>SOLD OUT</button>
+                ) : ROOTxBalance >= wizardburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(wizardburnROOTx, "wizard")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button>NOT ENOUGH ROOTX</button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={Dodo} alt="shop images" fluid />
+                </div>
+              </div>
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <span>{DodoburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {Dodoticketamount} / 3 FILLED
+                    </span>
+                  </div>
+                </div>
+                <span className="title">Dodo</span>
+                <div className="description">
+                  Infinite Dodos is a complete ecosystem starting with an
+                  Unhackable wallet. UTILITY READY AT MINT team spent 7 months
+                  building before announcing the collection consisting of world
+                  class entrepreneurs all Doxxed.
+                </div>
+                {Dodoticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : Dodopending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : Dodoticketamount >= 3 ? (
+                  <button>SOLD OUT</button>
+                ) : ROOTxBalance >= DodoburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(DodoburnROOTx, "Dodo")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button>NOT ENOUGH ROOTX</button>
+                )}
+              </div>
+            </div>
+          </Col>
         </Row>
       </Container>
       <Modal visible={showModal} width="450px" height="300px" effect="fadeInUp">
@@ -530,7 +816,7 @@ const LoadCard = () => {
             </div>
           </div>
         </div>
-        <div style={{display: "flex", justifyContent:"center"}}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
           <button
             style={{
               fontSize: "12px",
