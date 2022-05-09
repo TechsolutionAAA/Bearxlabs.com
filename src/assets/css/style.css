@@ -1547,6 +1547,9 @@
   text-align: center;
   height: 180px;
 }
+.load .load__down .description::-webkit-scrollbar {
+  display: none;
+}
 .load .load__down .title {
   font-family: earlyGameBoy;
   font-size: 20px;

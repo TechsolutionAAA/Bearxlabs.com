@@ -41,6 +41,9 @@
       text-align: center;
       height: 180px;
     }
+    .description::-webkit-scrollbar {
+      display: none;
+    }
     .title {
       font-family: $earlyGameBoy;
       font-size: 20px;

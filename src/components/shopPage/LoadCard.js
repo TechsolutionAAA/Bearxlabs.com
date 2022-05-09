@@ -14,6 +14,11 @@ import flick from "../../assets/images/Items/flick.jpg";
 import nood from "../../assets/images/Items/nood.jpg";
 import wizard from "../../assets/images/Items/wizard.jpg";
 import Dodo from "../../assets/images/Items/Dodo.jpg";
+import moonwalker from "../../assets/images/Items/moonwalker.jpg";
+import chunk from "../../assets/images/Items/chunk.jpg";
+import alfie from "../../assets/images/Items/alfieworld.jpg";
+import chosen from "../../assets/images/Items/chosenones.jpg";
+import maze from "../../assets/images/Items/Maze.jpg";
 
 const LoadCard = () => {
   const [MyWeb3, setMyWeb3] = useState([]);
@@ -58,6 +63,36 @@ const LoadCard = () => {
   const [Dodoticketowned, setDodoticketowned] = useState(false);
   const [Dodopending, setDodopending] = useState(false);
 
+  // moonwalker wizardgods Ticket Info
+  const [moonburnROOTx, setmoonburnROOTx] = useState(2500);
+  const [moonticketamount, setmoonticketamount] = useState(0);
+  const [moonticketowned, setmoonticketowned] = useState(false);
+  const [moonpending, setmoonpending] = useState(false);
+
+  // chunk wizardgods Ticket Info
+  const [chunkburnROOTx, setchunkburnROOTx] = useState(2500);
+  const [chunkticketamount, setchunkticketamount] = useState(0);
+  const [chunkticketowned, setchunkticketowned] = useState(false);
+  const [chunkpending, setchunkpending] = useState(false);
+
+  // Alfie wizardgods Ticket Info
+  const [alfieburnROOTx, setalfieburnROOTx] = useState(2500);
+  const [alfieticketamount, setalfieticketamount] = useState(0);
+  const [alfieticketowned, setalfieticketowned] = useState(false);
+  const [alfiepending, setalfiepending] = useState(false);
+
+  // Chosen wizardgods Ticket Info
+  const [chosenburnROOTx, setchosenburnROOTx] = useState(2500);
+  const [chosenticketamount, setchosenticketamount] = useState(0);
+  const [chosenticketowned, setchosenticketowned] = useState(false);
+  const [chosenpending, setchosenpending] = useState(false);
+
+  // Maze wizardgods Ticket Info
+  const [mazeburnROOTx, setmazeburnROOTx] = useState(2500);
+  const [mazeticketamount, setmazeticketamount] = useState(0);
+  const [mazeticketowned, setmazeticketowned] = useState(false);
+  const [mazepending, setmazepending] = useState(false);
+
   useEffect(() => {
     if (window.web3 !== undefined && window.ethereum) {
       loadWeb3();
@@ -80,6 +115,11 @@ const LoadCard = () => {
         var noodcount = 0;
         var wizardcount = 0;
         var Dodocount = 0;
+        var Mooncount = 0;
+        var chunkcount = 0;
+        var alfiecount = 0;
+        var chosencount = 0;
+        var mazecount = 0;
         for (var i = 0; i < res.data.length; i++) {
           if (res.data[i].Project === "souka") {
             soukacount++;
@@ -106,6 +146,31 @@ const LoadCard = () => {
             if (res.data[i].Account === myAccount[0]) {
               setDodoticketowned(true);
             }
+          } else if (res.data[i].Project === "Moon") {
+            Mooncount++;
+            if (res.data[i].Account === myAccount[0]) {
+              setmoonticketowned(true);
+            }
+          } else if (res.data[i].Project === "Chunk") {
+            chunkcount++;
+            if (res.data[i].Account === myAccount[0]) {
+              setchunkticketowned(true);
+            }
+          } else if (res.data[i].Project === "Alfie") {
+            alfiecount++;
+            if (res.data[i].Account === myAccount[0]) {
+              setalfieticketowned(true);
+            }
+          } else if (res.data[i].Project === "Chosen") {
+            chosencount++;
+            if (res.data[i].Account === myAccount[0]) {
+              setchosenticketowned(true);
+            }
+          } else if (res.data[i].Project === "Maze") {
+            mazecount++;
+            if (res.data[i].Account === myAccount[0]) {
+              setmazeticketowned(true);
+            }
           }
         }
         setsoukaticketamount(soukacount);
@@ -113,6 +178,11 @@ const LoadCard = () => {
         setnoodticketamount(noodcount);
         setwizardticketamount(wizardcount);
         setDodoticketamount(Dodocount);
+        setmoonticketamount(Mooncount);
+        setchunkticketamount(chunkcount);
+        setalfieticketamount(alfiecount);
+        setchosenticketamount(chosencount);
+        setmazeticketamount(mazecount);
       })
       .catch((err) => console.log(err));
   };
@@ -333,6 +403,171 @@ const LoadCard = () => {
               setDodopending(false);
               setShowModal(false);
             }
+          } else if (item === "Moon") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setmoonpending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setmoonpending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setmoonpending(false);
+              setShowModal(false);
+            }
+          } else if (item === "Chunk") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setchunkpending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setchunkpending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setchunkpending(false);
+              setShowModal(false);
+            }
+          } else if (item === "Alfie") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setalfiepending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setalfiepending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setalfiepending(false);
+              setShowModal(false);
+            }
+          } else if (item === "Chosen") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setchosenpending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setchosenpending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setchosenpending(false);
+              setShowModal(false);
+            }
+          } else if (item === "Maze") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setmazepending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setmazepending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setmazepending(false);
+              setShowModal(false);
+            }
           }
         }
       })
@@ -381,6 +616,7 @@ const LoadCard = () => {
                   <Image src={souka} alt="shop images" fluid />
                 </div>
               </div>
+
               <div
                 className="load__down"
                 style={{ display: "block", textAlign: "center" }}
@@ -394,16 +630,17 @@ const LoadCard = () => {
                   }}
                 >
                   <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>SOUKA</button>
                     <span>{soukaburnROOTx.toLocaleString("en-US")} ROOTx</span>
                     <span style={{ marginTop: "10px" }}>
                       {soukaticketamount} / 3 FILLED
                     </span>
                   </div>
                 </div>
-                <button>SOUKA</button>
                 <div className="description">
-                  An oasis for weary travelers, greedy merchants and dutiful
-                  warriors — even vengeful vagrants.
+                  What is Souka? <br />
+                  The Souk is the largest covered historic market in the NFT
+                  world, based on IRL bazaar in the medieval times.
                 </div>
                 {soukaticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
@@ -448,6 +685,7 @@ const LoadCard = () => {
                   <Image src={flick} alt="shop images" fluid />
                 </div>
               </div>
+
               <div
                 className="load__down"
                 style={{ display: "block", textAlign: "center" }}
@@ -461,16 +699,27 @@ const LoadCard = () => {
                   }}
                 >
                   <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>flick play</button>
                     <span>{flickburnROOTx.toLocaleString("en-US")} ROOTx</span>
                     <span style={{ marginTop: "10px" }}>
                       {flickticketamount} / 3 FILLED
                     </span>
                   </div>
                 </div>
-                <button>FLICK</button>
-                <div className="description">
-                  The first NFT collection to be displayed with AR in the real
-                  world, thanks to FlickPlay App.
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  What is FlickyGang?<br></br> Flickygang NFT is a collection of
+                  5,555 Unique 3D characters living in the Ethereum blockchain.
+                  Investors from : The Sandbox, Warner Brothers, EventBrite,
+                  Muse capital Each Flicky has a life of its own, and their
+                  fashion taste highlights their personality and lifestyle. The
+                  first-ever AR-powered NFT collection on the fully built &
+                  functional app FlickPlay. FlickPlay is a social app where
+                  people build the social status of their Digital Collectibles.
+                  FlickPlay's map allows for users to unlock digital
+                  collectibles in the real world and FlickPlay camera allows
+                  users to flex their collectibles in the real world using AR,
+                  bridging people's digital and physical realities together Team
+                  is fully doxxed and just announced a partnership with Sandbox.
                 </div>
                 {flickticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
@@ -515,6 +764,7 @@ const LoadCard = () => {
                   <Image src={nood} alt="shop images" fluid />
                 </div>
               </div>
+
               <div
                 className="load__down"
                 style={{ display: "block", textAlign: "center" }}
@@ -528,19 +778,23 @@ const LoadCard = () => {
                   }}
                 >
                   <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>NoodFTX</button>
                     <span>{noodburnROOTx.toLocaleString("en-US")} ROOTx</span>
                     <span style={{ marginTop: "10px" }}>
                       {noodticketamount} / 3 FILLED
                     </span>
                   </div>
                 </div>
-                <button>Nood</button>
-                <div className="description">
+                <div className="description" style={{ overflowY: "scroll" }}>
                   Nood Fungible Token is an NFT project that aims to promote
                   body positivity, equality, and freedom within the NFT
-                  community. This project will consist of 4444 unique Noodies
+                  community..This project will consist of 4444 unique Noodies
                   separated into 4 different drops in line with different
-                  advocacies.
+                  advocacies. Each drop from all collections is sure to be
+                  unique and have their own flair. The ultimate goal of Nood
+                  Fungible Tokens is to fully realize the potential of NFTs and
+                  crypto in shaping our world to be a more safe and inclusive
+                  space for all.
                 </div>
                 {noodticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
@@ -585,6 +839,7 @@ const LoadCard = () => {
                   <Image src={wizard} alt="shop images" fluid />
                 </div>
               </div>
+
               <div
                 className="load__down"
                 style={{ display: "block", textAlign: "center" }}
@@ -593,21 +848,28 @@ const LoadCard = () => {
                   className="point"
                   style={{
                     transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
+                    marginLeft: "25%",
                     marginBottom: "15px",
                   }}
                 >
                   <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>
+                      Mystical wizards guild
+                    </button>
                     <span>{wizardburnROOTx.toLocaleString("en-US")} ROOTx</span>
                     <span style={{ marginTop: "10px" }}>
                       {wizardticketamount} / 3 FILLED
                     </span>
                   </div>
                 </div>
-                <button>Wizard</button>
-                <div className="description">
-                  3,333 mystical wizards building a P2P NFT trading platform &
-                  sharing alpha | Doxxed team.
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  Mystical Wizard Guild is the NFT behind the MysticSwap
+                  platform, a peer-to-peer NFT trading platform for secure
+                  trades and swaps. Example: you wanna sell your BearX to a
+                  fren, privately. This is how you do it. Holders of the
+                  Mystical Wizard NFT benefit from platform revenue, pay no fees
+                  on the platform and gain access to an exclusive alpha group!
+                  Twitter template below, to make your life easier too
                 </div>
                 {wizardticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
@@ -652,6 +914,7 @@ const LoadCard = () => {
                   <Image src={Dodo} alt="shop images" fluid />
                 </div>
               </div>
+
               <div
                 className="load__down"
                 style={{ display: "block", textAlign: "center" }}
@@ -665,18 +928,20 @@ const LoadCard = () => {
                   }}
                 >
                   <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>The Dodos</button>
                     <span>{DodoburnROOTx.toLocaleString("en-US")} ROOTx</span>
                     <span style={{ marginTop: "10px" }}>
                       {Dodoticketamount} / 3 FILLED
                     </span>
                   </div>
                 </div>
-                <button>Dodo</button>
                 <div className="description">
                   Infinite Dodos is a complete ecosystem starting with an
                   Unhackable wallet. UTILITY READY AT MINT team spent 7 months
                   building before announcing the collection consisting of world
-                  class entrepreneurs all Doxxed.
+                  class entrepreneurs all Doxxed. Being apart of our Infinite
+                  Dodos will enable you to be apart of all future and current
+                  utility
                 </div>
                 {Dodoticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
@@ -698,6 +963,355 @@ const LoadCard = () => {
                   <>
                     <button
                       onClick={() => burnROOTx(DodoburnROOTx, "Dodo")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button>NOT ENOUGH ROOTX</button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={moonwalker} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>moonwalker</button>
+                    <span>{moonburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {moonticketamount} / 2 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description">moonwalker</div>
+                {moonticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : moonpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : moonticketamount >= 2 ? (
+                  <button>SOLD OUT</button>
+                ) : ROOTxBalance >= moonburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(moonburnROOTx, "Moon")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button>NOT ENOUGH ROOTX</button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={chunk} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>Chunk</button>
+                    <span>{chunkburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {chunkticketamount} / 10 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  Chunk is a world that's been divided into 128x128 block
+                  Chunks, and uses Stardust Labs' Terralith for custom world
+                  generation. By owning a Chunk NFT, you own a corresponding
+                  piece of this world that only you and your friends will be
+                  able to develop. Your chunk will be playable on a Minecraft
+                  server where you can survive, build, and thrive as a
+                  community. Being limited to only the resources in your chunk,
+                  you’ll need to trade with your fellow owners to achieve your
+                  goals.
+                </div>
+                {chunkticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : chunkpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : chunkticketamount >= 10 ? (
+                  <button>SOLD OUT</button>
+                ) : ROOTxBalance >= chunkburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(chunkburnROOTx, "Chunk")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button>NOT ENOUGH ROOTX</button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={alfie} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>
+                      Alfie World
+                    </button>
+                    <span>{alfieburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {alfieticketamount} / 3 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  The joyful and colorful Alfie World and its 8888 frens.
+                </div>
+                {alfieticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : alfiepending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : alfieticketamount >= 3 ? (
+                  <button>SOLD OUT</button>
+                ) : ROOTxBalance >= alfieburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(alfieburnROOTx, "Alfie")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button>NOT ENOUGH ROOTX</button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={chosen} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>Chosenone</button>
+                    <span>{chosenburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {chosenticketamount} / 2 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  5,555 Legendary Heroes with Graphics that will blow you away
+                  for their upcoming 4v4 MOBA game. The collection will consist
+                  of five characters and 1,111 in total. Presale May 31, 2022.
+                  Fully doxxed team with a publicly traded company Good Gamer
+                  developing the Game. Rest of the team from Electronic Arts,
+                  Disney, Mechwarrior, Good Gamer, Infinity Esports and Mobilum.
+                </div>
+                {chosenticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : chosenpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : chosenticketamount >= 2 ? (
+                  <button>SOLD OUT</button>
+                ) : ROOTxBalance >= chosenburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(chosenburnROOTx, "Chosen")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button>NOT ENOUGH ROOTX</button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={maze} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>MazeVerse</button>
+                    <span>{mazeburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {mazeticketamount} / 3 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  Pass to YesYes DAO | OnChain P2E | Discord: Private | From
+                  Game: 赛尔号 | All Rights Reserved & Licensed By 淘米 Taomee
+                </div>
+                {mazeticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : mazepending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : mazeticketamount >= 3 ? (
+                  <button>SOLD OUT</button>
+                ) : ROOTxBalance >= mazeburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(mazeburnROOTx, "Maze")}
                       style={{
                         color: "red",
                         textAlign: "center",
