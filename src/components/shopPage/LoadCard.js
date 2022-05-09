@@ -400,7 +400,7 @@ const LoadCard = () => {
                     </span>
                   </div>
                 </div>
-                <span className="title">SOUKA</span>
+                <button>SOUKA</button>
                 <div className="description">
                   An oasis for weary travelers, greedy merchants and dutiful
                   warriors — even vengeful vagrants.
@@ -467,7 +467,7 @@ const LoadCard = () => {
                     </span>
                   </div>
                 </div>
-                <span className="title">FLICK</span>
+                <button>FLICK</button>
                 <div className="description">
                   The first NFT collection to be displayed with AR in the real
                   world, thanks to FlickPlay App.
@@ -534,7 +534,7 @@ const LoadCard = () => {
                     </span>
                   </div>
                 </div>
-                <span className="title">Nood</span>
+                <button>Nood</button>
                 <div className="description">
                   Nood Fungible Token is an NFT project that aims to promote
                   body positivity, equality, and freedom within the NFT
@@ -604,7 +604,7 @@ const LoadCard = () => {
                     </span>
                   </div>
                 </div>
-                <span className="title">Wizard</span>
+                <button>Wizard</button>
                 <div className="description">
                   3,333 mystical wizards building a P2P NFT trading platform &
                   sharing alpha | Doxxed team.
@@ -671,7 +671,7 @@ const LoadCard = () => {
                     </span>
                   </div>
                 </div>
-                <span className="title">Dodo</span>
+                <button>Dodo</button>
                 <div className="description">
                   Infinite Dodos is a complete ecosystem starting with an
                   Unhackable wallet. UTILITY READY AT MINT team spent 7 months
