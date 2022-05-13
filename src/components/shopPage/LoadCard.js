@@ -1007,7 +1007,10 @@ const LoadCard = () => {
                     </span>
                   </div>
                 </div>
-                <div className="description">moonwalker</div>
+                <div className="description">
+                  8,888 Moonwalkers coming from space | 3D space art perfected
+                  for years by @liampannier
+                </div>
                 {moonticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
                 ) : moonpending ? (
