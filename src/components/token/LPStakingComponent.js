@@ -248,7 +248,7 @@ function LPStakingComponent() {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "You have to approve enough token to stake",
+        text: "Something went Wrong!",
       });
       setROOTxClaimpending(false);
       setShowModal(false);
@@ -287,7 +287,7 @@ function LPStakingComponent() {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "You have to approve enough token to stake",
+        text: "something went wrong!",
       });
       setROOTxUnstakepending(false);
       setShowModal(false);
@@ -440,81 +440,87 @@ function LPStakingComponent() {
           <Row>
             <Col lg={6} md={6}>
               <div className="container">
-                <table className="unstakeTable ms-5">
-                  <thead>
-                    <tr>
-                      <td>Staked Amount</td>
-                      <td>Rewards</td>
-                      <td>Claim</td>
-                      <td>Unstake</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <NumberFormat
-                          value={ROOTxUniv2stakedAmount.toFixed(0)}
-                          displayType={"text"}
-                          thousandSeparator={true}
-                        />
-                      </td>
-                      <td>
-                        <NumberFormat
-                          value={ROOTxUniv2pendingrewards.toFixed(0)}
-                          displayType={"text"}
-                          thousandSeparator={true}
-                        />
-                      </td>
-                      <td>
-                        {ROOTxClaimpending ? (
-                          <button type="button" className="controlBtn">
-                            {" "}
-                            <Spinner
-                              as="span"
-                              variant="light"
-                              size="sm"
-                              role="status"
-                              aria-hidden="true"
-                              animation="border"
-                              style={{ width: "20px", height: "20px" }}
-                            />
-                          </button>
-                        ) : (
-                          <button
-                            type="button"
-                            className="controlBtn"
-                            onClick={() => ROOTxHarvest()}
-                          >
-                            CLAIM
-                          </button>
-                        )}
-                      </td>
-                      <td>
-                        {ROOTxUnstakepending ? (
-                          <button type="button" className="controlBtn">
-                            <Spinner
-                              as="span"
-                              variant="light"
-                              size="sm"
-                              role="status"
-                              aria-hidden="true"
-                              animation="border"
-                              style={{ width: "20px", height: "20px" }}
-                            />{" "}
-                          </button>
-                        ) : (
-                          <button
-                            type="button"
-                            className="controlBtn"
-                            onClick={() => ROOTxWithraw(ROOTxUniv2stakedAmount)}
-                          >
-                            UNSTAKE
-                          </button>
-                        )}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                {ROOTxUniv2stakedAmount ? (
+                  <table className="unstakeTable ms-5">
+                    <thead>
+                      <tr>
+                        <td>Staked Amount</td>
+                        <td>Rewards</td>
+                        <td>Claim</td>
+                        <td>Unstake</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <NumberFormat
+                            value={ROOTxUniv2stakedAmount.toFixed(0)}
+                            displayType={"text"}
+                            thousandSeparator={true}
+                          />
+                        </td>
+                        <td>
+                          <NumberFormat
+                            value={ROOTxUniv2pendingrewards.toFixed(0)}
+                            displayType={"text"}
+                            thousandSeparator={true}
+                          />
+                        </td>
+                        <td>
+                          {ROOTxClaimpending ? (
+                            <button type="button" className="controlBtn">
+                              {" "}
+                              <Spinner
+                                as="span"
+                                variant="light"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                                animation="border"
+                                style={{ width: "20px", height: "20px" }}
+                              />
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              className="controlBtn"
+                              onClick={() => ROOTxHarvest()}
+                            >
+                              CLAIM
+                            </button>
+                          )}
+                        </td>
+                        <td>
+                          {ROOTxUnstakepending ? (
+                            <button type="button" className="controlBtn">
+                              <Spinner
+                                as="span"
+                                variant="light"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                                animation="border"
+                                style={{ width: "20px", height: "20px" }}
+                              />{" "}
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              className="controlBtn"
+                              onClick={() =>
+                                ROOTxWithraw(ROOTxUniv2stakedAmount)
+                              }
+                            >
+                              UNSTAKE
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                ) : (
+                  <></>
+                )}
               </div>
             </Col>
 
