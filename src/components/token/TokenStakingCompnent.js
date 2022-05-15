@@ -187,7 +187,11 @@ function TokenStakingCompnent() {
     if (myAccount.length === 0) {
       return;
     } else if (amount === 0) {
-      alert("Please input Amount");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "please input Amount",
+      });
       return;
     }
     setROOtxStakingPending(true);

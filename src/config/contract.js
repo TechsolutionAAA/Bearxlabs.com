@@ -31,5 +31,13 @@ export default {
       1: "",
       4: "",
     },
+    ROOTxUniv2: {
+      1: "0x098e65379ab97251B4B9261FD879acC08186A16B",
+      4: "",
+    },
+    SROOTxUniv2: {
+      1: "0x9816b23B0f4c3D9A291d6F44C896FBA97AF59d9a",
+      4: "",
+    },
   };
   
