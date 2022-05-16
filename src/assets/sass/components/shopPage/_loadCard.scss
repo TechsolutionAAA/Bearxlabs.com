@@ -1,6 +1,6 @@
 .load {
   border: 1px solid $primaryColor !important;
-  height: 550px !important;
+  height: 640px !important;
   padding: 20px;
   border-radius: 25px !important;
   -webkit-border-radius: 25px;
@@ -54,6 +54,7 @@
     .owned {
       background: transparent;
       color: green;
+      margin-top: 10px;
     }
 
     .servertxt {

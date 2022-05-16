@@ -10,6 +10,7 @@ import loading from "../../assets/images/loading.gif";
 import { Col, Container, Row, Image } from "react-bootstrap";
 
 import souka from "../../assets/images/Items/souka.jpg";
+import { piDiscord, piTwitter } from "../../assets/images/icons";
 import flick from "../../assets/images/Items/flick.jpg";
 import nood from "../../assets/images/Items/nood.jpg";
 import wizard from "../../assets/images/Items/wizard.jpg";
@@ -19,6 +20,10 @@ import chunk from "../../assets/images/Items/chunk.jpg";
 import alfie from "../../assets/images/Items/alfieworld.jpg";
 import chosen from "../../assets/images/Items/chosenones.jpg";
 import maze from "../../assets/images/Items/Maze.jpg";
+import paladin from "../../assets/images/Items/Paladin.jpg";
+import ready from "../../assets/images/Items/Ready.jpg";
+import Sleepy from "../../assets/images/Items/Sleepy.jpg";
+import Mythical from "../../assets/images/Items/Mythical.jpg";
 
 const LoadCard = () => {
   const [MyWeb3, setMyWeb3] = useState([]);
@@ -93,6 +98,30 @@ const LoadCard = () => {
   const [mazeticketowned, setmazeticketowned] = useState(false);
   const [mazepending, setmazepending] = useState(false);
 
+  // Mythical wizardgods Ticket Info
+  const [MythicalburnROOTx, setMythicalburnROOTx] = useState(2000);
+  const [Mythicalticketamount, setMythicalticketamount] = useState(0);
+  const [Mythicalticketowned, setMythicalticketowned] = useState(false);
+  const [Mythicalpending, setMythicalpending] = useState(false);
+
+  // ready wizardgods Ticket Info
+  const [readyburnROOTx, setreadyburnROOTx] = useState(2000);
+  const [readyticketamount, setreadyticketamount] = useState(0);
+  const [readyticketowned, setreadyticketowned] = useState(false);
+  const [readypending, setreadypending] = useState(false);
+
+  // paladin wizardgods Ticket Info
+  const [paladinburnROOTx, setpaladinburnROOTx] = useState(2000);
+  const [paladinticketamount, setpaladinticketamount] = useState(0);
+  const [paladinticketowned, setpaladinticketowned] = useState(false);
+  const [paladinpending, setpaladinpending] = useState(false);
+
+  // Sleepy wizardgods Ticket Info
+  const [SleepyburnROOTx, setSleepyburnROOTx] = useState(2000);
+  const [Sleepyticketamount, setSleepyticketamount] = useState(0);
+  const [Sleepyticketowned, setSleepyticketowned] = useState(false);
+  const [Sleepypending, setSleepypending] = useState(false);
+
   useEffect(() => {
     if (window.web3 !== undefined && window.ethereum) {
       loadWeb3();
@@ -120,6 +149,10 @@ const LoadCard = () => {
         var alfiecount = 0;
         var chosencount = 0;
         var mazecount = 0;
+        var Mythicalcount = 0;
+        var readycount = 0;
+        var paladincount = 0;
+        var Sleepycount = 0;
         for (var i = 0; i < res.data.length; i++) {
           if (res.data[i].Project === "souka") {
             soukacount++;
@@ -171,6 +204,26 @@ const LoadCard = () => {
             if (res.data[i].Account === myAccount[0]) {
               setmazeticketowned(true);
             }
+          } else if (res.data[i].Project === "Mythical") {
+            Mythicalcount++;
+            if (res.data[i].Account === myAccount[0]) {
+              setMythicalticketowned(true);
+            }
+          } else if (res.data[i].Project === "ready") {
+            readycount++;
+            if (res.data[i].Account === myAccount[0]) {
+              setreadyticketowned(true);
+            }
+          } else if (res.data[i].Project === "paladin") {
+            paladincount++;
+            if (res.data[i].Account === myAccount[0]) {
+              setpaladinticketowned(true);
+            }
+          } else if (res.data[i].Project === "Sleepy") {
+            Sleepycount++;
+            if (res.data[i].Account === myAccount[0]) {
+              setSleepyticketowned(true);
+            }
           }
         }
         setsoukaticketamount(soukacount);
@@ -183,6 +236,10 @@ const LoadCard = () => {
         setalfieticketamount(alfiecount);
         setchosenticketamount(chosencount);
         setmazeticketamount(mazecount);
+        setMythicalticketamount(Mythicalcount);
+        setreadyticketamount(readycount);
+        setpaladinticketamount(paladincount);
+        setSleepyticketamount(Sleepycount);
       })
       .catch((err) => console.log(err));
   };
@@ -568,6 +625,138 @@ const LoadCard = () => {
               setmazepending(false);
               setShowModal(false);
             }
+          } else if (item === "Mythical") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setMythicalpending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setMythicalpending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setMythicalpending(false);
+              setShowModal(false);
+            }
+          } else if (item === "ready") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setreadypending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setreadypending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setreadypending(false);
+              setShowModal(false);
+            }
+          } else if (item === "paladin") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setpaladinpending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setpaladinpending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setpaladinpending(false);
+              setShowModal(false);
+            }
+          } else if (item === "Sleepy") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setSleepypending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setSleepypending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setSleepypending(false);
+              setShowModal(false);
+            }
           }
         }
       })
@@ -616,7 +805,6 @@ const LoadCard = () => {
                   <Image src={souka} alt="shop images" fluid />
                 </div>
               </div>
-
               <div
                 className="load__down"
                 style={{ display: "block", textAlign: "center" }}
@@ -642,6 +830,29 @@ const LoadCard = () => {
                   The Souk is the largest covered historic market in the NFT
                   world, based on IRL bazaar in the medieval times.
                 </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/soukaland"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/souka"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
                 {soukaticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
                 ) : soukapending ? (
@@ -657,7 +868,7 @@ const LoadCard = () => {
                     />
                   </button>
                 ) : soukaticketamount >= 3 ? (
-                  <button>SOLD OUT</button>
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
                 ) : ROOTxBalance >= soukaburnROOTx ? (
                   <>
                     <button
@@ -667,13 +878,16 @@ const LoadCard = () => {
                         textAlign: "center",
                         fontFamily: "earlyGameboy",
                         fontSize: "12px",
+                        marginTop: "10px",
                       }}
                     >
                       GET WHITELIST SPOT
                     </button>
                   </>
                 ) : (
-                  <button>NOT ENOUGH ROOTX</button>
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
                 )}
               </div>
             </div>
@@ -721,6 +935,29 @@ const LoadCard = () => {
                   bridging people's digital and physical realities together Team
                   is fully doxxed and just announced a partnership with Sandbox.
                 </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/flickplay"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="http://discord.gg/flickplay"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
                 {flickticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
                 ) : flickpending ? (
@@ -736,7 +973,7 @@ const LoadCard = () => {
                     />
                   </button>
                 ) : flickticketamount >= 3 ? (
-                  <button>SOLD OUT</button>
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
                 ) : ROOTxBalance >= flickburnROOTx ? (
                   <>
                     <button
@@ -746,13 +983,16 @@ const LoadCard = () => {
                         textAlign: "center",
                         fontFamily: "earlyGameboy",
                         fontSize: "12px",
+                        marginTop: "10px",
                       }}
                     >
                       GET WHITELIST SPOT
                     </button>
                   </>
                 ) : (
-                  <button>NOT ENOUGH ROOTX</button>
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
                 )}
               </div>
             </div>
@@ -796,6 +1036,30 @@ const LoadCard = () => {
                   crypto in shaping our world to be a more safe and inclusive
                   space for all.
                 </div>
+
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/NoodFTOfficial"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="http://discord.gg/NoodFTOfficial"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
                 {noodticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
                 ) : noodpending ? (
@@ -811,7 +1075,7 @@ const LoadCard = () => {
                     />
                   </button>
                 ) : noodticketamount >= 3 ? (
-                  <button>SOLD OUT</button>
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
                 ) : ROOTxBalance >= noodburnROOTx ? (
                   <>
                     <button
@@ -821,13 +1085,16 @@ const LoadCard = () => {
                         textAlign: "center",
                         fontFamily: "earlyGameboy",
                         fontSize: "12px",
+                        marginTop: "10px",
                       }}
                     >
                       GET WHITELIST SPOT
                     </button>
                   </>
                 ) : (
-                  <button>NOT ENOUGH ROOTX</button>
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
                 )}
               </div>
             </div>
@@ -870,6 +1137,29 @@ const LoadCard = () => {
                   Mystical Wizard NFT benefit from platform revenue, pay no fees
                   on the platform and gain access to an exclusive alpha group!
                   Twitter template below, to make your life easier too
+                </div>{" "}
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/MystWizardGuild"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/vxmnE2v624"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
                 </div>
                 {wizardticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
@@ -886,7 +1176,7 @@ const LoadCard = () => {
                     />
                   </button>
                 ) : wizardticketamount >= 3 ? (
-                  <button>SOLD OUT</button>
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
                 ) : ROOTxBalance >= wizardburnROOTx ? (
                   <>
                     <button
@@ -896,13 +1186,16 @@ const LoadCard = () => {
                         textAlign: "center",
                         fontFamily: "earlyGameboy",
                         fontSize: "12px",
+                        marginTop: "10px",
                       }}
                     >
                       GET WHITELIST SPOT
                     </button>
                   </>
                 ) : (
-                  <button>NOT ENOUGH ROOTX</button>
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
                 )}
               </div>
             </div>
@@ -943,6 +1236,29 @@ const LoadCard = () => {
                   Dodos will enable you to be apart of all future and current
                   utility
                 </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/InfiniteDodos"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/PhjW7PUdvm"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
                 {Dodoticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
                 ) : Dodopending ? (
@@ -958,7 +1274,7 @@ const LoadCard = () => {
                     />
                   </button>
                 ) : Dodoticketamount >= 3 ? (
-                  <button>SOLD OUT</button>
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
                 ) : ROOTxBalance >= DodoburnROOTx ? (
                   <>
                     <button
@@ -968,81 +1284,16 @@ const LoadCard = () => {
                         textAlign: "center",
                         fontFamily: "earlyGameboy",
                         fontSize: "12px",
+                        marginTop: "10px",
                       }}
                     >
                       GET WHITELIST SPOT
                     </button>
                   </>
                 ) : (
-                  <button>NOT ENOUGH ROOTX</button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={moonwalker} alt="shop images" fluid />
-                </div>
-              </div>
-
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <button style={{ marginBottom: "10px" }}>moonwalker</button>
-                    <span>{moonburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {moonticketamount} / 2 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description">
-                  8,888 Moonwalkers coming from space | 3D space art perfected
-                  for years by @liampannier
-                </div>
-                {moonticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : moonpending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
                   </button>
-                ) : moonticketamount >= 2 ? (
-                  <button>SOLD OUT</button>
-                ) : ROOTxBalance >= moonburnROOTx ? (
-                  <>
-                    <button
-                      onClick={() => burnROOTx(moonburnROOTx, "Moon")}
-                      style={{
-                        color: "red",
-                        textAlign: "center",
-                        fontFamily: "earlyGameboy",
-                        fontSize: "12px",
-                      }}
-                    >
-                      GET WHITELIST SPOT
-                    </button>
-                  </>
-                ) : (
-                  <button>NOT ENOUGH ROOTX</button>
                 )}
               </div>
             </div>
@@ -1086,6 +1337,29 @@ const LoadCard = () => {
                   you’ll need to trade with your fellow owners to achieve your
                   goals.
                 </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/nft_chunk"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/QdP4fRjeHp"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
                 {chunkticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
                 ) : chunkpending ? (
@@ -1101,7 +1375,7 @@ const LoadCard = () => {
                     />
                   </button>
                 ) : chunkticketamount >= 10 ? (
-                  <button>SOLD OUT</button>
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
                 ) : ROOTxBalance >= chunkburnROOTx ? (
                   <>
                     <button
@@ -1111,13 +1385,16 @@ const LoadCard = () => {
                         textAlign: "center",
                         fontFamily: "earlyGameboy",
                         fontSize: "12px",
+                        marginTop: "10px",
                       }}
                     >
                       GET WHITELIST SPOT
                     </button>
                   </>
                 ) : (
-                  <button>NOT ENOUGH ROOTX</button>
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
                 )}
               </div>
             </div>
@@ -1155,6 +1432,21 @@ const LoadCard = () => {
                 <div className="description" style={{ overflowY: "scroll" }}>
                   The joyful and colorful Alfie World and its 8888 frens.
                 </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/THEALFIEWORLD"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                </div>
+
                 {alfieticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
                 ) : alfiepending ? (
@@ -1170,7 +1462,7 @@ const LoadCard = () => {
                     />
                   </button>
                 ) : alfieticketamount >= 3 ? (
-                  <button>SOLD OUT</button>
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
                 ) : ROOTxBalance >= alfieburnROOTx ? (
                   <>
                     <button
@@ -1180,13 +1472,16 @@ const LoadCard = () => {
                         textAlign: "center",
                         fontFamily: "earlyGameboy",
                         fontSize: "12px",
+                        marginTop: "10px",
                       }}
                     >
                       GET WHITELIST SPOT
                     </button>
                   </>
                 ) : (
-                  <button>NOT ENOUGH ROOTX</button>
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
                 )}
               </div>
             </div>
@@ -1227,6 +1522,20 @@ const LoadCard = () => {
                   developing the Game. Rest of the team from Electronic Arts,
                   Disney, Mechwarrior, Good Gamer, Infinity Esports and Mobilum.
                 </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/chosenonesnft"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                </div>
                 {chosenticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
                 ) : chosenpending ? (
@@ -1242,7 +1551,7 @@ const LoadCard = () => {
                     />
                   </button>
                 ) : chosenticketamount >= 2 ? (
-                  <button>SOLD OUT</button>
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
                 ) : ROOTxBalance >= chosenburnROOTx ? (
                   <>
                     <button
@@ -1252,13 +1561,16 @@ const LoadCard = () => {
                         textAlign: "center",
                         fontFamily: "earlyGameboy",
                         fontSize: "12px",
+                        marginTop: "10px",
                       }}
                     >
                       GET WHITELIST SPOT
                     </button>
                   </>
                 ) : (
-                  <button>NOT ENOUGH ROOTX</button>
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
                 )}
               </div>
             </div>
@@ -1295,6 +1607,29 @@ const LoadCard = () => {
                   Pass to YesYes DAO | OnChain P2E | Discord: Private | From
                   Game: 赛尔号 | All Rights Reserved & Licensed By 淘米 Taomee
                 </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/Mazeversenft"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/vkWdd2wUeP"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
                 {mazeticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
                 ) : mazepending ? (
@@ -1310,7 +1645,7 @@ const LoadCard = () => {
                     />
                   </button>
                 ) : mazeticketamount >= 3 ? (
-                  <button>SOLD OUT</button>
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
                 ) : ROOTxBalance >= mazeburnROOTx ? (
                   <>
                     <button
@@ -1320,13 +1655,401 @@ const LoadCard = () => {
                         textAlign: "center",
                         fontFamily: "earlyGameboy",
                         fontSize: "12px",
+                        marginTop: "10px",
                       }}
                     >
                       GET WHITELIST SPOT
                     </button>
                   </>
                 ) : (
-                  <button>NOT ENOUGH ROOTX</button>
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={Mythical} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>Mythicals</button>
+                    <span>
+                      {MythicalburnROOTx.toLocaleString("en-US")} ROOTx
+                    </span>
+                    <span style={{ marginTop: "10px" }}>
+                      {Mythicalticketamount} / 25 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  First Liquid Yield NFT. We airdrop $ETH to you every month.
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/MythicalsDrops"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/mythicals"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {Mythicalticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : Mythicalpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : Mythicalticketamount >= 25 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= MythicalburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(MythicalburnROOTx, "Mythical")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={ready} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "32%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>
+                      Player One world{" "}
+                    </button>
+                    <span>{readyburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {readyticketamount} / 3 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  #PlayerOne is a #Metaverse project with integrating tools,
+                  social scenes, #Omnichain NFT marketplace and #P2E system.
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/PlayerOneWorld"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/playeroneworld"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {readyticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : readypending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : readyticketamount >= 3 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= readyburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(readyburnROOTx, "ready")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={paladin} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "24%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>
+                    PALADIN PENGUIN CLUB
+                    </button>
+                    <span>
+                      {paladinburnROOTx.toLocaleString("en-US")} ROOTx
+                    </span>
+                    <span style={{ marginTop: "10px" }}>
+                      {paladinticketamount} / 10 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  Play-to-earn game! Exclusive access to our land via The
+                  Sandbox!
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/paladin_penguin"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/5KzvcMzCQG"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {paladinticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : paladinpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : paladinticketamount >= 10 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= paladinburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(paladinburnROOTx, "paladin")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={Sleepy} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "24%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>
+                      SLEEPY SNIPER SOCIETY
+                    </button>
+                    <span>{SleepyburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {Sleepyticketamount} / 5 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  A suite of premium NFT trading tools - paired with a
+                  competitive trading eco-system.
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/SleepySniperSoc"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/sleepysnipersociety"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {Sleepyticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : Sleepypending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : Sleepyticketamount >= 5 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= SleepyburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(SleepyburnROOTx, "Sleepy")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
                 )}
               </div>
             </div>
