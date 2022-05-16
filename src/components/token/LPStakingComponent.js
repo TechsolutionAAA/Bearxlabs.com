@@ -218,7 +218,7 @@ function LPStakingComponent() {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "You have to approve enough token to stake",
+        text: "Something went wrong!",
       });
       setStakingROOTxuniv2(false);
       setShowModal(false);
