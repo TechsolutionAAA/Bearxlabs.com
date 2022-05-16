@@ -1050,15 +1050,6 @@ const LoadCard = () => {
                       <Image src={piTwitter} />
                     </a>
                   </div>
-                  <div className="iconBox">
-                    <a
-                      href="http://discord.gg/NoodFTOfficial"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piDiscord} />
-                    </a>
-                  </div>
                 </div>
                 {noodticketowned ? (
                   <button className="owned">ALREADY OWNED</button>
