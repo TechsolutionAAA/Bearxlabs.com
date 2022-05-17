@@ -24,7 +24,7 @@ export default {
       4: "0xb439C82293acfFFE37Db61F23d24B3e6fc144692",
     },
     LPROOTxStaking: {
-      1: "",
+      1: "0xA5fAe6eAb1FE41e944ac14BA7ECFdC35034638bf",
       4: "",
     },
     LPSROOTxStaking: {

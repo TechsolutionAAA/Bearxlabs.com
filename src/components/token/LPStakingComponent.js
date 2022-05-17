@@ -115,8 +115,8 @@ function LPStakingComponent() {
     try {
       await ROOTxUniv2Stakingcontract.userInfo(myAccount[0])
         .then((r) => {
-          console.log(r);
-          setROOTxUniv2stakedAmount(r[0]);
+          var temp = r[0] / 1000000000000000000;
+          setROOTxUniv2stakedAmount(temp);
         })
         .catch((err) => {
           console.log(err);
@@ -158,7 +158,7 @@ function LPStakingComponent() {
       Swal.fire({
         icon: "question",
         title: "Confirm ROOTx Approving",
-        text: `You will approve ${val} ROOTx-ETH UniV2 LP token, continue?`,
+        text: `You will approve ${val.toFixed(0)} ROOTx-ETH UniV2 LP token, continue?`,
         showCancelButton: true,
       }).then(async (res) => {
         if (res.isConfirmed) {
