@@ -487,6 +487,7 @@ function TokenStakingCompnent() {
         <Row>
           <Col sm={6} md={6} lg={6}>
           <div className="percent">Total ROOTx staked - {(StakedROOTxBalance/ROOTxbalance*100).toFixed(0)}%</div>
+          <div className="percent">ROOTx APY - {(24050 / StakedROOTxBalance * 365 * 100).toFixed(3)}%</div>
             <div className="d-flex justify-content-center">
               <div className="tokenButton">
                 available to stake{" "}
@@ -624,13 +625,15 @@ function TokenStakingCompnent() {
                       {ROOTxstakedIds.map((item) => (
                         <tr key={item.id}>
                           <td>
-                            {new Date(
+                            {item.lastClaimTimeStamp * 1000 +
+                                3600 * 24 * 30 * 1000 -
+                                Date.now() > 0 ? new Date(
                               item.lastClaimTimeStamp * 1000 +
                                 3600 * 24 * 30 * 1000 -
                                 Date.now()
                             )
                               .getDate()
-                              .toString()}{" "}
+                              .toString(): 0}
                             days
                           </td>
                           <td>
@@ -656,13 +659,11 @@ function TokenStakingCompnent() {
                                 className="controlBtn"
                                 onClick={() => ROOTxClaim(item.id.toString())}
                                 disabled={
-                                  new Date(
+                                  (
                                     item.lastClaimTimeStamp * 1000 +
                                       3600 * 24 * 30 * 1000 -
                                       Date.now()
-                                  )
-                                    .getDate()
-                                    .toString() > 0
+                                  ) > 0
                                 }
                               >
                                 CLAIM
