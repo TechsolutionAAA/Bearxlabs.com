@@ -158,7 +158,9 @@ function LPStakingComponent() {
       Swal.fire({
         icon: "question",
         title: "Confirm ROOTx Approving",
-        text: `You will approve ${val.toFixed(0)} ROOTx-ETH UniV2 LP token, continue?`,
+        text: `You will approve ${val.toFixed(
+          0
+        )} ROOTx-ETH UniV2 LP token, continue?`,
         showCancelButton: true,
       }).then(async (res) => {
         if (res.isConfirmed) {
@@ -308,11 +310,11 @@ function LPStakingComponent() {
                 giving rewards for users that stake ROOTx-ETH UniV2 LP tokens.
               </p>
               <p>
-                The initial liquidity program will continue for 500,000 blocks
-                (approximately 77 days) with the rate of rewards set at 10 ROOTx
-                per block for LP stakers. We will assess the performance and
-                requirement of a further liquidity program after the 500,000
-                blocks have passed.
+                The initial liquidity program will continue for up to 500,000
+                blocks (approximately up to 77 days) with the rate of rewards
+                set at 10 ROOTx per block for LP stakers. We will assess the
+                performance and requirement of a further liquidity program in
+                and around this range.
               </p>
             </div>
           </Col>
