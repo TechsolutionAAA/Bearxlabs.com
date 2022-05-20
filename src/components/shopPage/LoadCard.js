@@ -24,6 +24,7 @@ import paladin from "../../assets/images/Items/Paladin.jpg";
 import ready from "../../assets/images/Items/Ready.jpg";
 import Sleepy from "../../assets/images/Items/Sleepy.jpg";
 import Mythical from "../../assets/images/Items/Mythical.jpg";
+import nono from "../../assets/images/Items/nono.png";
 
 const LoadCard = () => {
   const [MyWeb3, setMyWeb3] = useState([]);
@@ -122,6 +123,12 @@ const LoadCard = () => {
   const [Sleepyticketowned, setSleepyticketowned] = useState(false);
   const [Sleepypending, setSleepypending] = useState(false);
 
+  // nono Ticket Info
+  const [nonoburnROOTx, setnonoburnROOTx] = useState(2000);
+  const [nonoticketamount, setnonoticketamount] = useState(0);
+  const [nonoticketowned, setnonoticketowned] = useState(false);
+  const [nonopending, setnonopending] = useState(false);
+
   useEffect(() => {
     if (window.web3 !== undefined && window.ethereum) {
       loadWeb3();
@@ -153,6 +160,7 @@ const LoadCard = () => {
         var readycount = 0;
         var paladincount = 0;
         var Sleepycount = 0;
+        var nonocount = 0;
         for (var i = 0; i < res.data.length; i++) {
           if (res.data[i].Project === "souka") {
             soukacount++;
@@ -224,6 +232,11 @@ const LoadCard = () => {
             if (res.data[i].Account === myAccount[0]) {
               setSleepyticketowned(true);
             }
+          } else if (res.data[i].Project === "nono") {
+            nonocount++;
+            if (res.data[i].Account === myAccount[0]) {
+              setnonoticketowned(true);
+            }
           }
         }
         setsoukaticketamount(soukacount);
@@ -240,6 +253,7 @@ const LoadCard = () => {
         setreadyticketamount(readycount);
         setpaladinticketamount(paladincount);
         setSleepyticketamount(Sleepycount);
+        setnonoticketamount(nonocount);
       })
       .catch((err) => console.log(err));
   };
@@ -755,6 +769,39 @@ const LoadCard = () => {
                 text: "Something went Wrong!",
               });
               setSleepypending(false);
+              setShowModal(false);
+            }
+          } else if (item === "nono") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setnonopending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setnonopending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setnonopending(false);
               setShowModal(false);
             }
           }
@@ -1873,7 +1920,7 @@ const LoadCard = () => {
                 >
                   <div style={{ display: "flex", flexDirection: "column" }}>
                     <button style={{ marginBottom: "10px" }}>
-                    PALADIN PENGUIN CLUB
+                      PALADIN PENGUIN CLUB
                     </button>
                     <span>
                       {paladinburnROOTx.toLocaleString("en-US")} ROOTx
@@ -2026,6 +2073,96 @@ const LoadCard = () => {
                   <>
                     <button
                       onClick={() => burnROOTx(SleepyburnROOTx, "Sleepy")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={nono} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>NoNo</button>
+                    <span>{SleepyburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {nonoticketamount} / 5 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  NoNo is an assistant robot from a game called SEER. The
+                  project aims to keep its holders profitable in Web3 with
+                  YesYes DAO, a place to learn about the techniques of
+                  institutional trading in the NFT secondary market.Members will
+                  be selected from the original minters to join one of the four
+                  investment seasons of the DAO, where they will trade in real
+                  time with the help of established traders!
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/NoNosNFT"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                </div>
+                {nonoticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : nonopending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : nonoticketamount >= 5 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= nonoburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(nonoburnROOTx, "nono")}
                       style={{
                         color: "red",
                         textAlign: "center",
