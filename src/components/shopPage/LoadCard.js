@@ -2114,7 +2114,7 @@ const LoadCard = () => {
                 >
                   <div style={{ display: "flex", flexDirection: "column" }}>
                     <button style={{ marginBottom: "10px" }}>NoNo</button>
-                    <span>{SleepyburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span>{nonoburnROOTx.toLocaleString("en-US")} ROOTx</span>
                     <span style={{ marginTop: "10px" }}>
                       {nonoticketamount} / 5 FILLED
                     </span>
