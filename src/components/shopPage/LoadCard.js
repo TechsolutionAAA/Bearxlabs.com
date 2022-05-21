@@ -124,7 +124,7 @@ const LoadCard = () => {
   const [Sleepypending, setSleepypending] = useState(false);
 
   // nono Ticket Info
-  const [nonoburnROOTx, setnonoburnROOTx] = useState(2000);
+  const [nonoburnROOTx, setnonoburnROOTx] = useState(5000);
   const [nonoticketamount, setnonoticketamount] = useState(0);
   const [nonoticketowned, setnonoticketowned] = useState(false);
   const [nonopending, setnonopending] = useState(false);
