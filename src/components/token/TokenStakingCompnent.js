@@ -54,7 +54,7 @@ function TokenStakingCompnent() {
     if (MyWeb3.length !== 0) {
       getROOTxStakingData();
       getROOTxBalance();
-      
+
       getROOTxtotalbalance();
       getStakingROOTxtokenbalance();
       // getSROOTxStakingData();
@@ -83,10 +83,12 @@ function TokenStakingCompnent() {
     );
 
     try {
-      await ROOTxContract.totalSupply().then((res) => {
-        const temp = res / 1000000000000000000;
-        setROOTxbalance(temp);
-      }).catch(err => console.log(err))
+      await ROOTxContract.totalSupply()
+        .then((res) => {
+          const temp = res / 1000000000000000000;
+          setROOTxbalance(temp);
+        })
+        .catch((err) => console.log(err));
     } catch (error) {
       console.log(error);
     }
@@ -127,14 +129,16 @@ function TokenStakingCompnent() {
     );
 
     try {
-      await ROOTxStakingContract.getStakingTokenBalance().then((res) => {
-        const temp = res / 1000000000000000000;
-        SetStakedROOTxBalance(temp);
-      }).catch(err => console.log(err));
+      await ROOTxStakingContract.getStakingTokenBalance()
+        .then((res) => {
+          const temp = res / 1000000000000000000;
+          SetStakedROOTxBalance(temp);
+        })
+        .catch((err) => console.log(err));
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const getROOTxStakingData = async () => {
     if (myAccount.length === 0) return;
@@ -147,7 +151,9 @@ function TokenStakingCompnent() {
     );
 
     try {
-      await ROOTxStakingcontract.getStakesByStaker(myAccount[0])
+      await ROOTxStakingcontract.getStakesByStaker(
+        myAccount[0]
+      )
         .then((r) => {
           SetROOTxstakedIds((b) => r);
         })
@@ -412,8 +418,7 @@ function TokenStakingCompnent() {
   const ApproveROOTx = async (ROOTxAmount) => {
     if (myAccount.length === 0) {
       return;
-    }
-    else if (ROOTxAmount === 0) {
+    } else if (ROOTxAmount === 0) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -486,8 +491,14 @@ function TokenStakingCompnent() {
         </Row>
         <Row>
           <Col sm={6} md={6} lg={6}>
-          <div className="percent">Total ROOTx staked - {(StakedROOTxBalance/ROOTxbalance*100).toFixed(0)}%</div>
-          <div className="percent">ROOTx APY - {(24050 / StakedROOTxBalance * 365 * 100).toFixed(3)}%</div>
+            <div className="percent">
+              Total ROOTx staked -{" "}
+              {((StakedROOTxBalance / ROOTxbalance) * 100).toFixed(0)}%
+            </div>
+            <div className="percent">
+              ROOTx APY -{" "}
+              {((24050 / StakedROOTxBalance) * 365 * 100).toFixed(3)}%
+            </div>
             <div className="d-flex justify-content-center">
               <div className="tokenButton">
                 available to stake{" "}
@@ -625,19 +636,16 @@ function TokenStakingCompnent() {
                       {ROOTxstakedIds.map((item) => (
                         <tr key={item.id}>
                           <td>
-                            {item.lastClaimTimeStamp * 1000 +
-                                3600 * 24 * 30 * 1000 -
-                                Date.now() > 0 ? new Date(
+                            {new Date(
                               item.lastClaimTimeStamp * 1000 +
-                                3600 * 24 * 30 * 1000 -
-                                Date.now()
-                            )
-                              .getDate()
-                              .toString(): 0}
+                                3600 * 24 * 30 * 1000
+                            ).getDate()}
                             days
                           </td>
                           <td>
-                            {(item.amount / 1000000000000000000).toString()}
+                            {(item.amount / 1000000000000000000)
+                              .toFixed(0)
+                              .toString()}
                           </td>
                           <td>
                             {ROOTxClaimpending ? (
@@ -659,11 +667,11 @@ function TokenStakingCompnent() {
                                 className="controlBtn"
                                 onClick={() => ROOTxClaim(item.id.toString())}
                                 disabled={
-                                  (
+                                  new Date(
                                     item.lastClaimTimeStamp * 1000 +
-                                      3600 * 24 * 30 * 1000 -
-                                      Date.now()
-                                  ) > 0
+                                      3600 * 24 * 30 * 1000
+                                  ).getDate() >
+                                  0
                                 }
                               >
                                 CLAIM
