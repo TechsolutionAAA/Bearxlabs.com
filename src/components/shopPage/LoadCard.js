@@ -25,6 +25,9 @@ import ready from "../../assets/images/Items/Ready.jpg";
 import Sleepy from "../../assets/images/Items/Sleepy.jpg";
 import Mythical from "../../assets/images/Items/Mythical.jpg";
 import nono from "../../assets/images/Items/nono.png";
+import abd from "../../assets/images/Items/AbductionSquad.png";
+import etherjump from "../../assets/images/Items/EtherJump.jpg";
+import inku from "../../assets/images/Items/Inku.jpg";
 
 const LoadCard = () => {
   const [MyWeb3, setMyWeb3] = useState([]);
@@ -129,6 +132,24 @@ const LoadCard = () => {
   const [nonoticketowned, setnonoticketowned] = useState(false);
   const [nonopending, setnonopending] = useState(false);
 
+  // Abduction Squad (WL)
+  const [abdburnROOTx, setabdburnROOTx] = useState(5000);
+  const [abdticketamount, setabdticketamount] = useState(0);
+  const [abdticketowned, setabdticketowned] = useState(false);
+  const [abdpending, setabdpending] = useState(false);
+
+  // etherjump
+  const [etherjumpburnROOTx, setetherjumpburnROOTx] = useState(5000);
+  const [etherjumpticketamount, setetherjumpticketamount] = useState(0);
+  const [etherjumpticketowned, setetherjumpticketowned] = useState(false);
+  const [etherjumppending, setetherjumppending] = useState(false);
+
+  // inku
+  const [inkuburnROOTx, setinkuburnROOTx] = useState(5000);
+  const [inkuticketamount, setinkuticketamount] = useState(0);
+  const [inkuticketowned, setinkuticketowned] = useState(false);
+  const [inkupending, setinkupending] = useState(false);
+
   useEffect(() => {
     if (window.web3 !== undefined && window.ethereum) {
       loadWeb3();
@@ -161,6 +182,9 @@ const LoadCard = () => {
         var paladincount = 0;
         var Sleepycount = 0;
         var nonocount = 0;
+        var abdcount = 0;
+        var etherjumpcount = 0;
+        var inkucount = 0;
         for (var i = 0; i < res.data.length; i++) {
           if (res.data[i].Project === "souka") {
             soukacount++;
@@ -237,6 +261,21 @@ const LoadCard = () => {
             if (res.data[i].Account === myAccount[0]) {
               setnonoticketowned(true);
             }
+          } else if (res.data[i].Project === "abd") {
+            abdcount++;
+            if (res.data[i].Account === myAccount[0]) {
+              setabdticketowned(true);
+            }
+          } else if (res.data[i].Project === "etherjump") {
+            etherjumpcount++;
+            if (res.data[i].Account === myAccount[0]) {
+              setetherjumpticketowned(true);
+            }
+          } else if (res.data[i].Project = "inku") {
+            inkucount++;
+            if (res.data[i].Account === myAccount[0]) {
+              setinkuticketowned(true);
+            }
           }
         }
         setsoukaticketamount(soukacount);
@@ -254,6 +293,9 @@ const LoadCard = () => {
         setpaladinticketamount(paladincount);
         setSleepyticketamount(Sleepycount);
         setnonoticketamount(nonocount);
+        setabdticketamount(abdcount);
+        setetherjumpticketamount(etherjumpcount);
+        setinkuticketamount(inkucount);
       })
       .catch((err) => console.log(err));
   };
@@ -802,6 +844,105 @@ const LoadCard = () => {
                 text: "Something went Wrong!",
               });
               setnonopending(false);
+              setShowModal(false);
+            }
+          } else if (item === "abd") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setabdpending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setabdpending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setabdpending(false);
+              setShowModal(false);
+            }
+          } else if (item === "etherjump") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setetherjumppending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setetherjumppending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setetherjumppending(false);
+              setShowModal(false);
+            }
+          } else if (item === "inku") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setinkupending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setinkupending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setinkupending(false);
               setShowModal(false);
             }
           }
@@ -1437,7 +1578,7 @@ const LoadCard = () => {
               </div>
             </div>
           </Col>
-          <Col lg={4}>
+          {/* <Col lg={4}>
             <div className="load">
               <div className="load__up">
                 <div className="load__img">
@@ -1523,7 +1664,7 @@ const LoadCard = () => {
                 )}
               </div>
             </div>
-          </Col>
+          </Col> */}
           <Col lg={4}>
             <div className="load">
               <div className="load__up">
@@ -1613,7 +1754,7 @@ const LoadCard = () => {
               </div>
             </div>
           </Col>
-          <Col lg={4}>
+          {/* <Col lg={4}>
             <div className="load">
               <div className="load__up">
                 <div className="load__img">
@@ -1706,7 +1847,7 @@ const LoadCard = () => {
                 )}
               </div>
             </div>
-          </Col>
+          </Col> */}
           <Col lg={4}>
             <div className="load">
               <div className="load__up">
@@ -2163,6 +2304,293 @@ const LoadCard = () => {
                   <>
                     <button
                       onClick={() => burnROOTx(nonoburnROOTx, "nono")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={abd} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "32%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>
+                      Abduction Squad
+                    </button>
+                    <span>{abdburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {abdticketamount} / 5 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  Genesis Collection 3,333, Play To Win Competition, Traits
+                  Giveaway At Mint
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/AbductionSquad"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://t.co/BDCOeMubOj"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {abdticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : abdpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : abdticketamount >= 5 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= abdburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(abdburnROOTx, "abd")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={etherjump} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "40%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>Ether Jump</button>
+                    <span>
+                      {etherjumpburnROOTx.toLocaleString("en-US")} ROOTx
+                    </span>
+                    <span style={{ marginTop: "10px" }}>
+                      {etherjumpticketamount} / 2 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  First-ever customizable platformer NFT Build your own
+                  adventure
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/InkuNFT"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/etherjump"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {etherjumpticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : etherjumppending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : etherjumpticketamount >= 2 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= etherjumpburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(etherjumpburnROOTx, "etherjump")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={inku} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "40%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>INKU</button>
+                    <span>
+                      {inkuburnROOTx.toLocaleString("en-US")} ROOTx
+                    </span>
+                    <span style={{ marginTop: "10px" }}>
+                      {etherjumpticketamount} / 1 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  1k Genesis collection & the first story based explore 2 earn game. Meet ghosts , fight demons , and battle the undead .
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/InkuNFT"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/z4DJvBynNC"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {inkuticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : inkupending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : inkuticketamount >= 2 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= inkuburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(inkuburnROOTx, "inku")}
                       style={{
                         color: "red",
                         textAlign: "center",
