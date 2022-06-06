@@ -21,7 +21,7 @@ import LPTokenStaking from "./pages/LPTokenStaking";
 import BurnROOTxToGetSROOTx from "./pages/BurnROOTxToGetSROOTx";
 import Beta from "./pages/Beta";
 import Marketplace from "./pages/Marketplace";
-
+import ROOTxLeaderboard from "./pages/ROOTxLeaderboard";
 
 function App() {
   return (
@@ -40,6 +40,7 @@ function App() {
         <Route path="/bear-steak/" element={<BearSteak/>}/>
         {/* <Route path="/rootx-v1-claim/" element={<RootV1Claim/>}/> */}
         <Route path="/shop/" element={<Shop/>}/>
+        <Route path="/ROOTx-leaderboard/" element={<ROOTxLeaderboard/>} />
         <Route path="/whitelist/" element={<Whitelist />} />
         <Route path="/resources/" element={<Resources/>}/>
         <Route path="/collections/" element={<Utility/>}/>

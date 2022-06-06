@@ -144,6 +144,9 @@ function Header() {
               <Link to="/whitelist/">check Whitelist</Link>
             </NavDropdown.Item>
             <NavDropdown.Item>
+              <Link to="/ROOTx-leaderboard/">ROOTX Leaderboard</Link>
+            </NavDropdown.Item>
+            <NavDropdown.Item>
               <Link to="/marketplace/">MARKETPLACE</Link>
             </NavDropdown.Item>
             <NavDropdown.Item>

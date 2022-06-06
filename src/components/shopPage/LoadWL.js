@@ -12,6 +12,7 @@ const LoadWL = () => {
     await axios
       .get("https://sheet.best/api/sheets/e2580e2b-cc24-4aa0-86bf-39d52659b2d8")
       .then((res) => {
+        console.log(res.data);
         setWLData(res.data);
       })
       .catch((err) => console.log(err));
