@@ -2689,7 +2689,9 @@ const LoadCard = () => {
                   </div>
                 </div>
                 <div className="description" style={{ overflowY: "scroll" }}>
-                  This is ETHVaultNFT assets.
+                  This is ETHVaultNFT assets.<br />
+                  Stake Against Your NFTs in Return for ETH!<br />
+                  2,000 VaultBoosters!
                 </div>
                 <div
                   className="d-flex justify-content-center"
