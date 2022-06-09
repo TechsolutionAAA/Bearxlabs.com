@@ -28,6 +28,7 @@ import nono from "../../assets/images/Items/nono.png";
 import abd from "../../assets/images/Items/AbductionSquad.png";
 import etherjump from "../../assets/images/Items/EtherJump.jpg";
 import inku from "../../assets/images/Items/Inku.jpg";
+import ETHVaultNFT from "../../assets/images/Items/ETHVaultNFT.png";
 
 const LoadCard = () => {
   const [MyWeb3, setMyWeb3] = useState([]);
@@ -150,6 +151,12 @@ const LoadCard = () => {
   const [inkuticketowned, setinkuticketowned] = useState(false);
   const [inkupending, setinkupending] = useState(false);
 
+  // ETHVaultNFT
+  const [ETHVaultNFTburnROOTx, setETHVaultNFTburnROOTx] = useState(5000);
+  const [ETHVaultNFTticketamount, setETHVaultNFTticketamount] = useState(0);
+  const [ETHVaultNFTticketowned, setETHVaultNFTticketowned] = useState(false);
+  const [ETHVaultNFTpending, setETHVaultNFTpending] = useState(false);
+
   useEffect(() => {
     if (window.web3 !== undefined && window.ethereum) {
       loadWeb3();
@@ -185,6 +192,7 @@ const LoadCard = () => {
         var abdcount = 0;
         var etherjumpcount = 0;
         var inkucount = 0;
+        var ETHVaultNFTcount = 0;
         for (var i = 0; i < res.data.length; i++) {
           if (res.data[i].Project === "souka") {
             soukacount++;
@@ -276,6 +284,11 @@ const LoadCard = () => {
             if (res.data[i].Account === myAccount[0]) {
               setinkuticketowned(true);
             }
+          } else if (res.data[i].Project = "ETHVaultNFT") {
+            ETHVaultNFTcount++;
+            if(res.data[i].Account === myAccount[0]) {
+              setETHVaultNFTticketowned(true);
+            }
           }
         }
         setsoukaticketamount(soukacount);
@@ -296,6 +309,7 @@ const LoadCard = () => {
         setabdticketamount(abdcount);
         setetherjumpticketamount(etherjumpcount);
         setinkuticketamount(inkucount);
+        setETHVaultNFTticketamount(ETHVaultNFTcount);
       })
       .catch((err) => console.log(err));
   };
@@ -945,7 +959,41 @@ const LoadCard = () => {
               setinkupending(false);
               setShowModal(false);
             }
+          } else if (item === "ETHVaultNFT") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setETHVaultNFTpending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setETHVaultNFTpending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setETHVaultNFTpending(false);
+              setShowModal(false);
+            }
           }
+          
         }
       })
       .catch((err) => console.log(err));
@@ -1578,93 +1626,6 @@ const LoadCard = () => {
               </div>
             </div>
           </Col>
-          {/* <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={alfie} alt="shop images" fluid />
-                </div>
-              </div>
-
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <button style={{ marginBottom: "10px" }}>
-                      Alfie World
-                    </button>
-                    <span>{alfieburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {alfieticketamount} / 3 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description" style={{ overflowY: "scroll" }}>
-                  The joyful and colorful Alfie World and its 8888 frens.
-                </div>
-                <div
-                  className="d-flex justify-content-center"
-                  id="footerSocialIcons"
-                >
-                  <div className="iconBox">
-                    <a
-                      href="https://twitter.com/THEALFIEWORLD"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piTwitter} />
-                    </a>
-                  </div>
-                </div>
-
-                {alfieticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : alfiepending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : alfieticketamount >= 3 ? (
-                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
-                ) : ROOTxBalance >= alfieburnROOTx ? (
-                  <>
-                    <button
-                      onClick={() => burnROOTx(alfieburnROOTx, "Alfie")}
-                      style={{
-                        color: "red",
-                        textAlign: "center",
-                        fontFamily: "earlyGameboy",
-                        fontSize: "12px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      GET WHITELIST SPOT
-                    </button>
-                  </>
-                ) : (
-                  <button style={{ marginTop: "10px" }}>
-                    NOT ENOUGH ROOTX
-                  </button>
-                )}
-              </div>
-            </div>
-          </Col> */}
           <Col lg={4}>
             <div className="load">
               <div className="load__up">
@@ -1754,6 +1715,93 @@ const LoadCard = () => {
               </div>
             </div>
           </Col>
+          {/* <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={alfie} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>
+                      Alfie World
+                    </button>
+                    <span>{alfieburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {alfieticketamount} / 3 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  The joyful and colorful Alfie World and its 8888 frens.
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/THEALFIEWORLD"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                </div>
+
+                {alfieticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : alfiepending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : alfieticketamount >= 3 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= alfieburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(alfieburnROOTx, "Alfie")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col> */}
           {/* <Col lg={4}>
             <div className="load">
               <div className="load__up">
@@ -2591,6 +2639,101 @@ const LoadCard = () => {
                   <>
                     <button
                       onClick={() => burnROOTx(inkuburnROOTx, "inku")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={ETHVaultNFT} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "37%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>ETHVaultNFT</button>
+                    <span>
+                      {ETHVaultNFTburnROOTx.toLocaleString("en-US")} ROOTx
+                    </span>
+                    <span style={{ marginTop: "10px" }}>
+                      {ETHVaultNFTticketamount} / 1 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  This is ETHVaultNFT assets.
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/ETHVaultNFT"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/PjXrHyc93Q"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {ETHVaultNFTticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : ETHVaultNFTpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : ETHVaultNFTticketamount >= 1 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= ETHVaultNFTburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(ETHVaultNFTburnROOTx, "ETHVaultNFT")}
                       style={{
                         color: "red",
                         textAlign: "center",
