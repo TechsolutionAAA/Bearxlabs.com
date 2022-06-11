@@ -123,9 +123,9 @@ function Header() {
             <NavDropdown.Item>
               <Link to="/tokenstaking">TOKEN STAKING</Link>
             </NavDropdown.Item>
-            <NavDropdown.Item>
+            {/* <NavDropdown.Item>
               <Link to="/LPtokenstaking">LP STAKING</Link>
-            </NavDropdown.Item>
+            </NavDropdown.Item> */}
             <NavDropdown.Item>
               <Link to="/BurnROOTxToGetSROOTx">Burn ROOTx To Get SROOTx</Link>
             </NavDropdown.Item>

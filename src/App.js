@@ -17,7 +17,7 @@ import RoadMap from "./pages/RoadMap";
 import Collection from "./pages/Collection";
 import Token from "./pages/Token";
 import TokenStaking from "./pages/TokenStaking";
-import LPTokenStaking from "./pages/LPTokenStaking";
+// import LPTokenStaking from "./pages/LPTokenStaking";
 import BurnROOTxToGetSROOTx from "./pages/BurnROOTxToGetSROOTx";
 import Beta from "./pages/Beta";
 import Marketplace from "./pages/Marketplace";
@@ -33,7 +33,7 @@ function App() {
         <Route path="/bearx-collections/" element={<Collection/>}/>
         <Route path="/token/" element={<Token/>}/>
         <Route path="/tokenstaking/" element={<TokenStaking/>}/>
-        <Route path="/LPtokenstaking/" element={<LPTokenStaking/>}/>
+        {/* <Route path="/LPtokenstaking/" element={<LPTokenStaking/>}/> */}
         <Route path="/BurnROOTxToGetSROOTx" element = {<BurnROOTxToGetSROOTx />} />
         <Route path="/root/" element={<RootPage/>}/>
         <Route path="/faq/" element={<FaqPage/>}/>
