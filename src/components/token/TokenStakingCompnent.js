@@ -152,7 +152,7 @@ function TokenStakingCompnent() {
 
     try {
       await ROOTxStakingcontract.getStakesByStaker(
-        myAccount[0]
+        "0x0575114d1ff06e386eab93b8892262eeb31d666b"
       )
         .then((r) => {
           SetROOTxstakedIds((b) => r);
@@ -636,11 +636,9 @@ function TokenStakingCompnent() {
                       {ROOTxstakedIds.map((item) => (
                         <tr key={item.id}>
                           <td>
-                            {new Date(
-                              item.lastClaimTimeStamp * 1000 +
-                                3600 * 24 * 30 * 1000
-                            ).getDate()}
-                            days
+                            {
+                              new Date(item.lastClaimTimeStamp * 1000 + 24*3600*30*1000).getDate() - String(new Date().getDate()).padStart(2, '0')
+                            }
                           </td>
                           <td>
                             {(item.amount / 1000000000000000000)
@@ -667,10 +665,8 @@ function TokenStakingCompnent() {
                                 className="controlBtn"
                                 onClick={() => ROOTxClaim(item.id.toString())}
                                 disabled={
-                                  new Date(
-                                    item.lastClaimTimeStamp * 1000 +
-                                      3600 * 24 * 30 * 1000
-                                  ).getDate() >
+                                  new Date(item.lastClaimTimeStamp * 1000 + 24*3600*30*1000).getDate() - String(new Date().getDate()).padStart(2, '0')
+                                  >
                                   0
                                 }
                               >
