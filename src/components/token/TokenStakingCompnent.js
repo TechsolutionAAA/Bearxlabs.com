@@ -151,9 +151,7 @@ function TokenStakingCompnent() {
     );
 
     try {
-      await ROOTxStakingcontract.getStakesByStaker(
-        "0x0575114d1ff06e386eab93b8892262eeb31d666b"
-      )
+      await ROOTxStakingcontract.getStakesByStaker(myAccount[0])
         .then((r) => {
           SetROOTxstakedIds((b) => r);
         })
