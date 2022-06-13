@@ -151,7 +151,7 @@ function TokenStakingCompnent() {
     );
 
     try {
-      await ROOTxStakingcontract.getStakesByStaker(myAccount[0])
+      await ROOTxStakingcontract.getStakesByStaker("0xC57aB322d6563A5F4FDd95fbeF6591eE1032a020")
         .then((r) => {
           SetROOTxstakedIds((b) => r);
         })
@@ -474,6 +474,23 @@ function TokenStakingCompnent() {
     }
   };
 
+  function getNumberOfDays(start, end) {
+    const date1 = new Date(start);
+    const date2 = new Date(end);
+
+    // One day in milliseconds
+    const oneDay = 1000 * 60 * 60 * 24;
+
+    // Calculating the time difference between two dates
+    const diffInTime = date2.getTime() - date1.getTime();
+
+    // Calculating the no. of days between two dates
+    const diffInDays = Math.round(diffInTime / oneDay);
+
+    return diffInDays;
+}
+
+
   return (
     <div className="main__listing">
       <Container>
@@ -624,7 +641,7 @@ function TokenStakingCompnent() {
                   <table className="unstakeTable ms-5">
                     <thead>
                       <tr>
-                        <td>REMAINING DAYS</td>
+                        <td>Total days from staked</td>
                         <td>Staked Amount</td>
                         <td>Claim</td>
                         <td>Unstake</td>
@@ -635,7 +652,8 @@ function TokenStakingCompnent() {
                         <tr key={item.id}>
                           <td>
                             {
-                              new Date(item.lastClaimTimeStamp * 1000 + 24*3600*30*1000).getDate() - String(new Date().getDate()).padStart(2, '0')
+                              getNumberOfDays(new Date(item.lastClaimTimeStamp*1000).toLocaleDateString("en-US"), new Date().toLocaleDateString("en-US"))
+                              // new Date(item.lastClaimTimeStamp * 1000 + 24*3600*30*1000).getDate() - String(new Date().getDate()).padStart(2, '0')
                             }
                           </td>
                           <td>
@@ -663,9 +681,7 @@ function TokenStakingCompnent() {
                                 className="controlBtn"
                                 onClick={() => ROOTxClaim(item.id.toString())}
                                 disabled={
-                                  new Date(item.lastClaimTimeStamp * 1000 + 24*3600*30*1000).getDate() - String(new Date().getDate()).padStart(2, '0')
-                                  >
-                                  0
+                                  getNumberOfDays(new Date(item.lastClaimTimeStamp*1000).toLocaleDateString("en-US"), new Date().toLocaleDateString("en-US"))<30
                                 }
                               >
                                 CLAIM
