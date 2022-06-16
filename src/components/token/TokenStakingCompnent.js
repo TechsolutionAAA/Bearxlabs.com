@@ -26,6 +26,7 @@ function TokenStakingCompnent() {
   // const [sROOtAmount, setsRootAmount] = useState(0);
   const [RootAmount, setRootAmount] = useState(0);
   const [ROOTxstakedIds, SetROOTxstakedIds] = useState([]);
+  const [final, setfinal] = useState([]);
   // const [SROOTxstakedIds, SetSROOTxstakedIds] = useState([]);
 
   // const [SROOtxStakingPending, setSROOtxStakingPending] = useState(false);
@@ -43,6 +44,8 @@ function TokenStakingCompnent() {
   const [ROOTxAPPROVE, setROOTxAPPROVE] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
+
+  const [tempdata, setTempData] = useState({});
 
   useEffect(() => {
     if (window.web3 !== undefined && window.ethereum) {
@@ -149,11 +152,20 @@ function TokenStakingCompnent() {
       RootxStakingABI,
       provider?.getSigner()
     );
-
     try {
-      await ROOTxStakingcontract.getStakesByStaker(myAccount[0])
-        .then((r) => {
-          SetROOTxstakedIds((b) => r);
+      await ROOTxStakingcontract.getStakesByStaker("0xC57aB322d6563A5F4FDd95fbeF6591eE1032a020")
+      .then(async (r) => {
+        SetROOTxstakedIds((b) => r);
+        let tempArr = {}
+        for (let i = 0; i < r.length; i++) {
+          let a= await getlastclaim(r[i].id)
+          tempArr[r[i].id + "i"] =  a
+        }
+          //   console.log(item.id.toNumber())
+          //   return {[item.id]: getlastclaim(item.id)}
+          // })
+          console.log(tempArr, "asdfasdfsas");
+          setTempData(tempArr)
         })
         .catch((err) => {
           console.log(err);
@@ -488,7 +500,34 @@ function TokenStakingCompnent() {
     const diffInDays = Math.round(diffInTime / oneDay);
 
     return diffInDays;
-}
+ };
+
+ const getlastclaim = async (id) => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const ROOTxStakingcontract = new Contract(
+    contract.ROOTxStaking[1],
+    RootxStakingABI,
+    provider?.getSigner()
+
+  );
+  try {
+    const r = await ROOTxStakingcontract.getStakeInfo(id)
+      // .then((r) => {
+      //   console.log(typeof getNumberOfDays(new Date(r[4]*1000).toLocaleDateString("en-US"), new Date().toLocaleDateString("en-US")))
+      //   // return getNumberOfDays(new Date(r[4]*1000).toLocaleDateString("en-US"), new Date().toLocaleDateString("en-US"))
+      //   return 1
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // });
+      console.log(getNumberOfDays(new Date(r[4]*1000).toLocaleDateString("en-US"), new Date().toLocaleDateString("en-US")));
+      return getNumberOfDays(new Date(r[4]*1000).toLocaleDateString("en-US"), new Date().toLocaleDateString("en-US"))
+  } catch (err) {
+    console.log(err);
+    return -1
+  }
+
+ };
 
 
   return (
@@ -593,7 +632,7 @@ function TokenStakingCompnent() {
 
             <Col lg={6} md={6}>
               <div className="about__details">
-                <p style={{ color: "yellow", fontSize: "50px" }}>COMING SOON</p>
+                <p style={{ color: "yellow", fontSize: "50px" }}>COMING SOON </p>
               </div>
               {/* <div className="listing__card ms-5 w-md-100">
                 <p>Stake your SROOTx token</p>
@@ -641,20 +680,17 @@ function TokenStakingCompnent() {
                   <table className="unstakeTable ms-5">
                     <thead>
                       <tr>
-                        <td>Total days from staked</td>
+                        <td>Days from last Claimed Date</td>
                         <td>Staked Amount</td>
                         <td>Claim</td>
                         <td>Unstake</td>
                       </tr>
                     </thead>
                     <tbody>
-                      {ROOTxstakedIds.map((item) => (
-                        <tr key={item.id}>
+                      {ROOTxstakedIds.length > 0 && ROOTxstakedIds.map((item, key) => (
+                        <tr key={key}>
                           <td>
-                            {
-                              getNumberOfDays(new Date(item.lastClaimTimeStamp*1000).toLocaleDateString("en-US"), new Date().toLocaleDateString("en-US"))
-                              // new Date(item.lastClaimTimeStamp * 1000 + 24*3600*30*1000).getDate() - String(new Date().getDate()).padStart(2, '0')
-                            }
+                              {tempdata[Number(item.id) + "i"]}
                           </td>
                           <td>
                             {(item.amount / 1000000000000000000)
@@ -680,9 +716,7 @@ function TokenStakingCompnent() {
                                 type="button"
                                 className="controlBtn"
                                 onClick={() => ROOTxClaim(item.id.toString())}
-                                disabled={
-                                  getNumberOfDays(new Date(item.lastClaimTimeStamp*1000).toLocaleDateString("en-US"), new Date().toLocaleDateString("en-US"))<30
-                                }
+                                disabled={tempdata[Number(item.id) + "i"]<30}
                               >
                                 CLAIM
                               </button>
