@@ -44,115 +44,115 @@ const LoadCard = () => {
   const [ProName, setProName] = useState("");
 
   // souka Ticket Info
-  const [soukaburnROOTx, setburnROOTx] = useState(2500);
+  const [soukaburnROOTx, setburnROOTx] = useState(10000);
   const [soukaticketamount, setsoukaticketamount] = useState(0);
   const [soukaticketowned, setsoukaticketowned] = useState(false);
   const [soukapending, setsoukapending] = useState(false);
 
   // flick Ticket Info
-  const [flickburnROOTx, setflickburnROOTx] = useState(2500);
+  const [flickburnROOTx, setflickburnROOTx] = useState(10000);
   const [flickticketamount, setflickticketamount] = useState(0);
   const [flickticketowned, setflickticketowned] = useState(false);
   const [flickpending, setflickpending] = useState(false);
 
   // NOOD Ticket Info
-  const [noodburnROOTx, setnoodburnROOTx] = useState(2500);
+  const [noodburnROOTx, setnoodburnROOTx] = useState(10000);
   const [noodticketamount, setnoodticketamount] = useState(0);
   const [noodticketowned, setnoodticketowned] = useState(false);
   const [noodpending, setnooedpending] = useState(false);
 
   // wizardgladiators Ticket Info
-  const [wizardburnROOTx, setwizardburnROOTx] = useState(2500);
+  const [wizardburnROOTx, setwizardburnROOTx] = useState(10000);
   const [wizardticketamount, setwizardticketamount] = useState(0);
   const [wizardticketowned, setwizardticketowned] = useState(false);
   const [wizardpending, setwizardpending] = useState(false);
 
   // Dodo wizardgods Ticket Info
-  const [DodoburnROOTx, setDodoburnROOTx] = useState(6000);
+  const [DodoburnROOTx, setDodoburnROOTx] = useState(10000);
   const [Dodoticketamount, setDodoticketamount] = useState(0);
   const [Dodoticketowned, setDodoticketowned] = useState(false);
   const [Dodopending, setDodopending] = useState(false);
 
   // moonwalker wizardgods Ticket Info
-  const [moonburnROOTx, setmoonburnROOTx] = useState(2500);
+  const [moonburnROOTx, setmoonburnROOTx] = useState(10000);
   const [moonticketamount, setmoonticketamount] = useState(0);
   const [moonticketowned, setmoonticketowned] = useState(false);
   const [moonpending, setmoonpending] = useState(false);
 
   // chunk wizardgods Ticket Info
-  const [chunkburnROOTx, setchunkburnROOTx] = useState(2500);
+  const [chunkburnROOTx, setchunkburnROOTx] = useState(10000);
   const [chunkticketamount, setchunkticketamount] = useState(0);
   const [chunkticketowned, setchunkticketowned] = useState(false);
   const [chunkpending, setchunkpending] = useState(false);
 
   // Alfie wizardgods Ticket Info
-  const [alfieburnROOTx, setalfieburnROOTx] = useState(2500);
+  const [alfieburnROOTx, setalfieburnROOTx] = useState(10000);
   const [alfieticketamount, setalfieticketamount] = useState(0);
   const [alfieticketowned, setalfieticketowned] = useState(false);
   const [alfiepending, setalfiepending] = useState(false);
 
   // Chosen wizardgods Ticket Info
-  const [chosenburnROOTx, setchosenburnROOTx] = useState(2500);
+  const [chosenburnROOTx, setchosenburnROOTx] = useState(10000);
   const [chosenticketamount, setchosenticketamount] = useState(0);
   const [chosenticketowned, setchosenticketowned] = useState(false);
   const [chosenpending, setchosenpending] = useState(false);
 
   // Maze wizardgods Ticket Info
-  const [mazeburnROOTx, setmazeburnROOTx] = useState(2500);
+  const [mazeburnROOTx, setmazeburnROOTx] = useState(10000);
   const [mazeticketamount, setmazeticketamount] = useState(0);
   const [mazeticketowned, setmazeticketowned] = useState(false);
   const [mazepending, setmazepending] = useState(false);
 
   // Mythical wizardgods Ticket Info
-  const [MythicalburnROOTx, setMythicalburnROOTx] = useState(2000);
+  const [MythicalburnROOTx, setMythicalburnROOTx] = useState(10000);
   const [Mythicalticketamount, setMythicalticketamount] = useState(0);
   const [Mythicalticketowned, setMythicalticketowned] = useState(false);
   const [Mythicalpending, setMythicalpending] = useState(false);
 
   // ready wizardgods Ticket Info
-  const [readyburnROOTx, setreadyburnROOTx] = useState(2000);
+  const [readyburnROOTx, setreadyburnROOTx] = useState(10000);
   const [readyticketamount, setreadyticketamount] = useState(0);
   const [readyticketowned, setreadyticketowned] = useState(false);
   const [readypending, setreadypending] = useState(false);
 
   // paladin wizardgods Ticket Info
-  const [paladinburnROOTx, setpaladinburnROOTx] = useState(2000);
+  const [paladinburnROOTx, setpaladinburnROOTx] = useState(10000);
   const [paladinticketamount, setpaladinticketamount] = useState(0);
   const [paladinticketowned, setpaladinticketowned] = useState(false);
   const [paladinpending, setpaladinpending] = useState(false);
 
   // Sleepy wizardgods Ticket Info
-  const [SleepyburnROOTx, setSleepyburnROOTx] = useState(2000);
+  const [SleepyburnROOTx, setSleepyburnROOTx] = useState(10000);
   const [Sleepyticketamount, setSleepyticketamount] = useState(0);
   const [Sleepyticketowned, setSleepyticketowned] = useState(false);
   const [Sleepypending, setSleepypending] = useState(false);
 
   // nono Ticket Info
-  const [nonoburnROOTx, setnonoburnROOTx] = useState(5000);
+  const [nonoburnROOTx, setnonoburnROOTx] = useState(10000);
   const [nonoticketamount, setnonoticketamount] = useState(0);
   const [nonoticketowned, setnonoticketowned] = useState(false);
   const [nonopending, setnonopending] = useState(false);
 
   // Abduction Squad (WL)
-  const [abdburnROOTx, setabdburnROOTx] = useState(5000);
+  const [abdburnROOTx, setabdburnROOTx] = useState(10000);
   const [abdticketamount, setabdticketamount] = useState(0);
   const [abdticketowned, setabdticketowned] = useState(false);
   const [abdpending, setabdpending] = useState(false);
 
   // etherjump
-  const [etherjumpburnROOTx, setetherjumpburnROOTx] = useState(5000);
+  const [etherjumpburnROOTx, setetherjumpburnROOTx] = useState(10000);
   const [etherjumpticketamount, setetherjumpticketamount] = useState(0);
   const [etherjumpticketowned, setetherjumpticketowned] = useState(false);
   const [etherjumppending, setetherjumppending] = useState(false);
 
   // inku
-  const [inkuburnROOTx, setinkuburnROOTx] = useState(5000);
+  const [inkuburnROOTx, setinkuburnROOTx] = useState(10000);
   const [inkuticketamount, setinkuticketamount] = useState(0);
   const [inkuticketowned, setinkuticketowned] = useState(false);
   const [inkupending, setinkupending] = useState(false);
 
   // ETHVaultNFT
-  const [ETHVaultNFTburnROOTx, setETHVaultNFTburnROOTx] = useState(5000);
+  const [ETHVaultNFTburnROOTx, setETHVaultNFTburnROOTx] = useState(10000);
   const [ETHVaultNFTticketamount, setETHVaultNFTticketamount] = useState(0);
   const [ETHVaultNFTticketowned, setETHVaultNFTticketowned] = useState(false);
   const [ETHVaultNFTpending, setETHVaultNFTpending] = useState(false);
