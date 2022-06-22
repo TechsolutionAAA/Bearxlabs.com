@@ -545,14 +545,14 @@ function TokenStakingCompnent() {
         </Row>
         <Row>
           <Col sm={6} md={6} lg={6}>
-            <div className="percent">
+            {/* <div className="percent">
               Total ROOTx staked -{" "}
               {((StakedROOTxBalance / ROOTxbalance) * 100).toFixed(0)}%
-            </div>
-            <div className="percent">
+            </div> */}
+            {/* <div className="percent">
               ROOTx APY -{" "}
-              {((11050 / StakedROOTxBalance) * 365 * 100).toFixed(3)}%
-            </div>
+              {((24050 / StakedROOTxBalance) * 365 * 100).toFixed(3)}%
+            </div> */}
             <div className="d-flex justify-content-center">
               <div className="tokenButton">
                 available to stake{" "}
