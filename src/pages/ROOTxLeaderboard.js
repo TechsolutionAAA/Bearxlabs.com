@@ -17,8 +17,7 @@ const ROOTxLeaderboard = () => {
 
   useEffect(() => {
     getWhitelistData();
-    getMyinfo();
-  });
+  }, []);
 
   const loadWeb3 = async () => {
     const web3 = await new ethers.providers.Web3Provider(window.ethereum);
@@ -36,6 +35,7 @@ const ROOTxLeaderboard = () => {
       .get("https://sheet.best/api/sheets/0a8cf6e2-8534-44cd-b2bd-e8b8907438ca")
       .then((res) => {
         setSnapshot(res.data);
+        getMyinfo();
       })
       .catch((err) => console.log(err));
   };

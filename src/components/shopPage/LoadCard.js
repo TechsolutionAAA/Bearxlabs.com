@@ -29,6 +29,11 @@ import abd from "../../assets/images/Items/AbductionSquad.png";
 import etherjump from "../../assets/images/Items/EtherJump.jpg";
 import inku from "../../assets/images/Items/Inku.jpg";
 import ETHVaultNFT from "../../assets/images/Items/ETHVaultNFT.png";
+import kiki from "../../assets/images/Items/kiki.png";
+import dz from "../../assets/images/Items/dz.png";
+import race from "../../assets/images/Items/race.png";
+import helix from "../../assets/images/Items/Helix.png";
+import onliner from "../../assets/images/Items/online.png";
 
 const LoadCard = () => {
   const [MyWeb3, setMyWeb3] = useState([]);
@@ -157,6 +162,36 @@ const LoadCard = () => {
   const [ETHVaultNFTticketowned, setETHVaultNFTticketowned] = useState(false);
   const [ETHVaultNFTpending, setETHVaultNFTpending] = useState(false);
 
+  // Kiki
+  const [kikiburnROOTx, setkikiburnROOTx] = useState(10000);
+  const [kikiticketamount, setkikiticketamount] = useState(0);
+  const [kikiticketowned, setkikiticketowned] = useState(false);
+  const [kikipending, setkikipending] = useState(false);
+  
+  // dz
+  const [dzburnROOTx, setdzburnROOTx] = useState(10000);
+  const [dzticketamount, setdzticketamount] = useState(0);
+  const [dzticketowned, setdzticketowned] = useState(false);
+  const [dzpending, setdzpending] = useState(false);
+  
+  // race
+  const [raceburnROOTx, setraceburnROOTx] = useState(10000);
+  const [raceticketamount, setraceticketamount] = useState(0);
+  const [raceticketowned, setraceticketowned] = useState(false);
+  const [racepending, setracepending] = useState(false);
+
+  // helix
+  const [helixburnROOTx, sethelixburnROOTx] = useState(10000);
+  const [helixticketamount, sethelixticketamount] = useState(0);
+  const [helixticketowned, sethelixticketowned] = useState(false);
+  const [helixpending, sethelixpending] = useState(false);
+
+  //onliner
+  const [onlinerburnROOTx, setonlinerburnROOTx] = useState(10000);
+  const [onlinerticketamount, setonlinerticketamount] = useState(0);
+  const [onlinerticketowned, setonlinerticketowned] = useState(false);
+  const [onlinerpending, setonlinerpending] = useState(false);
+
   useEffect(() => {
     if (window.web3 !== undefined && window.ethereum) {
       loadWeb3();
@@ -193,6 +228,11 @@ const LoadCard = () => {
         var etherjumpcount = 0;
         var inkucount = 0;
         var ETHVaultNFTcount = 0;
+        var kikicount = 0;
+        var dzcount = 0;
+        var racecount = 0;
+        var helixcount = 0;
+        var onlinercount = 0;
         for (var i = 0; i < res.data.length; i++) {
           if (res.data[i].Project === "souka") {
             soukacount++;
@@ -279,15 +319,40 @@ const LoadCard = () => {
             if (res.data[i].Account === myAccount[0]) {
               setetherjumpticketowned(true);
             }
-          } else if (res.data[i].Project = "inku") {
+          } else if (res.data[i].Project === "inku") {
             inkucount++;
             if (res.data[i].Account === myAccount[0]) {
               setinkuticketowned(true);
             }
-          } else if (res.data[i].Project = "ETHVaultNFT") {
+          } else if (res.data[i].Project === "ETHVaultNFT") {
             ETHVaultNFTcount++;
             if(res.data[i].Account === myAccount[0]) {
               setETHVaultNFTticketowned(true);
+            }
+          } else if (res.data[i].Project === "kiki") {
+            kikicount++;
+            if(res.data[i].Account === myAccount[0]) {
+              setkikiticketowned(true);
+            }
+          } else if (res.data[i].Project === "dz") {
+            dzcount++;
+            if(res.data[i].Account === myAccount[0]) {
+              setdzticketowned(true);
+            }
+          } else if (res.data[i].Project === "race") {
+            racecount++;
+            if(res.data[i].Account === myAccount[0]) {
+              setraceticketowned(true);
+            }
+          } else if (res.data[i].Project === "helix") {
+            helixcount++;
+            if(res.data[i].Account === myAccount[0]) {
+              sethelixticketowned(true);
+            }
+          } else if (res.data[i].Project === "onliner") {
+            onlinercount++;
+            if(res.data[i].Account === myAccount[0]) {
+              setonlinerticketowned(true);
             }
           }
         }
@@ -310,6 +375,11 @@ const LoadCard = () => {
         setetherjumpticketamount(etherjumpcount);
         setinkuticketamount(inkucount);
         setETHVaultNFTticketamount(ETHVaultNFTcount);
+        setkikiticketamount(kikicount);
+        setdzticketamount(dzcount);
+        setraceticketamount(racecount);
+        sethelixticketamount(helixcount);
+        setonlinerticketamount(onlinercount);
       })
       .catch((err) => console.log(err));
   };
@@ -990,6 +1060,171 @@ const LoadCard = () => {
                 text: "Something went Wrong!",
               });
               setETHVaultNFTpending(false);
+              setShowModal(false);
+            }
+          } else if (item === "kiki") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setkikipending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setkikipending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setkikipending(false);
+              setShowModal(false);
+            }
+          } else if (item === "dz") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setdzpending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setdzpending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setdzpending(false);
+              setShowModal(false);
+            }
+          } else if (item === "race") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setracepending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setracepending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setracepending(false);
+              setShowModal(false);
+            }
+          } else if (item === "helix") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            sethelixpending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              sethelixpending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              sethelixpending(false);
+              setShowModal(false);
+            }
+          } else if (item === "onliner") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setonlinerpending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setonlinerpending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setonlinerpending(false);
               setShowModal(false);
             }
           }
@@ -2736,6 +2971,475 @@ const LoadCard = () => {
                   <>
                     <button
                       onClick={() => burnROOTx(ETHVaultNFTburnROOTx, "ETHVaultNFT")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={kiki} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "40%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>Kiki verse</button>
+                    <span>
+                      {kikiburnROOTx.toLocaleString("en-US")} ROOTx
+                    </span>
+                    <span style={{ marginTop: "10px" }}>
+                      {kikiticketamount} / 3 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                Unlock the magic of music!<br />
+                Multi-chain. <br />
+                Building the community that's inclusive of ETH and SOL.<br />
+                Women-let project by @cryborg_654 and artist @PepeCloverNFT.<br />
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/KikiVerseNFT"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/kikiverse"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {kikiticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : kikipending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : kikiticketamount >= 3 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= kikiburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(kikiburnROOTx, "kiki")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={dz} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "35%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}> Drippy zombies </button>
+                    <span>
+                      {dzburnROOTx.toLocaleString("en-US")} ROOTx
+                    </span>
+                    <span style={{ marginTop: "10px" }}>
+                      {dzticketamount} / 10 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  Drippy Zombies is a collection of hand-drawn zombies. Drippy Zombies are known for their stylish and “drippy” aura. Traits inspired by global fashion trends and include unique pop culture references.
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/drippyzombies"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                </div>
+                {dzticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : dzpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : dzticketamount >= 10 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= dzburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(dzburnROOTx, "dz")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={race} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "30%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}> racing social club </button>
+                    <span>
+                      {raceburnROOTx.toLocaleString("en-US")} ROOTx
+                    </span>
+                    <span style={{ marginTop: "10px" }}>
+                      {raceticketamount} / 3 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  Racing Social Club is a collection of 3333 Racers who are randomly generated on the Ethereum blockchain. The NFT comes with access to different utilities.
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/racingsocialnft"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.com/invite/racingsocialclubnft"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {raceticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : racepending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : raceticketamount >= 3 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= raceburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(raceburnROOTx, "race")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={helix} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "40%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>Helix</button>
+                    <span>
+                      {helixburnROOTx.toLocaleString("en-US")} ROOTx
+                    </span>
+                    <span style={{ marginTop: "10px" }}>
+                      {helixticketamount} / 5 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  Helix Horizon is a Japanese-style fantasy RPG mobile game that took nearly two years to develop. Now, it has come to the blockchain world, and every player can get a game experience with great imagination and wealth value by collecting NFT cards!
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/HELIX_Metaverse"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/4AZFQvpM3Q"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {helixticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : helixpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : helixticketamount >= 5 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= helixburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(helixburnROOTx, "helix")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={onliner} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "30%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>Onliners metaverse</button>
+                    <span>
+                      {onlinerburnROOTx.toLocaleString("en-US")} ROOTx
+                    </span>
+                    <span style={{ marginTop: "10px" }}>
+                      {onlinerticketamount} / 5 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                We are a metaverse of 8000 Onliners who are trying to fit in this world. You can join us only if you are online.
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/onlinersNFT"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/onliners"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {onlinerticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : onlinerpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : onlinerticketamount >= 5 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= onlinerburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(onlinerburnROOTx, "onliner")}
                       style={{
                         color: "red",
                         textAlign: "center",
