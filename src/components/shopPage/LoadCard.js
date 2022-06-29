@@ -3395,7 +3395,7 @@ const LoadCard = () => {
                   </div>
                 </div>
                 <div className="description" style={{ overflowY: "scroll" }}>
-                We are a metaverse of 8000 Onliners who are trying to fit in this world. You can join us only if you are online.
+                  We are a metaverse of 8000 Onliners who are trying to fit in this world. You can join us only if you are online.
                 </div>
                 <div
                   className="d-flex justify-content-center"
