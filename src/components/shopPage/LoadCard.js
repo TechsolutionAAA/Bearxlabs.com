@@ -1273,497 +1273,6 @@ const LoadCard = () => {
             <div className="load">
               <div className="load__up">
                 <div className="load__img">
-                  <Image src={souka} alt="shop images" fluid />
-                </div>
-              </div>
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <button style={{ marginBottom: "10px" }}>SOUKA</button>
-                    <span>{soukaburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {soukaticketamount} / 3 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description">
-                  What is Souka? <br />
-                  The Souk is the largest covered historic market in the NFT
-                  world, based on IRL bazaar in the medieval times.
-                </div>
-                <div
-                  className="d-flex justify-content-center"
-                  id="footerSocialIcons"
-                >
-                  <div className="iconBox">
-                    <a
-                      href="https://twitter.com/soukaland"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piTwitter} />
-                    </a>
-                  </div>
-                  <div className="iconBox">
-                    <a
-                      href="https://discord.gg/souka"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piDiscord} />
-                    </a>
-                  </div>
-                </div>
-                {soukaticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : soukapending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : soukaticketamount >= 3 ? (
-                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
-                ) : ROOTxBalance >= soukaburnROOTx ? (
-                  <>
-                    <button
-                      onClick={() => burnROOTx(soukaburnROOTx, "souka")}
-                      style={{
-                        color: "red",
-                        textAlign: "center",
-                        fontFamily: "earlyGameboy",
-                        fontSize: "12px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      GET WHITELIST SPOT
-                    </button>
-                  </>
-                ) : (
-                  <button style={{ marginTop: "10px" }}>
-                    NOT ENOUGH ROOTX
-                  </button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={flick} alt="shop images" fluid />
-                </div>
-              </div>
-
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <button style={{ marginBottom: "10px" }}>flick play</button>
-                    <span>{flickburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {flickticketamount} / 3 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description" style={{ overflowY: "scroll" }}>
-                  What is FlickyGang?<br></br> Flickygang NFT is a collection of
-                  5,555 Unique 3D characters living in the Ethereum blockchain.
-                  Investors from : The Sandbox, Warner Brothers, EventBrite,
-                  Muse capital Each Flicky has a life of its own, and their
-                  fashion taste highlights their personality and lifestyle. The
-                  first-ever AR-powered NFT collection on the fully built &
-                  functional app FlickPlay. FlickPlay is a social app where
-                  people build the social status of their Digital Collectibles.
-                  FlickPlay's map allows for users to unlock digital
-                  collectibles in the real world and FlickPlay camera allows
-                  users to flex their collectibles in the real world using AR,
-                  bridging people's digital and physical realities together Team
-                  is fully doxxed and just announced a partnership with Sandbox.
-                </div>
-                <div
-                  className="d-flex justify-content-center"
-                  id="footerSocialIcons"
-                >
-                  <div className="iconBox">
-                    <a
-                      href="https://twitter.com/flickplay"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piTwitter} />
-                    </a>
-                  </div>
-                  <div className="iconBox">
-                    <a
-                      href="http://discord.gg/flickplay"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piDiscord} />
-                    </a>
-                  </div>
-                </div>
-                {flickticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : flickpending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : flickticketamount >= 3 ? (
-                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
-                ) : ROOTxBalance >= flickburnROOTx ? (
-                  <>
-                    <button
-                      onClick={() => burnROOTx(flickburnROOTx, "flick")}
-                      style={{
-                        color: "red",
-                        textAlign: "center",
-                        fontFamily: "earlyGameboy",
-                        fontSize: "12px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      GET WHITELIST SPOT
-                    </button>
-                  </>
-                ) : (
-                  <button style={{ marginTop: "10px" }}>
-                    NOT ENOUGH ROOTX
-                  </button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={nood} alt="shop images" fluid />
-                </div>
-              </div>
-
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <button style={{ marginBottom: "10px" }}>NoodFTX</button>
-                    <span>{noodburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {noodticketamount} / 3 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description" style={{ overflowY: "scroll" }}>
-                  Nood Fungible Token is an NFT project that aims to promote
-                  body positivity, equality, and freedom within the NFT
-                  community..This project will consist of 4444 unique Noodies
-                  separated into 4 different drops in line with different
-                  advocacies. Each drop from all collections is sure to be
-                  unique and have their own flair. The ultimate goal of Nood
-                  Fungible Tokens is to fully realize the potential of NFTs and
-                  crypto in shaping our world to be a more safe and inclusive
-                  space for all.
-                </div>
-
-                <div
-                  className="d-flex justify-content-center"
-                  id="footerSocialIcons"
-                >
-                  <div className="iconBox">
-                    <a
-                      href="https://twitter.com/NoodFTOfficial"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piTwitter} />
-                    </a>
-                  </div>
-                </div>
-                {noodticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : noodpending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : noodticketamount >= 3 ? (
-                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
-                ) : ROOTxBalance >= noodburnROOTx ? (
-                  <>
-                    <button
-                      onClick={() => burnROOTx(noodburnROOTx, "nood")}
-                      style={{
-                        color: "red",
-                        textAlign: "center",
-                        fontFamily: "earlyGameboy",
-                        fontSize: "12px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      GET WHITELIST SPOT
-                    </button>
-                  </>
-                ) : (
-                  <button style={{ marginTop: "10px" }}>
-                    NOT ENOUGH ROOTX
-                  </button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={wizard} alt="shop images" fluid />
-                </div>
-              </div>
-
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "25%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <button style={{ marginBottom: "10px" }}>
-                      Mystical wizards guild
-                    </button>
-                    <span>{wizardburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {wizardticketamount} / 3 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description" style={{ overflowY: "scroll" }}>
-                  Mystical Wizard Guild is the NFT behind the MysticSwap
-                  platform, a peer-to-peer NFT trading platform for secure
-                  trades and swaps. Example: you wanna sell your BearX to a
-                  fren, privately. This is how you do it. Holders of the
-                  Mystical Wizard NFT benefit from platform revenue, pay no fees
-                  on the platform and gain access to an exclusive alpha group!
-                  Twitter template below, to make your life easier too
-                </div>{" "}
-                <div
-                  className="d-flex justify-content-center"
-                  id="footerSocialIcons"
-                >
-                  <div className="iconBox">
-                    <a
-                      href="https://twitter.com/MystWizardGuild"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piTwitter} />
-                    </a>
-                  </div>
-                  <div className="iconBox">
-                    <a
-                      href="https://discord.gg/vxmnE2v624"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piDiscord} />
-                    </a>
-                  </div>
-                </div>
-                {wizardticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : wizardpending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : wizardticketamount >= 3 ? (
-                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
-                ) : ROOTxBalance >= wizardburnROOTx ? (
-                  <>
-                    <button
-                      onClick={() => burnROOTx(wizardburnROOTx, "wizard")}
-                      style={{
-                        color: "red",
-                        textAlign: "center",
-                        fontFamily: "earlyGameboy",
-                        fontSize: "12px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      GET WHITELIST SPOT
-                    </button>
-                  </>
-                ) : (
-                  <button style={{ marginTop: "10px" }}>
-                    NOT ENOUGH ROOTX
-                  </button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={Dodo} alt="shop images" fluid />
-                </div>
-              </div>
-
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <button style={{ marginBottom: "10px" }}>The Dodos</button>
-                    <span>{DodoburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {Dodoticketamount} / 3 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description">
-                  Infinite Dodos is a complete ecosystem starting with an
-                  Unhackable wallet. UTILITY READY AT MINT team spent 7 months
-                  building before announcing the collection consisting of world
-                  class entrepreneurs all Doxxed. Being apart of our Infinite
-                  Dodos will enable you to be apart of all future and current
-                  utility
-                </div>
-                <div
-                  className="d-flex justify-content-center"
-                  id="footerSocialIcons"
-                >
-                  <div className="iconBox">
-                    <a
-                      href="https://twitter.com/InfiniteDodos"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piTwitter} />
-                    </a>
-                  </div>
-                  <div className="iconBox">
-                    <a
-                      href="https://discord.gg/PhjW7PUdvm"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piDiscord} />
-                    </a>
-                  </div>
-                </div>
-                {Dodoticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : Dodopending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : Dodoticketamount >= 3 ? (
-                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
-                ) : ROOTxBalance >= DodoburnROOTx ? (
-                  <>
-                    <button
-                      onClick={() => burnROOTx(DodoburnROOTx, "Dodo")}
-                      style={{
-                        color: "red",
-                        textAlign: "center",
-                        fontFamily: "earlyGameboy",
-                        fontSize: "12px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      GET WHITELIST SPOT
-                    </button>
-                  </>
-                ) : (
-                  <button style={{ marginTop: "10px" }}>
-                    NOT ENOUGH ROOTX
-                  </button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
                   <Image src={chunk} alt="shop images" fluid />
                 </div>
               </div>
@@ -1931,662 +1440,6 @@ const LoadCard = () => {
                   <>
                     <button
                       onClick={() => burnROOTx(chosenburnROOTx, "Chosen")}
-                      style={{
-                        color: "red",
-                        textAlign: "center",
-                        fontFamily: "earlyGameboy",
-                        fontSize: "12px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      GET WHITELIST SPOT
-                    </button>
-                  </>
-                ) : (
-                  <button style={{ marginTop: "10px" }}>
-                    NOT ENOUGH ROOTX
-                  </button>
-                )}
-              </div>
-            </div>
-          </Col>
-          {/* <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={alfie} alt="shop images" fluid />
-                </div>
-              </div>
-
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <button style={{ marginBottom: "10px" }}>
-                      Alfie World
-                    </button>
-                    <span>{alfieburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {alfieticketamount} / 3 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description" style={{ overflowY: "scroll" }}>
-                  The joyful and colorful Alfie World and its 8888 frens.
-                </div>
-                <div
-                  className="d-flex justify-content-center"
-                  id="footerSocialIcons"
-                >
-                  <div className="iconBox">
-                    <a
-                      href="https://twitter.com/THEALFIEWORLD"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piTwitter} />
-                    </a>
-                  </div>
-                </div>
-
-                {alfieticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : alfiepending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : alfieticketamount >= 3 ? (
-                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
-                ) : ROOTxBalance >= alfieburnROOTx ? (
-                  <>
-                    <button
-                      onClick={() => burnROOTx(alfieburnROOTx, "Alfie")}
-                      style={{
-                        color: "red",
-                        textAlign: "center",
-                        fontFamily: "earlyGameboy",
-                        fontSize: "12px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      GET WHITELIST SPOT
-                    </button>
-                  </>
-                ) : (
-                  <button style={{ marginTop: "10px" }}>
-                    NOT ENOUGH ROOTX
-                  </button>
-                )}
-              </div>
-            </div>
-          </Col> */}
-          {/* <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={maze} alt="shop images" fluid />
-                </div>
-              </div>
-
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <button style={{ marginBottom: "10px" }}>MazeVerse</button>
-                    <span>{mazeburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {mazeticketamount} / 3 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description" style={{ overflowY: "scroll" }}>
-                  Pass to YesYes DAO | OnChain P2E | Discord: Private | From
-                  Game: 赛尔号 | All Rights Reserved & Licensed By 淘米 Taomee
-                </div>
-                <div
-                  className="d-flex justify-content-center"
-                  id="footerSocialIcons"
-                >
-                  <div className="iconBox">
-                    <a
-                      href="https://twitter.com/Mazeversenft"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piTwitter} />
-                    </a>
-                  </div>
-                  <div className="iconBox">
-                    <a
-                      href="https://discord.gg/vkWdd2wUeP"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piDiscord} />
-                    </a>
-                  </div>
-                </div>
-                {mazeticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : mazepending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : mazeticketamount >= 3 ? (
-                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
-                ) : ROOTxBalance >= mazeburnROOTx ? (
-                  <>
-                    <button
-                      onClick={() => burnROOTx(mazeburnROOTx, "Maze")}
-                      style={{
-                        color: "red",
-                        textAlign: "center",
-                        fontFamily: "earlyGameboy",
-                        fontSize: "12px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      GET WHITELIST SPOT
-                    </button>
-                  </>
-                ) : (
-                  <button style={{ marginTop: "10px" }}>
-                    NOT ENOUGH ROOTX
-                  </button>
-                )}
-              </div>
-            </div>
-          </Col> */}
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={Mythical} alt="shop images" fluid />
-                </div>
-              </div>
-
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <button style={{ marginBottom: "10px" }}>Mythicals</button>
-                    <span>
-                      {MythicalburnROOTx.toLocaleString("en-US")} ROOTx
-                    </span>
-                    <span style={{ marginTop: "10px" }}>
-                      {Mythicalticketamount} / 25 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description" style={{ overflowY: "scroll" }}>
-                  First Liquid Yield NFT. We airdrop $ETH to you every month.
-                </div>
-                <div
-                  className="d-flex justify-content-center"
-                  id="footerSocialIcons"
-                >
-                  <div className="iconBox">
-                    <a
-                      href="https://twitter.com/MythicalsDrops"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piTwitter} />
-                    </a>
-                  </div>
-                  <div className="iconBox">
-                    <a
-                      href="https://discord.gg/mythicals"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piDiscord} />
-                    </a>
-                  </div>
-                </div>
-                {Mythicalticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : Mythicalpending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : Mythicalticketamount >= 25 ? (
-                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
-                ) : ROOTxBalance >= MythicalburnROOTx ? (
-                  <>
-                    <button
-                      onClick={() => burnROOTx(MythicalburnROOTx, "Mythical")}
-                      style={{
-                        color: "red",
-                        textAlign: "center",
-                        fontFamily: "earlyGameboy",
-                        fontSize: "12px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      GET WHITELIST SPOT
-                    </button>
-                  </>
-                ) : (
-                  <button style={{ marginTop: "10px" }}>
-                    NOT ENOUGH ROOTX
-                  </button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={ready} alt="shop images" fluid />
-                </div>
-              </div>
-
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "32%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <button style={{ marginBottom: "10px" }}>
-                      Player One world{" "}
-                    </button>
-                    <span>{readyburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {readyticketamount} / 3 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description" style={{ overflowY: "scroll" }}>
-                  #PlayerOne is a #Metaverse project with integrating tools,
-                  social scenes, #Omnichain NFT marketplace and #P2E system.
-                </div>
-                <div
-                  className="d-flex justify-content-center"
-                  id="footerSocialIcons"
-                >
-                  <div className="iconBox">
-                    <a
-                      href="https://twitter.com/PlayerOneWorld"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piTwitter} />
-                    </a>
-                  </div>
-                  <div className="iconBox">
-                    <a
-                      href="https://discord.gg/playeroneworld"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piDiscord} />
-                    </a>
-                  </div>
-                </div>
-                {readyticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : readypending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : readyticketamount >= 3 ? (
-                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
-                ) : ROOTxBalance >= readyburnROOTx ? (
-                  <>
-                    <button
-                      onClick={() => burnROOTx(readyburnROOTx, "ready")}
-                      style={{
-                        color: "red",
-                        textAlign: "center",
-                        fontFamily: "earlyGameboy",
-                        fontSize: "12px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      GET WHITELIST SPOT
-                    </button>
-                  </>
-                ) : (
-                  <button style={{ marginTop: "10px" }}>
-                    NOT ENOUGH ROOTX
-                  </button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={paladin} alt="shop images" fluid />
-                </div>
-              </div>
-
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "24%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <button style={{ marginBottom: "10px" }}>
-                      PALADIN PENGUIN CLUB
-                    </button>
-                    <span>
-                      {paladinburnROOTx.toLocaleString("en-US")} ROOTx
-                    </span>
-                    <span style={{ marginTop: "10px" }}>
-                      {paladinticketamount} / 10 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description" style={{ overflowY: "scroll" }}>
-                  Play-to-earn game! Exclusive access to our land via The
-                  Sandbox!
-                </div>
-                <div
-                  className="d-flex justify-content-center"
-                  id="footerSocialIcons"
-                >
-                  <div className="iconBox">
-                    <a
-                      href="https://twitter.com/paladin_penguin"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piTwitter} />
-                    </a>
-                  </div>
-                  <div className="iconBox">
-                    <a
-                      href="https://discord.gg/5KzvcMzCQG"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piDiscord} />
-                    </a>
-                  </div>
-                </div>
-                {paladinticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : paladinpending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : paladinticketamount >= 10 ? (
-                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
-                ) : ROOTxBalance >= paladinburnROOTx ? (
-                  <>
-                    <button
-                      onClick={() => burnROOTx(paladinburnROOTx, "paladin")}
-                      style={{
-                        color: "red",
-                        textAlign: "center",
-                        fontFamily: "earlyGameboy",
-                        fontSize: "12px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      GET WHITELIST SPOT
-                    </button>
-                  </>
-                ) : (
-                  <button style={{ marginTop: "10px" }}>
-                    NOT ENOUGH ROOTX
-                  </button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={Sleepy} alt="shop images" fluid />
-                </div>
-              </div>
-
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "24%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <button style={{ marginBottom: "10px" }}>
-                      SLEEPY SNIPER SOCIETY
-                    </button>
-                    <span>{SleepyburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {Sleepyticketamount} / 5 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description" style={{ overflowY: "scroll" }}>
-                  A suite of premium NFT trading tools - paired with a
-                  competitive trading eco-system.
-                </div>
-                <div
-                  className="d-flex justify-content-center"
-                  id="footerSocialIcons"
-                >
-                  <div className="iconBox">
-                    <a
-                      href="https://twitter.com/SleepySniperSoc"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piTwitter} />
-                    </a>
-                  </div>
-                  <div className="iconBox">
-                    <a
-                      href="https://discord.gg/sleepysnipersociety"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piDiscord} />
-                    </a>
-                  </div>
-                </div>
-                {Sleepyticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : Sleepypending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : Sleepyticketamount >= 5 ? (
-                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
-                ) : ROOTxBalance >= SleepyburnROOTx ? (
-                  <>
-                    <button
-                      onClick={() => burnROOTx(SleepyburnROOTx, "Sleepy")}
-                      style={{
-                        color: "red",
-                        textAlign: "center",
-                        fontFamily: "earlyGameboy",
-                        fontSize: "12px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      GET WHITELIST SPOT
-                    </button>
-                  </>
-                ) : (
-                  <button style={{ marginTop: "10px" }}>
-                    NOT ENOUGH ROOTX
-                  </button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={nono} alt="shop images" fluid />
-                </div>
-              </div>
-
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "38%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <button style={{ marginBottom: "10px" }}>NoNo</button>
-                    <span>{nonoburnROOTx.toLocaleString("en-US")} ROOTx</span>
-                    <span style={{ marginTop: "10px" }}>
-                      {nonoticketamount} / 5 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description" style={{ overflowY: "scroll" }}>
-                  NoNo is an assistant robot from a game called SEER. The
-                  project aims to keep its holders profitable in Web3 with
-                  YesYes DAO, a place to learn about the techniques of
-                  institutional trading in the NFT secondary market.Members will
-                  be selected from the original minters to join one of the four
-                  investment seasons of the DAO, where they will trade in real
-                  time with the help of established traders!
-                </div>
-                <div
-                  className="d-flex justify-content-center"
-                  id="footerSocialIcons"
-                >
-                  <div className="iconBox">
-                    <a
-                      href="https://twitter.com/NoNosNFT"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piTwitter} />
-                    </a>
-                  </div>
-                </div>
-                {nonoticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : nonopending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : nonoticketamount >= 5 ? (
-                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
-                ) : ROOTxBalance >= nonoburnROOTx ? (
-                  <>
-                    <button
-                      onClick={() => burnROOTx(nonoburnROOTx, "nono")}
                       style={{
                         color: "red",
                         textAlign: "center",
@@ -2779,198 +1632,6 @@ const LoadCard = () => {
                   <>
                     <button
                       onClick={() => burnROOTx(etherjumpburnROOTx, "etherjump")}
-                      style={{
-                        color: "red",
-                        textAlign: "center",
-                        fontFamily: "earlyGameboy",
-                        fontSize: "12px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      GET WHITELIST SPOT
-                    </button>
-                  </>
-                ) : (
-                  <button style={{ marginTop: "10px" }}>
-                    NOT ENOUGH ROOTX
-                  </button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={inku} alt="shop images" fluid />
-                </div>
-              </div>
-
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "40%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <button style={{ marginBottom: "10px" }}>INKU</button>
-                    <span>
-                      {inkuburnROOTx.toLocaleString("en-US")} ROOTx
-                    </span>
-                    <span style={{ marginTop: "10px" }}>
-                      {etherjumpticketamount} / 1 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description" style={{ overflowY: "scroll" }}>
-                  1k Genesis collection & the first story based explore 2 earn game. Meet ghosts , fight demons , and battle the undead .
-                </div>
-                <div
-                  className="d-flex justify-content-center"
-                  id="footerSocialIcons"
-                >
-                  <div className="iconBox">
-                    <a
-                      href="https://twitter.com/InkuNFT"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piTwitter} />
-                    </a>
-                  </div>
-                  <div className="iconBox">
-                    <a
-                      href="https://discord.gg/z4DJvBynNC"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piDiscord} />
-                    </a>
-                  </div>
-                </div>
-                {inkuticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : inkupending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : inkuticketamount >= 2 ? (
-                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
-                ) : ROOTxBalance >= inkuburnROOTx ? (
-                  <>
-                    <button
-                      onClick={() => burnROOTx(inkuburnROOTx, "inku")}
-                      style={{
-                        color: "red",
-                        textAlign: "center",
-                        fontFamily: "earlyGameboy",
-                        fontSize: "12px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      GET WHITELIST SPOT
-                    </button>
-                  </>
-                ) : (
-                  <button style={{ marginTop: "10px" }}>
-                    NOT ENOUGH ROOTX
-                  </button>
-                )}
-              </div>
-            </div>
-          </Col>
-          <Col lg={4}>
-            <div className="load">
-              <div className="load__up">
-                <div className="load__img">
-                  <Image src={ETHVaultNFT} alt="shop images" fluid />
-                </div>
-              </div>
-
-              <div
-                className="load__down"
-                style={{ display: "block", textAlign: "center" }}
-              >
-                <div
-                  className="point"
-                  style={{
-                    transform: "translate(-15%, 0)",
-                    marginLeft: "37%",
-                    marginBottom: "15px",
-                  }}
-                >
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <button style={{ marginBottom: "10px" }}>ETHVaultNFT</button>
-                    <span>
-                      {ETHVaultNFTburnROOTx.toLocaleString("en-US")} ROOTx
-                    </span>
-                    <span style={{ marginTop: "10px" }}>
-                      {ETHVaultNFTticketamount} / 1 FILLED
-                    </span>
-                  </div>
-                </div>
-                <div className="description" style={{ overflowY: "scroll" }}>
-                  This is ETHVaultNFT assets.<br />
-                  Stake Against Your NFTs in Return for ETH!<br />
-                  2,000 VaultBoosters!
-                </div>
-                <div
-                  className="d-flex justify-content-center"
-                  id="footerSocialIcons"
-                >
-                  <div className="iconBox">
-                    <a
-                      href="https://twitter.com/ETHVaultNFT"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piTwitter} />
-                    </a>
-                  </div>
-                  <div className="iconBox">
-                    <a
-                      href="https://discord.gg/PjXrHyc93Q"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={piDiscord} />
-                    </a>
-                  </div>
-                </div>
-                {ETHVaultNFTticketowned ? (
-                  <button className="owned">ALREADY OWNED</button>
-                ) : ETHVaultNFTpending ? (
-                  <button>
-                    <Spinner
-                      as="span"
-                      variant="light"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      animation="border"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  </button>
-                ) : ETHVaultNFTticketamount >= 1 ? (
-                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
-                ) : ROOTxBalance >= ETHVaultNFTburnROOTx ? (
-                  <>
-                    <button
-                      onClick={() => burnROOTx(ETHVaultNFTburnROOTx, "ETHVaultNFT")}
                       style={{
                         color: "red",
                         textAlign: "center",
@@ -3459,6 +2120,1345 @@ const LoadCard = () => {
               </div>
             </div>
           </Col>
+          {/* <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={souka} alt="shop images" fluid />
+                </div>
+              </div>
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>SOUKA</button>
+                    <span>{soukaburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {soukaticketamount} / 3 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description">
+                  What is Souka? <br />
+                  The Souk is the largest covered historic market in the NFT
+                  world, based on IRL bazaar in the medieval times.
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/soukaland"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/souka"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {soukaticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : soukapending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : soukaticketamount >= 3 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= soukaburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(soukaburnROOTx, "souka")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={flick} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>flick play</button>
+                    <span>{flickburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {flickticketamount} / 3 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  What is FlickyGang?<br></br> Flickygang NFT is a collection of
+                  5,555 Unique 3D characters living in the Ethereum blockchain.
+                  Investors from : The Sandbox, Warner Brothers, EventBrite,
+                  Muse capital Each Flicky has a life of its own, and their
+                  fashion taste highlights their personality and lifestyle. The
+                  first-ever AR-powered NFT collection on the fully built &
+                  functional app FlickPlay. FlickPlay is a social app where
+                  people build the social status of their Digital Collectibles.
+                  FlickPlay's map allows for users to unlock digital
+                  collectibles in the real world and FlickPlay camera allows
+                  users to flex their collectibles in the real world using AR,
+                  bridging people's digital and physical realities together Team
+                  is fully doxxed and just announced a partnership with Sandbox.
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/flickplay"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="http://discord.gg/flickplay"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {flickticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : flickpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : flickticketamount >= 3 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= flickburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(flickburnROOTx, "flick")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={nood} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>NoodFTX</button>
+                    <span>{noodburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {noodticketamount} / 3 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  Nood Fungible Token is an NFT project that aims to promote
+                  body positivity, equality, and freedom within the NFT
+                  community..This project will consist of 4444 unique Noodies
+                  separated into 4 different drops in line with different
+                  advocacies. Each drop from all collections is sure to be
+                  unique and have their own flair. The ultimate goal of Nood
+                  Fungible Tokens is to fully realize the potential of NFTs and
+                  crypto in shaping our world to be a more safe and inclusive
+                  space for all.
+                </div>
+
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/NoodFTOfficial"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                </div>
+                {noodticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : noodpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : noodticketamount >= 3 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= noodburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(noodburnROOTx, "nood")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={wizard} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "25%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>
+                      Mystical wizards guild
+                    </button>
+                    <span>{wizardburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {wizardticketamount} / 3 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  Mystical Wizard Guild is the NFT behind the MysticSwap
+                  platform, a peer-to-peer NFT trading platform for secure
+                  trades and swaps. Example: you wanna sell your BearX to a
+                  fren, privately. This is how you do it. Holders of the
+                  Mystical Wizard NFT benefit from platform revenue, pay no fees
+                  on the platform and gain access to an exclusive alpha group!
+                  Twitter template below, to make your life easier too
+                </div>{" "}
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/MystWizardGuild"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/vxmnE2v624"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {wizardticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : wizardpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : wizardticketamount >= 3 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= wizardburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(wizardburnROOTx, "wizard")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={Dodo} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>The Dodos</button>
+                    <span>{DodoburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {Dodoticketamount} / 3 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description">
+                  Infinite Dodos is a complete ecosystem starting with an
+                  Unhackable wallet. UTILITY READY AT MINT team spent 7 months
+                  building before announcing the collection consisting of world
+                  class entrepreneurs all Doxxed. Being apart of our Infinite
+                  Dodos will enable you to be apart of all future and current
+                  utility
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/InfiniteDodos"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/PhjW7PUdvm"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {Dodoticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : Dodopending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : Dodoticketamount >= 3 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= DodoburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(DodoburnROOTx, "Dodo")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col> */}
+          {/* <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={alfie} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>
+                      Alfie World
+                    </button>
+                    <span>{alfieburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {alfieticketamount} / 3 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  The joyful and colorful Alfie World and its 8888 frens.
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/THEALFIEWORLD"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                </div>
+
+                {alfieticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : alfiepending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : alfieticketamount >= 3 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= alfieburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(alfieburnROOTx, "Alfie")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col> */}
+          {/* <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={maze} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>MazeVerse</button>
+                    <span>{mazeburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {mazeticketamount} / 3 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  Pass to YesYes DAO | OnChain P2E | Discord: Private | From
+                  Game: 赛尔号 | All Rights Reserved & Licensed By 淘米 Taomee
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/Mazeversenft"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/vkWdd2wUeP"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {mazeticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : mazepending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : mazeticketamount >= 3 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= mazeburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(mazeburnROOTx, "Maze")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col> */}
+          {/* <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={Mythical} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>Mythicals</button>
+                    <span>
+                      {MythicalburnROOTx.toLocaleString("en-US")} ROOTx
+                    </span>
+                    <span style={{ marginTop: "10px" }}>
+                      {Mythicalticketamount} / 25 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  First Liquid Yield NFT. We airdrop $ETH to you every month.
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/MythicalsDrops"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/mythicals"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {Mythicalticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : Mythicalpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : Mythicalticketamount >= 25 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= MythicalburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(MythicalburnROOTx, "Mythical")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={ready} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "32%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>
+                      Player One world{" "}
+                    </button>
+                    <span>{readyburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {readyticketamount} / 3 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  #PlayerOne is a #Metaverse project with integrating tools,
+                  social scenes, #Omnichain NFT marketplace and #P2E system.
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/PlayerOneWorld"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/playeroneworld"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {readyticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : readypending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : readyticketamount >= 3 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= readyburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(readyburnROOTx, "ready")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={paladin} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "24%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>
+                      PALADIN PENGUIN CLUB
+                    </button>
+                    <span>
+                      {paladinburnROOTx.toLocaleString("en-US")} ROOTx
+                    </span>
+                    <span style={{ marginTop: "10px" }}>
+                      {paladinticketamount} / 10 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  Play-to-earn game! Exclusive access to our land via The
+                  Sandbox!
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/paladin_penguin"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/5KzvcMzCQG"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {paladinticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : paladinpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : paladinticketamount >= 10 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= paladinburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(paladinburnROOTx, "paladin")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={Sleepy} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "24%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>
+                      SLEEPY SNIPER SOCIETY
+                    </button>
+                    <span>{SleepyburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {Sleepyticketamount} / 5 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  A suite of premium NFT trading tools - paired with a
+                  competitive trading eco-system.
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/SleepySniperSoc"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/sleepysnipersociety"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {Sleepyticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : Sleepypending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : Sleepyticketamount >= 5 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= SleepyburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(SleepyburnROOTx, "Sleepy")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={nono} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>NoNo</button>
+                    <span>{nonoburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {nonoticketamount} / 5 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  NoNo is an assistant robot from a game called SEER. The
+                  project aims to keep its holders profitable in Web3 with
+                  YesYes DAO, a place to learn about the techniques of
+                  institutional trading in the NFT secondary market.Members will
+                  be selected from the original minters to join one of the four
+                  investment seasons of the DAO, where they will trade in real
+                  time with the help of established traders!
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/NoNosNFT"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                </div>
+                {nonoticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : nonopending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : nonoticketamount >= 5 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= nonoburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(nonoburnROOTx, "nono")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={inku} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "40%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>INKU</button>
+                    <span>
+                      {inkuburnROOTx.toLocaleString("en-US")} ROOTx
+                    </span>
+                    <span style={{ marginTop: "10px" }}>
+                      {etherjumpticketamount} / 1 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  1k Genesis collection & the first story based explore 2 earn game. Meet ghosts , fight demons , and battle the undead .
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/InkuNFT"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/z4DJvBynNC"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {inkuticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : inkupending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : inkuticketamount >= 2 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= inkuburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(inkuburnROOTx, "inku")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={ETHVaultNFT} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "37%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>ETHVaultNFT</button>
+                    <span>
+                      {ETHVaultNFTburnROOTx.toLocaleString("en-US")} ROOTx
+                    </span>
+                    <span style={{ marginTop: "10px" }}>
+                      {ETHVaultNFTticketamount} / 1 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  This is ETHVaultNFT assets.<br />
+                  Stake Against Your NFTs in Return for ETH!<br />
+                  2,000 VaultBoosters!
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/ETHVaultNFT"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                  <div className="iconBox">
+                    <a
+                      href="https://discord.gg/PjXrHyc93Q"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piDiscord} />
+                    </a>
+                  </div>
+                </div>
+                {ETHVaultNFTticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : ETHVaultNFTpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : ETHVaultNFTticketamount >= 1 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= ETHVaultNFTburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(ETHVaultNFTburnROOTx, "ETHVaultNFT")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col> */}
         </Row>
       </Container>
       <Modal visible={showModal} width="450px" height="300px" effect="fadeInUp">
