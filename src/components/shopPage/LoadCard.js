@@ -34,6 +34,7 @@ import dz from "../../assets/images/Items/dz.png";
 import race from "../../assets/images/Items/race.png";
 import helix from "../../assets/images/Items/Helix.png";
 import onliner from "../../assets/images/Items/online.png";
+import WL from "../../assets/images/Items/WL.jpeg";
 
 const LoadCard = () => {
   const [MyWeb3, setMyWeb3] = useState([]);
@@ -167,13 +168,13 @@ const LoadCard = () => {
   const [kikiticketamount, setkikiticketamount] = useState(0);
   const [kikiticketowned, setkikiticketowned] = useState(false);
   const [kikipending, setkikipending] = useState(false);
-  
+
   // dz
   const [dzburnROOTx, setdzburnROOTx] = useState(10000);
   const [dzticketamount, setdzticketamount] = useState(0);
   const [dzticketowned, setdzticketowned] = useState(false);
   const [dzpending, setdzpending] = useState(false);
-  
+
   // race
   const [raceburnROOTx, setraceburnROOTx] = useState(10000);
   const [raceticketamount, setraceticketamount] = useState(0);
@@ -191,6 +192,13 @@ const LoadCard = () => {
   const [onlinerticketamount, setonlinerticketamount] = useState(0);
   const [onlinerticketowned, setonlinerticketowned] = useState(false);
   const [onlinerpending, setonlinerpending] = useState(false);
+
+  // WL
+  const [wlburnROOTx, setwlburnROOTx] = useState(25000);
+  const [wlticketamount, setwlticketamount] = useState(0);
+  const [wlticketowned, setwlticketowned] = useState(false);
+  const [wlpending, setwlpending] = useState(false);
+
 
   useEffect(() => {
     if (window.web3 !== undefined && window.ethereum) {
@@ -233,6 +241,7 @@ const LoadCard = () => {
         var racecount = 0;
         var helixcount = 0;
         var onlinercount = 0;
+        var wlcounter = 0;
         for (var i = 0; i < res.data.length; i++) {
           if (res.data[i].Project === "souka") {
             soukacount++;
@@ -326,33 +335,38 @@ const LoadCard = () => {
             }
           } else if (res.data[i].Project === "ETHVaultNFT") {
             ETHVaultNFTcount++;
-            if(res.data[i].Account === myAccount[0]) {
+            if (res.data[i].Account === myAccount[0]) {
               setETHVaultNFTticketowned(true);
             }
           } else if (res.data[i].Project === "kiki") {
             kikicount++;
-            if(res.data[i].Account === myAccount[0]) {
+            if (res.data[i].Account === myAccount[0]) {
               setkikiticketowned(true);
             }
           } else if (res.data[i].Project === "dz") {
             dzcount++;
-            if(res.data[i].Account === myAccount[0]) {
+            if (res.data[i].Account === myAccount[0]) {
               setdzticketowned(true);
             }
           } else if (res.data[i].Project === "race") {
             racecount++;
-            if(res.data[i].Account === myAccount[0]) {
+            if (res.data[i].Account === myAccount[0]) {
               setraceticketowned(true);
             }
           } else if (res.data[i].Project === "helix") {
             helixcount++;
-            if(res.data[i].Account === myAccount[0]) {
+            if (res.data[i].Account === myAccount[0]) {
               sethelixticketowned(true);
             }
           } else if (res.data[i].Project === "onliner") {
             onlinercount++;
-            if(res.data[i].Account === myAccount[0]) {
+            if (res.data[i].Account === myAccount[0]) {
               setonlinerticketowned(true);
+            }
+          } else if (res.data[i].Project === "wl") {
+            wlcounter++;
+            if (res.data[i].Account === myAccount[0]) {
+              setwlticketowned(true);
             }
           }
         }
@@ -380,6 +394,7 @@ const LoadCard = () => {
         setraceticketamount(racecount);
         sethelixticketamount(helixcount);
         setonlinerticketamount(onlinercount);
+        setwlticketamount(wlcounter);
       })
       .catch((err) => console.log(err));
   };
@@ -1227,8 +1242,41 @@ const LoadCard = () => {
               setonlinerpending(false);
               setShowModal(false);
             }
+          } else if (item === "wl") {
+            setProName(item);
+            setAddr(myAccount[0]);
+            setwlpending(true);
+            setShowModal(true);
+            try {
+              const tx = await ROOTxContract._burn(
+                ethers.utils.parseUnits(String(amount), 18),
+                { from: myAccount[0] }
+              );
+              await tx.wait();
+              setShowModal(false);
+              setwlpending(false);
+              Swal.fire({
+                icon: "success",
+                title: "Burn Success !",
+                text: "You have successfully burned ROOTx!",
+              })
+                .then((res) => {
+                  if (res.isConfirmed) {
+                    setShowSettingModal(true);
+                  }
+                })
+                .catch((err) => console.log(err));
+            } catch (error) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went Wrong!",
+              });
+              setwlpending(false);
+              setShowModal(false);
+            }
           }
-          
+
         }
       })
       .catch((err) => console.log(err));
@@ -1269,7 +1317,92 @@ const LoadCard = () => {
           >
             Burn ROOTx for some very, very valuable items
           </div>
+          <Col lg={4}></Col>
           <Col lg={4}>
+            <div className="load">
+              <div className="load__up">
+                <div className="load__img">
+                  <Image src={WL} alt="shop images" fluid />
+                </div>
+              </div>
+
+              <div
+                className="load__down"
+                style={{ display: "block", textAlign: "center" }}
+              >
+                <div
+                  className="point"
+                  style={{
+                    transform: "translate(-15%, 0)",
+                    marginLeft: "38%",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button style={{ marginBottom: "10px" }}>WL</button>
+                    <span>{wlburnROOTx.toLocaleString("en-US")} ROOTx</span>
+                    <span style={{ marginTop: "10px" }}>
+                      {wlticketamount} / 25 FILLED
+                    </span>
+                  </div>
+                </div>
+                <div className="description" style={{ overflowY: "scroll" }}>
+                  Get a .bnb domain resolver on launch through our guaranteed WL
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  id="footerSocialIcons"
+                >
+                  <div className="iconBox">
+                    <a
+                      href="https://twitter.com/SpaceIDProtocol"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image src={piTwitter} />
+                    </a>
+                  </div>
+                </div>
+                {wlticketowned ? (
+                  <button className="owned">ALREADY OWNED</button>
+                ) : wlpending ? (
+                  <button>
+                    <Spinner
+                      as="span"
+                      variant="light"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      animation="border"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </button>
+                ) : wlticketamount >= 25 ? (
+                  <button style={{ marginTop: "10px" }}>SOLD OUT</button>
+                ) : ROOTxBalance >= wlburnROOTx ? (
+                  <>
+                    <button
+                      onClick={() => burnROOTx(wlburnROOTx, "wl")}
+                      style={{
+                        color: "red",
+                        textAlign: "center",
+                        fontFamily: "earlyGameboy",
+                        fontSize: "12px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      GET WHITELIST SPOT
+                    </button>
+                  </>
+                ) : (
+                  <button style={{ marginTop: "10px" }}>
+                    NOT ENOUGH ROOTX
+                  </button>
+                )}
+              </div>
+            </div>
+          </Col>
+          {/* <Col lg={4}>
             <div className="load">
               <div className="load__up">
                 <div className="load__img">
@@ -1682,10 +1815,10 @@ const LoadCard = () => {
                   </div>
                 </div>
                 <div className="description" style={{ overflowY: "scroll" }}>
-                Unlock the magic of music!<br />
-                Multi-chain. <br />
-                Building the community that's inclusive of ETH and SOL.<br />
-                Women-let project by @cryborg_654 and artist @PepeCloverNFT.<br />
+                  Unlock the magic of music!<br />
+                  Multi-chain. <br />
+                  Building the community that's inclusive of ETH and SOL.<br />
+                  Women-let project by @cryborg_654 and artist @PepeCloverNFT.<br />
                 </div>
                 <div
                   className="d-flex justify-content-center"
@@ -2119,7 +2252,7 @@ const LoadCard = () => {
                 )}
               </div>
             </div>
-          </Col>
+          </Col> */}
           {/* <Col lg={4}>
             <div className="load">
               <div className="load__up">
