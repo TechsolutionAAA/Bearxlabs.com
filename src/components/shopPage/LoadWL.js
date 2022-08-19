@@ -34,7 +34,7 @@ const LoadWL = () => {
         } else {
           tr[i].style.display = "none";
         }
-      } 
+      }
     }
   };
 
@@ -60,7 +60,7 @@ const LoadWL = () => {
               <td>
                 {item.Account}
               </td>
-              <td>{item.Project}</td>
+              <td>{item.Name}</td>
             </tr>
           ))}
         </tbody>

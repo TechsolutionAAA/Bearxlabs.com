@@ -42,7 +42,7 @@ function Header() {
                     chainId: "0x1",
                     rpcUrl:
                       "https://mainnet.infura.io/v3/9f65f2e7dc324b6fba99c874cecfbadd",
-                      // "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+                    // "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
                   },
                 ],
               });
@@ -137,9 +137,9 @@ function Header() {
             <NavDropdown.Item>
               <Link to="/about/">About BEARWORLD</Link>
             </NavDropdown.Item>
-            <NavDropdown.Item>
+            {/* <NavDropdown.Item>
               <Link to="/shop/">Market Stall</Link>
-            </NavDropdown.Item>
+            </NavDropdown.Item> */}
             <NavDropdown.Item>
               <Link to="/whitelist/">check Whitelist</Link>
             </NavDropdown.Item>
